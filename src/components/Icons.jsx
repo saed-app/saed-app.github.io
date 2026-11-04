@@ -1,4 +1,4 @@
-function Svg({ children, size = 24 }) {
+export function Svg({ children, size = 24 }) {
   return (
     <svg
       width={size}
@@ -13,6 +13,14 @@ function Svg({ children, size = 24 }) {
     >
       {children}
     </svg>
+  )
+}
+
+export function PlusIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="M12 5v14M5 12h14" />
+    </Svg>
   )
 }
 

@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useRef } from 'react'
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import TopBar from './components/TopBar.jsx'
+import Dock from './components/Dock.jsx'
 import SettingsDrawer from './components/SettingsDrawer.jsx'
+import { useEnabledTools } from './core/enabledTools.jsx'
 import HomePage from './pages/HomePage.jsx'
 import StorePage from './pages/StorePage.jsx'
 import ToolPage from './pages/ToolPage.jsx'
@@ -9,6 +11,8 @@ import ToolPage from './pages/ToolPage.jsx'
 export default function App() {
   const location = useLocation()
   const navigate = useNavigate()
+  const { enabledTools } = useEnabledTools()
+  const hasDock = enabledTools.length > 0
 
   // حالة الدرج محفوظة في سجل التنقل، فزر الرجوع في الجوال يغلقه بدل أن يخرج من الصفحة
   const settingsOpen = Boolean(location.state?.settingsOpen)
@@ -31,7 +35,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <div className="app-shell" inert={settingsOpen}>
+      <div className={`app-shell${hasDock ? ' has-dock' : ''}`} inert={settingsOpen}>
         <TopBar onOpenSettings={openSettings} />
         <main className="app-main">
           <Routes>
@@ -41,6 +45,7 @@ export default function App() {
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
+        {hasDock && <Dock />}
       </div>
       <SettingsDrawer open={settingsOpen} onClose={closeSettings} />
     </div>

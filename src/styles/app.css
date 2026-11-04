@@ -61,6 +61,7 @@ h3 {
 }
 
 .app-shell {
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 100dvh;
@@ -71,6 +72,8 @@ h3 {
   min-height: 0;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
 }
 
 .page {
@@ -78,6 +81,243 @@ h3 {
   max-width: 720px;
   margin-inline: auto;
   padding: 8px 16px calc(24px + env(safe-area-inset-bottom));
+}
+
+/* نترك مساحة حتى لا يغطي الشريط العائم آخر المحتوى */
+.has-dock .page {
+  padding-bottom: calc(112px + env(safe-area-inset-bottom));
+}
+
+/* الصفحة الرئيسية: شاشة الترحيب */
+.page.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  text-align: center;
+}
+
+.home h1 {
+  font-size: 28px;
+}
+
+.home p {
+  margin: 8px 0 0;
+  color: var(--text-muted);
+}
+
+.add-tools {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 32px;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+.add-tools-circle {
+  display: grid;
+  place-items: center;
+  width: 124px;
+  height: 124px;
+  border-radius: 38px;
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow: var(--shadow);
+}
+
+.add-tools-label {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* أيقونة الأداة */
+.tool-tile {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  flex: none;
+  border-radius: 15px;
+  color: #ffffff;
+}
+
+/* المتجر */
+.store-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.store-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+  background: var(--surface);
+}
+
+.store-card-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.store-card h2 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.store-card p {
+  margin: 2px 0 0;
+  color: var(--text-muted);
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.store-action {
+  flex: none;
+  min-width: 76px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.store-action.is-remove {
+  border-color: var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+/* الشريط العائم مثل Dock في Mac */
+.dock-wrap {
+  position: absolute;
+  bottom: calc(14px + env(safe-area-inset-bottom));
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  padding-inline: 12px;
+  pointer-events: none;
+}
+
+.dock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: min(100%, 640px);
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 26px;
+  background: var(--dock-bg);
+  -webkit-backdrop-filter: blur(18px) saturate(1.3);
+  backdrop-filter: blur(18px) saturate(1.3);
+  box-shadow: var(--shadow);
+  pointer-events: auto;
+}
+
+.dock-add {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--surface-2);
+  color: var(--accent);
+}
+
+.dock-divider {
+  width: 1px;
+  height: 34px;
+  flex: none;
+  background: var(--border);
+}
+
+.dock-scroll {
+  display: flex;
+  gap: 8px;
+  min-width: 0;
+  padding-block: 7px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.dock-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.dock-item {
+  position: relative;
+  flex: none;
+  padding: 0;
+  border: 0;
+  border-radius: 15px;
+  background: none;
+  cursor: pointer;
+  touch-action: pan-x;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.dock.is-dragging .dock-item {
+  transition: transform 0.2s ease;
+}
+
+.dock-item .tool-tile {
+  transition: transform 0.16s cubic-bezier(0.3, 0.7, 0.4, 1.3), box-shadow 0.16s ease;
+}
+
+.dock-item:active .tool-tile {
+  transform: scale(0.92);
+}
+
+.dock.is-dragging .dock-item.is-held {
+  z-index: 2;
+  transition: none;
+}
+
+.dock-item.is-held .tool-tile {
+  transform: scale(1.1);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+.dock-item.is-active::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  margin-left: -2.5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+@media (hover: hover) {
+  .dock-item:hover .tool-tile {
+    transform: translateY(-2px) scale(1.05);
+  }
+
+  .dock-item.is-held:hover .tool-tile {
+    transform: scale(1.1);
+  }
 }
 
 /* الشريط العلوي: direction: ltr يثبّت الحساب يساراً والمتجر يميناً */

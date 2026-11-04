@@ -1,0 +1,22 @@
+// السجل المركزي للأدوات.
+// لإضافة أداة جديدة: أنشئ الملف src/tools/<اسم-الأداة>/index.jsx وسيظهر تلقائياً في المتجر،
+// دون تعديل أي ملف آخر في التطبيق. انظر tools/notes/index.jsx مثالاً.
+//
+// كل ملف أداة يصدّر كائناً فيه:
+//   id          معرّف ثابت بالإنجليزية (لا يتغير بعد النشر لأن البيانات مرتبطة به)
+//   name        اسم الأداة
+//   description وصف قصير يظهر في المتجر
+//   color       لون خلفية أيقونتها
+//   Icon        مكوّن الأيقونة
+//   Page        مكوّن صفحتها (الأداة نفسها وإعداداتها)
+//   order       ترتيبها في المتجر
+
+const modules = import.meta.glob('./*/index.jsx', { eager: true })
+
+export const tools = Object.values(modules)
+  .map((module) => module.default)
+  .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+
+export function getTool(id) {
+  return tools.find((tool) => tool.id === id)
+}

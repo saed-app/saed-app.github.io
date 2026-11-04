@@ -1,10 +1,20 @@
+import { Navigate, useParams } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
+import { useEnabledTools } from '../core/enabledTools.jsx'
+import { getTool } from '../tools/registry.js'
 
-// صفحة فارغة مؤقتاً: ستعرض الأداة المطلوبة من السجل المركزي في المرحلة 2
+// تعرض صفحة أي أداة من السجل المركزي
 export default function ToolPage() {
+  const { toolId } = useParams()
+  const { isEnabled } = useEnabledTools()
+  const tool = getTool(toolId)
+
+  if (!tool || !isEnabled(toolId)) return <Navigate to="/" replace />
+
   return (
     <div className="page">
-      <PageHeader title="الأداة" />
+      <PageHeader title={tool.name} />
+      <tool.Page key={tool.id} />
     </div>
   )
 }
