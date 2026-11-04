@@ -1,3 +1,4 @@
+import ComingSoon from '../../components/ComingSoon.jsx'
 import { Svg } from '../../components/Icons.jsx'
 
 function HabitsIcon(props) {
@@ -9,17 +10,12 @@ function HabitsIcon(props) {
   )
 }
 
-// صفحة فارغة مؤقتاً: محتوى الأداة في المرحلة 4
-function HabitsPage() {
-  return null
-}
-
 export default {
   id: 'habits',
   name: 'متابع العادات',
   description: 'أنشئ عاداتك، وتابع إنجازها، واطّلع على تقاريرها.',
   color: '#2F7D4F',
   Icon: HabitsIcon,
-  Page: HabitsPage,
+  Page: ComingSoon,
   order: 2,
 }

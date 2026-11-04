@@ -1,3 +1,4 @@
+import ComingSoon from '../../components/ComingSoon.jsx'
 import { Svg } from '../../components/Icons.jsx'
 
 function NotesIcon(props) {
@@ -9,17 +10,12 @@ function NotesIcon(props) {
   )
 }
 
-// صفحة فارغة مؤقتاً: محتوى الأداة في المرحلة 3
-function NotesPage() {
-  return null
-}
-
 export default {
   id: 'notes',
   name: 'الملاحظات',
   description: 'اكتب ملاحظاتك بسرعة وصنّفها وتابع إحصائياتها.',
   color: '#B5822A',
   Icon: NotesIcon,
-  Page: NotesPage,
+  Page: ComingSoon,
   order: 1,
 }

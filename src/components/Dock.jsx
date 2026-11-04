@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useLocation, useMatch, useNavigate } from 'react-router-dom'
 import { useEnabledTools } from '../core/enabledTools.jsx'
-import { PlusIcon } from './Icons.jsx'
 import ToolTile from './ToolTile.jsx'
 
 const LONG_PRESS_MS = 380
@@ -236,17 +235,6 @@ export default function Dock() {
   return (
     <div className="dock-wrap">
       <nav className={`dock${drag ? ' is-dragging' : ''}`} aria-label="الأدوات">
-        <button
-          type="button"
-          className="dock-add pressable"
-          aria-label="إضافة أداة من المتجر"
-          onClick={() => {
-            if (pathname !== '/store') navigate('/store')
-          }}
-        >
-          <PlusIcon size={22} />
-        </button>
-        <span className="dock-divider" aria-hidden="true" />
         <div className="dock-scroll" ref={scroller}>
           {enabledTools.map((tool, index) => (
             <button
