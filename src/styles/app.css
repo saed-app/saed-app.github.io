@@ -13,9 +13,10 @@ body,
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Tajawal', sans-serif;
-  font-size: 17px;
-  line-height: 1.5;
+  font-family: var(--font-body);
+  /* Amiri يبدو أصغر من Tajawal بنفس المقاس فنكبّره قليلاً */
+  font-size: 19px;
+  line-height: 1.6;
   overflow: hidden;
   overscroll-behavior: none;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -31,8 +32,10 @@ select {
 }
 
 h1,
-h2 {
+h2,
+h3 {
   margin: 0;
+  font-family: var(--font-heading);
   font-weight: 800;
 }
 
@@ -97,6 +100,7 @@ h2 {
 
 .topbar-title {
   direction: rtl;
+  font-family: var(--font-heading);
   font-size: 23px;
   font-weight: 800;
   color: var(--accent);
@@ -222,7 +226,6 @@ h2 {
 
 .settings-row-label {
   flex: 1;
-  font-weight: 500;
 }
 
 /* مفتاح التشغيل بشكل iPhone */
