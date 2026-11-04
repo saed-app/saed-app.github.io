@@ -1,0 +1,42 @@
+/* كل ألوان التطبيق هنا. لتغيير لون في الثيمين يكفي تعديل هذا الملف */
+
+:root {
+  /* مقاسات الحواف المدورة */
+  --radius-s: 14px;
+  --radius-m: 20px;
+  --radius-l: 28px;
+
+  /* مفتاح التشغيل */
+  --switch-on: #228b22;
+  --switch-thumb: #ffffff;
+}
+
+/* النهاري: كريمي يميل إلى الذهبي */
+[data-theme='light'] {
+  color-scheme: light;
+  --bg: #fbf3df;
+  --surface: #fffaec;
+  --surface-2: #f3e6c4;
+  --text: #3a2a12;
+  --text-muted: #75623a;
+  --accent: #8f6a1e;
+  --border: rgba(143, 106, 30, 0.2);
+  --scrim: rgba(58, 42, 18, 0.35);
+  --shadow: 0 8px 28px rgba(110, 80, 20, 0.16);
+  --switch-off: #8e8e93;
+}
+
+/* الليلي: برغندي */
+[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #3b0b1d;
+  --surface: #4e1426;
+  --surface-2: #641d34;
+  --text: #f8e9dc;
+  --text-muted: #d9b9ac;
+  --accent: #e9c46f;
+  --border: rgba(248, 233, 220, 0.14);
+  --scrim: rgba(20, 3, 9, 0.55);
+  --shadow: 0 8px 28px rgba(15, 2, 7, 0.45);
+  --switch-off: #9c9298;
+}
