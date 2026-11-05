@@ -15,36 +15,56 @@
   --switch-thumb: #ffffff;
 }
 
-/* النهاري: كريمي يميل إلى الذهبي */
+/* مقاسات الخط الأربعة: كل نصوص التطبيق تتبع هذا الرقم */
+html,
+[data-font-size='medium'] {
+  font-size: 16px;
+}
+
+[data-font-size='small'] {
+  font-size: 14.5px;
+}
+
+[data-font-size='large'] {
+  font-size: 18px;
+}
+
+[data-font-size='xlarge'] {
+  font-size: 20px;
+}
+
+/* النهاري: ذهبي مع الأبيض. الذهبي غامق حتى يُقرأ بوضوح على الأبيض */
 [data-theme='light'] {
   color-scheme: light;
-  --bg: #fbf3df;
-  --surface: #fffaec;
-  --surface-2: #f3e6c4;
-  --text: #3a2a12;
-  --text-muted: #75623a;
+  --bg: #ffffff;
+  --surface: #fbf8f0;
+  --surface-2: #f5ecd6;
+  --text: #2b2212;
+  --text-muted: #6f6248;
   --accent: #8f6a1e;
   --on-accent: #ffffff;
-  --dock-bg: rgba(255, 250, 236, 0.82);
-  --border: rgba(143, 106, 30, 0.2);
-  --scrim: rgba(58, 42, 18, 0.35);
-  --shadow: 0 8px 28px rgba(110, 80, 20, 0.16);
+  --danger: #b3261e;
+  --dock-bg: rgba(255, 255, 255, 0.85);
+  --border: rgba(143, 106, 30, 0.24);
+  --scrim: rgba(30, 22, 8, 0.35);
+  --shadow: 0 8px 28px rgba(90, 66, 16, 0.18);
   --switch-off: #8e8e93;
 }
 
-/* الليلي: برغندي */
+/* الليلي: فضي مع الأسود */
 [data-theme='dark'] {
   color-scheme: dark;
-  --bg: #3b0b1d;
-  --surface: #4e1426;
-  --surface-2: #641d34;
-  --text: #f8e9dc;
-  --text-muted: #d9b9ac;
-  --accent: #e9c46f;
-  --on-accent: #3b0b1d;
-  --dock-bg: rgba(78, 20, 38, 0.82);
-  --border: rgba(248, 233, 220, 0.14);
-  --scrim: rgba(20, 3, 9, 0.55);
-  --shadow: 0 8px 28px rgba(15, 2, 7, 0.45);
-  --switch-off: #9c9298;
+  --bg: #000000;
+  --surface: #141416;
+  --surface-2: #26262a;
+  --text: #f2f2f4;
+  --text-muted: #b4b6bc;
+  --accent: #c8ccd4;
+  --on-accent: #0a0a0b;
+  --danger: #ff6b60;
+  --dock-bg: rgba(28, 28, 31, 0.85);
+  --border: rgba(200, 204, 212, 0.2);
+  --scrim: rgba(0, 0, 0, 0.6);
+  --shadow: 0 8px 28px rgba(0, 0, 0, 0.7);
+  --switch-off: #6e6e73;
 }

@@ -15,7 +15,7 @@ body {
   color: var(--text);
   font-family: var(--font-body);
   /* Amiri يبدو أصغر من Tajawal بنفس المقاس فنكبّره قليلاً */
-  font-size: 19px;
+  font-size: 1.1875rem;
   line-height: 1.6;
   overflow: hidden;
   overscroll-behavior: none;
@@ -99,7 +99,7 @@ h3 {
 }
 
 .home h1 {
-  font-size: 28px;
+  font-size: 1.75rem;
 }
 
 .home p {
@@ -131,7 +131,7 @@ h3 {
 
 .add-tools-label {
   font-family: var(--font-heading);
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 700;
 }
 
@@ -176,14 +176,14 @@ h3 {
 }
 
 .store-card h2 {
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 700;
 }
 
 .store-card p {
   margin: 2px 0 0;
   color: var(--text-muted);
-  font-size: 17px;
+  font-size: 1.0625rem;
   line-height: 1.45;
 }
 
@@ -197,7 +197,7 @@ h3 {
   background: var(--accent);
   color: var(--on-accent);
   font-family: var(--font-heading);
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 700;
 }
 
@@ -326,7 +326,7 @@ h3 {
 .topbar-title {
   direction: rtl;
   font-family: var(--font-heading);
-  font-size: 23px;
+  font-size: 1.4375rem;
   font-weight: 800;
   color: var(--accent);
 }
@@ -356,7 +356,7 @@ h3 {
 }
 
 .page-header h1 {
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 
 /* صفحة الإعدادات: تنزلق من يسار الشاشة فعلياً */
@@ -409,18 +409,335 @@ h3 {
 .drawer-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 10px;
   margin-bottom: 18px;
 }
 
 .drawer-header h2 {
-  font-size: 24px;
+  flex: 1;
+  min-width: 0;
+}
+
+.drawer-header h2.is-inner {
+  font-size: 1.1875rem;
+  line-height: 1.25;
+}
+
+.drawer-header h2 {
+  font-size: 1.5rem;
 }
 
 .drawer-body {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+  animation: settings-page-in 0.24s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* الصفحة الداخلية تدخل من جهة اليسار، وهو اتجاه التقدم في الواجهة العربية */
+@keyframes settings-page-in {
+  from {
+    opacity: 0;
+    transform: translateX(-18px);
+  }
+}
+
+.settings-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding-bottom: 8px;
+}
+
+.settings-title {
+  margin-bottom: 8px;
+  padding-inline-start: 4px;
+  color: var(--text-muted);
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+
+.settings-hint {
+  margin: 8px 4px 0;
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.settings-hint-top {
+  margin: 0 4px 12px;
+}
+
+.settings-input {
+  display: block;
+  width: 100%;
+  min-height: 56px;
+  padding: 8px 14px;
+  border: 0;
+  background: none;
+  outline-offset: -3px;
+}
+
+.settings-input::placeholder {
+  color: var(--text-muted);
+}
+
+.settings-link {
+  width: 100%;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-align: start;
+  text-decoration: none;
+}
+
+.settings-link.pressable:active {
+  transform: scale(0.98);
+}
+
+.settings-row + .settings-row {
+  border-top: 1px solid var(--border);
+}
+
+.settings-row-chevron {
+  display: grid;
+  flex: none;
+  color: var(--text-muted);
+}
+
+/* اختيار واحد من عدة خيارات */
+.segmented {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(66px, 1fr));
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+  background: var(--surface);
+}
+
+.segmented-option {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 44px;
+  padding: 4px 6px;
+  border-radius: 15px;
+  font-family: var(--font-heading);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.segmented-option input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.segmented-option:has(input:focus-visible) {
+  outline: 3px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.segmented-option.is-selected {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.segmented-option.pressable:active {
+  transform: scale(0.96);
+}
+
+/* الأسئلة الشائعة */
+.faq-item + .faq-item {
+  border-top: 1px solid var(--border);
+}
+
+.faq-item summary {
+  padding: 13px 14px;
+  font-family: var(--font-heading);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.faq-item p {
+  margin: 0;
+  padding: 0 14px 14px;
+  color: var(--text-muted);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+}
+
+/* حول التطبيق */
+.about-text {
+  padding: 2px 4px;
+}
+
+.about-text p {
+  margin: 0 0 14px;
+}
+
+.about-text strong {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* مسح البيانات */
+.danger-button,
+.cancel-button {
+  min-height: 48px;
+  padding: 0 18px;
+  border-radius: 999px;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.danger-button {
+  width: 100%;
+  border: 1px solid var(--danger);
+  background: none;
+  color: var(--danger);
+}
+
+.cancel-button {
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.wipe-confirm {
+  padding: 14px;
+  border: 1px solid var(--danger);
+  border-radius: var(--radius-m);
+  background: var(--surface);
+}
+
+.wipe-confirm p {
+  margin: 0 0 12px;
+  line-height: 1.5;
+}
+
+.wipe-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+/* لوحة رمز القفل وشاشته */
+.settings-pin,
+.pinpad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pinpad-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.pinpad-dots {
+  direction: ltr;
+  display: flex;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.pinpad-dots span {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+}
+
+.pinpad-dots span.is-filled {
+  background: var(--accent);
+}
+
+.pinpad-dots.has-error {
+  animation: pin-shake 0.32s ease;
+}
+
+@keyframes pin-shake {
+  25% {
+    transform: translateX(-7px);
+  }
+
+  75% {
+    transform: translateX(7px);
+  }
+}
+
+.pinpad-error {
+  min-height: 1.6em;
+  margin: 8px 0;
+  color: var(--danger);
+  font-size: 1rem;
+  text-align: center;
+}
+
+.pinpad-keys {
+  direction: ltr;
+  display: grid;
+  grid-template-columns: repeat(3, 66px);
+  gap: 10px 14px;
+}
+
+.pinpad-key {
+  display: grid;
+  place-items: center;
+  width: 66px;
+  height: 66px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.pinpad-key.is-plain {
+  border: 0;
+  background: none;
+}
+
+.text-button {
+  min-height: 44px;
+  margin-top: 12px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--accent);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.lock-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  min-height: 100dvh;
+  padding: calc(16px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom));
+  overflow-y: auto;
+}
+
+.lock-forgot {
+  width: min(100%, 340px);
 }
 
 .settings-group {
@@ -498,6 +815,7 @@ h3 {
 
 @media (prefers-reduced-motion: reduce) {
   * {
+    animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
     transition-delay: 0s !important;
   }

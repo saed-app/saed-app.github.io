@@ -22,4 +22,11 @@ export const storage = {
   async remove(key) {
     localStorage.removeItem(PREFIX + key)
   },
+
+  // يمسح كل بيانات التطبيق ولا يمس بيانات غيره
+  async clear() {
+    Object.keys(localStorage)
+      .filter((key) => key.startsWith(PREFIX))
+      .forEach((key) => localStorage.removeItem(key))
+  },
 }

@@ -58,6 +58,67 @@ export function BackIcon(props) {
   )
 }
 
+export function ChevronStartIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="M14.5 5.5L8 12l6.5 6.5" />
+    </Svg>
+  )
+}
+
+export function SlidersIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="M4 7h9M17 7h3M4 17h3M11 17h9M15 5v4M9 15v4" />
+    </Svg>
+  )
+}
+
+export function HelpIcon(props) {
+  return (
+    <Svg {...props}>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M9.6 9.5a2.5 2.5 0 1 1 3.6 2.2c-.8.4-1.200 1-1.200 1.800M12 16.800h.01" />
+    </Svg>
+  )
+}
+
+export function DataIcon(props) {
+  return (
+    <Svg {...props}>
+      <ellipse cx="12" cy="6" rx="7.5" ry="3" />
+      <path d="M4.500 6v12c0 1.700 3.400 3 7.500 3s7.500-1.300 7.500-3V6M4.500 12c0 1.700 3.400 3 7.500 3s7.500-1.300 7.500-3" />
+    </Svg>
+  )
+}
+
+export function InfoIcon(props) {
+  return (
+    <Svg {...props}>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M12 11.500v5M12 7.800h.01" />
+    </Svg>
+  )
+}
+
+export function MailIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="M5.500 5.500h13A2.500 2.500 0 0 1 21 8v8a2.500 2.500 0 0 1-2.500 2.500h-13A2.500 2.500 0 0 1 3 16V8a2.500 2.500 0 0 1 2.500-2.500z" />
+      <path d="M3.500 7.500L12 13l8.500-5.500" />
+    </Svg>
+  )
+}
+
+export function BackspaceIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="M9 5.500h9.500A2.500 2.500 0 0 1 21 8v8a2.500 2.500 0 0 1-2.500 2.500H9L3 12z" />
+      <path d="M11.500 9.500l5 5M16.500 9.500l-5 5" />
+    </Svg>
+  )
+}
+
 export function MoonIcon(props) {
   return (
     <Svg {...props}>

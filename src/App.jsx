@@ -14,24 +14,42 @@ export default function App() {
   const { enabledTools } = useEnabledTools()
   const hasDock = enabledTools.length > 0
 
-  // حالة الدرج محفوظة في سجل التنقل، فزر الرجوع في الجوال يغلقه بدل أن يخرج من الصفحة
+  // حالة الدرج وصفحته الداخلية محفوظتان في سجل التنقل،
+  // فزر الرجوع في الجوال يرجع داخل الإعدادات بدل أن يخرج من الصفحة
   const settingsOpen = Boolean(location.state?.settingsOpen)
-  const closing = useRef(false)
+  const settingsPage = location.state?.settingsPage ?? null
+  const leaving = useRef(false)
 
   useEffect(() => {
-    closing.current = false
-  }, [settingsOpen])
+    leaving.current = false
+  }, [settingsOpen, settingsPage])
 
   const openSettings = useCallback(() => {
     navigate(location.pathname, { state: { settingsOpen: true } })
   }, [navigate, location.pathname])
 
-  const closeSettings = useCallback(() => {
-    // يمنع الرجوع خطوتين إذا ضغط المستخدم مرتين بسرعة
-    if (closing.current) return
-    closing.current = true
-    navigate(-1)
-  }, [navigate])
+  const openSettingsPage = useCallback(
+    (page) => {
+      navigate(location.pathname, { state: { settingsOpen: true, settingsPage: page } })
+    },
+    [navigate, location.pathname],
+  )
+
+  // يمنع الرجوع خطوات زائدة إذا ضغط المستخدم مرتين بسرعة
+  const goBackSteps = useCallback(
+    (steps) => {
+      if (leaving.current) return
+      leaving.current = true
+      navigate(-steps)
+    },
+    [navigate],
+  )
+
+  const settingsBack = useCallback(() => goBackSteps(1), [goBackSteps])
+  const closeSettings = useCallback(
+    () => goBackSteps(settingsPage ? 2 : 1),
+    [goBackSteps, settingsPage],
+  )
 
   return (
     <div className="app">
@@ -47,7 +65,13 @@ export default function App() {
         </main>
         {hasDock && <Dock />}
       </div>
-      <SettingsDrawer open={settingsOpen} onClose={closeSettings} />
+      <SettingsDrawer
+        open={settingsOpen}
+        page={settingsPage}
+        onOpenPage={openSettingsPage}
+        onBack={settingsBack}
+        onClose={closeSettings}
+      />
     </div>
   )
 }
