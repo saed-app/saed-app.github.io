@@ -33,7 +33,11 @@ html,
   font-size: 20px;
 }
 
-/* النهاري: ذهبي مع الأبيض. الذهبي غامق حتى يُقرأ بوضوح على الأبيض */
+/* --accent-metal: اللون المعدني اللامع للأزرار والأسطح والعناوين الكبيرة
+   --accent: اللون الصافي للأيقونات والحدود
+   --accent-text: درجة للنصوص الصغيرة تبقى مقروءة على الخلفية */
+
+/* النهاري: ذهبي مع الأبيض */
 [data-theme='light'] {
   color-scheme: light;
   --bg: #ffffff;
@@ -41,11 +45,13 @@ html,
   --surface-2: #f5ecd6;
   --text: #2b2212;
   --text-muted: #6f6248;
-  --accent: #8f6a1e;
-  --on-accent: #ffffff;
+  --accent-metal: linear-gradient(135deg, #9c7213 0%, #e8c75a 45%, #b98d1b 100%);
+  --accent: #b98d1b;
+  --accent-text: #946c12;
+  --on-accent: #2b2212;
   --danger: #b3261e;
   --dock-bg: rgba(255, 255, 255, 0.85);
-  --border: rgba(143, 106, 30, 0.24);
+  --border: rgba(185, 141, 27, 0.3);
   --scrim: rgba(30, 22, 8, 0.35);
   --shadow: 0 8px 28px rgba(90, 66, 16, 0.18);
   --switch-off: #8e8e93;
@@ -59,11 +65,13 @@ html,
   --surface-2: #26262a;
   --text: #f2f2f4;
   --text-muted: #b4b6bc;
-  --accent: #c8ccd4;
+  --accent-metal: linear-gradient(135deg, #83878c 0%, #d8dadd 45%, #92969b 100%);
+  --accent: #a9adb2;
+  --accent-text: #a9adb2;
   --on-accent: #0a0a0b;
   --danger: #ff6b60;
   --dock-bg: rgba(28, 28, 31, 0.85);
-  --border: rgba(200, 204, 212, 0.2);
+  --border: rgba(169, 173, 178, 0.24);
   --scrim: rgba(0, 0, 0, 0.6);
   --shadow: 0 8px 28px rgba(0, 0, 0, 0.7);
   --switch-off: #6e6e73;

@@ -124,7 +124,7 @@ h3 {
   width: 124px;
   height: 124px;
   border-radius: 38px;
-  background: var(--accent);
+  background: var(--accent-metal);
   color: var(--on-accent);
   box-shadow: var(--shadow);
 }
@@ -194,7 +194,7 @@ h3 {
   padding: 0 14px;
   border: 1px solid transparent;
   border-radius: 999px;
-  background: var(--accent);
+  background: var(--accent-metal);
   color: var(--on-accent);
   font-family: var(--font-heading);
   font-size: 1rem;
@@ -328,7 +328,10 @@ h3 {
   font-family: var(--font-heading);
   font-size: 1.4375rem;
   font-weight: 800;
-  color: var(--accent);
+  background: var(--accent-metal);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .icon-button {
@@ -546,7 +549,7 @@ h3 {
 }
 
 .segmented-option.is-selected {
-  background: var(--accent);
+  background: var(--accent-metal);
   color: var(--on-accent);
 }
 
@@ -587,7 +590,7 @@ h3 {
 .about-text strong {
   font-family: var(--font-heading);
   font-weight: 700;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 /* مسح البيانات */
@@ -661,7 +664,7 @@ h3 {
 }
 
 .pinpad-dots span.is-filled {
-  background: var(--accent);
+  background: var(--accent-metal);
 }
 
 .pinpad-dots.has-error {
@@ -719,7 +722,7 @@ h3 {
   border: 0;
   border-radius: 999px;
   background: none;
-  color: var(--accent);
+  color: var(--accent-text);
   font-family: var(--font-heading);
   font-size: 1rem;
   font-weight: 700;
