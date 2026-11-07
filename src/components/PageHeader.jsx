@@ -2,8 +2,8 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { BackIcon } from './Icons.jsx'
 import ToolTile from './ToolTile.jsx'
 
-// عنوان الصفحات الداخلية، ومع tool تظهر أيقونة الأداة بجانب اسمها
-export default function PageHeader({ title, tool }) {
+// عنوان الصفحات الداخلية. مع tool تظهر أيقونة الأداة بجانب اسمها، وaction زر إضافي في نهاية السطر
+export default function PageHeader({ title, tool, action }) {
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -20,6 +20,7 @@ export default function PageHeader({ title, tool }) {
       </button>
       {tool && <ToolTile tool={tool} size="small" />}
       <h1>{title}</h1>
+      {action}
     </div>
   )
 }

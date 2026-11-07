@@ -70,6 +70,8 @@ export default function App() {
       >
         <TopBar onOpenSettings={openSettings} />
         <main className="app-main">
+          {/* المفتاح يعيد تشغيل حركة الظهور الخفيفة عند فتح كل صفحة */}
+          <div className="route-view" key={location.pathname}>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/store" element={<StorePage />} />
@@ -77,6 +79,7 @@ export default function App() {
             <Route path="/tool/:toolId" element={<ToolPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
+          </div>
         </main>
         {hasDock && <Dock />}
       </div>

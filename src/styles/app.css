@@ -76,6 +76,19 @@ h3 {
   scrollbar-color: var(--border) transparent;
 }
 
+/* ظهور خفيف لكل صفحة عند فتحها، دون أي تنقّل بالسحب */
+.route-view {
+  height: 100%;
+  animation: page-in 0.24s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
 .page {
   width: 100%;
   max-width: 720px;
@@ -540,6 +553,8 @@ h3 {
 }
 
 .page-header h1 {
+  flex: 1;
+  min-width: 0;
   font-size: var(--fs-title);
 }
 
