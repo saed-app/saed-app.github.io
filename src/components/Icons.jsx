@@ -92,6 +92,14 @@ export function HourglassIcon(props) {
   )
 }
 
+export function DownloadIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="M12 4v11M7.500 10.500L12 15l4.500-4.500M5 19.500h14" />
+    </Svg>
+  )
+}
+
 export function CheckIcon(props) {
   return (
     <Svg {...props}>

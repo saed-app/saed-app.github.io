@@ -8,6 +8,7 @@ import { ThemeProvider, applyTheme, loadTheme } from './core/theme.jsx'
 import { SettingsProvider, applyFontSize, loadSettings } from './core/settings.jsx'
 import { LockProvider, loadLock } from './core/lock.jsx'
 import { EnabledToolsProvider, loadEnabledTools } from './core/enabledTools.jsx'
+import { registerOffline } from './core/offline.js'
 import './styles/fonts.css'
 import './styles/theme.css'
 import './styles/app.css'
@@ -46,3 +47,4 @@ async function start() {
 }
 
 start()
+registerOffline()

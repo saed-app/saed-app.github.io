@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { BackIcon, ChevronStartIcon } from './Icons.jsx'
 import { SETTINGS_PAGES } from '../settings/pages.js'
+import { isInstalled } from '../core/install.js'
 
 // صفحة الإعدادات: تملأ التطبيق، وفيها قائمة التصنيفات وصفحاتها الداخلية.
 // زر الرجوع يعيد من الصفحة الداخلية إلى القائمة، ومن القائمة إلى التطبيق.
@@ -8,6 +9,8 @@ export default function SettingsScreen({ page, onOpenPage, onBack, onOpenGuide, 
   const backButton = useRef(null)
   const screen = useRef(null)
   const current = SETTINGS_PAGES.find((item) => item.id === page && item.Page)
+  const installed = isInstalled()
+  const items = SETTINGS_PAGES.filter((item) => !(item.hideWhenInstalled && installed))
 
   useEffect(() => {
     backButton.current?.focus()
@@ -55,7 +58,7 @@ export default function SettingsScreen({ page, onOpenPage, onBack, onOpenGuide, 
           <current.Page />
         ) : (
           <nav className="settings-group" aria-label="تصنيفات الإعدادات">
-            {SETTINGS_PAGES.map((item) => (
+            {items.map((item) => (
               <button
                 key={item.id}
                 type="button"

@@ -1,4 +1,5 @@
 import {
+  DownloadIcon,
   GuideIcon,
   HelpIcon,
   InfoIcon,
@@ -8,6 +9,7 @@ import {
 } from '../components/Icons.jsx'
 import AboutPage from './AboutPage.jsx'
 import AppearancePage from './AppearancePage.jsx'
+import InstallPage from './InstallPage.jsx'
 import ProfilePage from './ProfilePage.jsx'
 import SoundPage from './SoundPage.jsx'
 import SupportPage from './SupportPage.jsx'
@@ -20,5 +22,7 @@ export const SETTINGS_PAGES = [
   { id: 'sound', title: 'الصوت والإشعارات', Icon: SoundIcon, Page: SoundPage },
   { id: 'support', title: 'الدعم', Icon: HelpIcon, Page: SupportPage },
   { id: 'guide', title: 'دليل تعريفي', Icon: GuideIcon, action: 'guide' },
+  // يختفي بعد تثبيت التطبيق على الجهاز
+  { id: 'install', title: 'تثبيت التطبيق', Icon: DownloadIcon, Page: InstallPage, hideWhenInstalled: true },
   { id: 'about', title: 'حول التطبيق', Icon: InfoIcon, Page: AboutPage },
 ]

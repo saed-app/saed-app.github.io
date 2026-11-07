@@ -1550,3 +1550,25 @@ h3 {
     animation-iteration-count: 1 !important;
   }
 }
+
+/* صفحة تثبيت التطبيق */
+.install-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-l);
+  padding-top: var(--space-l);
+  text-align: center;
+}
+
+.install-page p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.install-steps {
+  margin: 0;
+  padding-inline-start: 1.4em;
+  text-align: start;
+  line-height: 1.8;
+}
