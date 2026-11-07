@@ -58,6 +58,55 @@ export function BackIcon(props) {
   )
 }
 
+// الأيقونات التالية مأخوذة من مكتبة Lucide (رخصة ISC)
+export function GearIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="M12.220 2h-.440a2 2 0 0 0-2 2v.180a2 2 0 0 1-1 1.730l-.430.250a2 2 0 0 1-2 0l-.150-.080a2 2 0 0 0-2.730.730l-.220.380a2 2 0 0 0 .730 2.730l.150.100a2 2 0 0 1 1 1.720v.510a2 2 0 0 1-1 1.740l-.150.090a2 2 0 0 0-.730 2.730l.220.380a2 2 0 0 0 2.730.730l.150-.080a2 2 0 0 1 2 0l.430.250a2 2 0 0 1 1 1.730V20a2 2 0 0 0 2 2h.440a2 2 0 0 0 2-2v-.180a2 2 0 0 1 1-1.730l.430-.250a2 2 0 0 1 2 0l.150.080a2 2 0 0 0 2.730-.730l.220-.390a2 2 0 0 0-.730-2.730l-.150-.080a2 2 0 0 1-1-1.740v-.500a2 2 0 0 1 1-1.740l.150-.090a2 2 0 0 0 .730-2.730l-.220-.380a2 2 0 0 0-2.730-.730l-.150.080a2 2 0 0 1-2 0l-.430-.250a2 2 0 0 1-1-1.730V4a2 2 0 0 0-2-2z" />
+      <circle cx="12" cy="12" r="3" />
+    </Svg>
+  )
+}
+
+export function SoundIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="M11 5L6 9H3v6h3l5 4V5zM15.500 8.500a5 5 0 0 1 0 7M18.500 5.500a9 9 0 0 1 0 13" />
+    </Svg>
+  )
+}
+
+export function GuideIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="M12 6.500C10.500 5 8 4.500 4 4.500v14c4 0 6.500.500 8 2 1.500-1.500 4-2 8-2v-14c-4 0-6.500.500-8 2zM12 6.500v14" />
+    </Svg>
+  )
+}
+
+export function ChevronDownIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="M6 9.500l6 6 6-6" />
+    </Svg>
+  )
+}
+
+export function HandIcon({ size = 46 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M22 14a8 8 0 0 1-8 8M18 11v-1a2 2 0 0 0-4 0M14 10V9a2 2 0 0 0-4 0v1M10 9.500V4a2 2 0 0 0-4 0v10M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.800 0-4.500-.860-5.990-2.340l-3.600-3.600a2 2 0 0 1 2.830-2.820L7 15"
+        fill="#ffffff"
+        stroke="currentColor"
+        strokeWidth="1.600"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 export function ChevronStartIcon(props) {
   return (
     <Svg {...props}>

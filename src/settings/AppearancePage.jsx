@@ -1,5 +1,4 @@
-import { MoonIcon } from '../components/Icons.jsx'
-import Segmented from '../components/Segmented.jsx'
+import { ChevronDownIcon, MoonIcon } from '../components/Icons.jsx'
 import Toggle from '../components/Toggle.jsx'
 import { useSettings } from '../core/settings.jsx'
 import { useTheme } from '../core/theme.jsx'
@@ -8,87 +7,70 @@ const FONT_SIZES = [
   { value: 'small', label: 'صغير' },
   { value: 'medium', label: 'متوسط' },
   { value: 'large', label: 'كبير' },
-  { value: 'xlarge', label: 'كبير جداً' },
 ]
 
-const WEEK_STARTS = [
+const WEEK_DAYS = [
   { value: 'saturday', label: 'السبت' },
   { value: 'sunday', label: 'الأحد' },
   { value: 'monday', label: 'الإثنين' },
+  { value: 'tuesday', label: 'الثلاثاء' },
+  { value: 'wednesday', label: 'الأربعاء' },
+  { value: 'thursday', label: 'الخميس' },
+  { value: 'friday', label: 'الجمعة' },
 ]
+
+// سطر فيه الاسم والقيمة الحالية مع سهم، والضغط عليه يفتح قائمة الجهاز الأصلية
+function SelectRow({ label, value, options, onChange }) {
+  const current = options.find((option) => option.value === value)
+  return (
+    <label className="settings-row select-row pressable">
+      <span className="settings-row-label">{label}</span>
+      <span className="select-value" aria-hidden="true">
+        {current?.label}
+        <ChevronDownIcon size={18} />
+      </span>
+      <select value={value} aria-label={label} onChange={(event) => onChange(event.target.value)}>
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+    </label>
+  )
+}
 
 export default function AppearancePage() {
   const { theme, setTheme } = useTheme()
-  const { fontSize, weekStart, haptics, sounds, updateSettings } = useSettings()
+  const { fontSize, weekStart, updateSettings } = useSettings()
 
   return (
     <div className="settings-stack">
-      <section>
-        <h3 className="settings-title">المظهر</h3>
-        <div className="settings-group">
-          <div className="settings-row">
-            <span className="settings-row-icon">
-              <MoonIcon size={20} />
-            </span>
-            <span className="settings-row-label">الوضع الليلي</span>
-            <Toggle
-              label="الوضع الليلي"
-              checked={theme === 'dark'}
-              onChange={(on) => setTheme(on ? 'dark' : 'light')}
-            />
-          </div>
+      <div className="settings-group">
+        <div className="settings-row">
+          <span className="settings-row-icon">
+            <MoonIcon size={20} />
+          </span>
+          <span className="settings-row-label">الوضع الليلي</span>
+          <Toggle
+            label="الوضع الليلي"
+            checked={theme === 'dark'}
+            onChange={(on) => setTheme(on ? 'dark' : 'light')}
+          />
         </div>
-      </section>
-
-      <section>
-        <h3 className="settings-title" id="font-size-title">
-          حجم الخط
-        </h3>
-        <Segmented
-          name="font-size"
-          labelledBy="font-size-title"
-          options={FONT_SIZES}
+        <SelectRow
+          label="حجم الخط"
           value={fontSize}
+          options={FONT_SIZES}
           onChange={(value) => updateSettings({ fontSize: value })}
         />
-      </section>
-
-      <section>
-        <h3 className="settings-title" id="week-start-title">
-          بداية الأسبوع
-        </h3>
-        <Segmented
-          name="week-start"
-          labelledBy="week-start-title"
-          options={WEEK_STARTS}
+        <SelectRow
+          label="بداية الأسبوع"
           value={weekStart}
+          options={WEEK_DAYS}
           onChange={(value) => updateSettings({ weekStart: value })}
         />
-        <p className="settings-hint">ستعتمد عليها الأدوات التي تعرض الأيام والتقارير.</p>
-      </section>
-
-      <section>
-        <h3 className="settings-title">الاهتزاز والأصوات</h3>
-        <div className="settings-group">
-          <div className="settings-row">
-            <span className="settings-row-label">الاهتزاز</span>
-            <Toggle
-              label="الاهتزاز"
-              checked={haptics}
-              onChange={(on) => updateSettings({ haptics: on })}
-            />
-          </div>
-          <div className="settings-row">
-            <span className="settings-row-label">الأصوات</span>
-            <Toggle
-              label="الأصوات"
-              checked={sounds}
-              onChange={(on) => updateSettings({ sounds: on })}
-            />
-          </div>
-        </div>
-        <p className="settings-hint">يعمل الاهتزاز حيث يدعمه الجهاز، وستستخدم الأدوات الأصوات عند بنائها.</p>
-      </section>
+      </div>
     </div>
   )
 }

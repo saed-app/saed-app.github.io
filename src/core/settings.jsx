@@ -8,13 +8,19 @@ const DEFAULTS = {
   name: '',
   fontSize: 'medium',
   weekStart: 'sunday',
-  haptics: true,
   sounds: true,
+  notifications: false,
+  tourSeen: false,
 }
+
+const FONT_SIZES = ['small', 'medium', 'large']
 
 export async function loadSettings() {
   const saved = await storage.get(STORAGE_KEY, {})
-  return { ...DEFAULTS, ...saved }
+  const settings = { ...DEFAULTS, ...saved }
+  // حذفنا مقاس «كبير جداً»، فمن اختاره سابقاً ينتقل إلى «كبير»
+  if (!FONT_SIZES.includes(settings.fontSize)) settings.fontSize = 'large'
+  return settings
 }
 
 export function applyFontSize(fontSize) {

@@ -1,11 +1,11 @@
-import { HelpIcon, MailIcon } from '../components/Icons.jsx'
+import { useState } from 'react'
+import { MailIcon } from '../components/Icons.jsx'
 import { SUPPORT_EMAIL } from '../config.js'
-import packageInfo from '../../package.json'
 
 const FAQ = [
   {
     question: 'كيف أضيف أداة؟',
-    answer: 'افتح المتجر من الأيقونة أعلى يمين الشاشة، ثم اضغط «إضافة» بجانب الأداة التي تريدها.',
+    answer: 'افتح المتجر من الأيقونة أعلى يسار الشاشة، ثم اضغط «إضافة» بجانب الأداة التي تريدها.',
   },
   {
     question: 'كيف أزيل أداة؟',
@@ -14,10 +14,6 @@ const FAQ = [
   {
     question: 'كيف أغيّر ترتيب الأدوات؟',
     answer: 'اضغط مطولاً على الأداة في الشريط السفلي، ثم اسحبها إلى المكان الذي تريده.',
-  },
-  {
-    question: 'لماذا تظهر بعض الأدوات بعبارة «قريباً»؟',
-    answer: 'لأنها لم تكتمل بعد، وستعمل تلقائياً عند إطلاقها في تحديث قادم.',
   },
   {
     question: 'أين تُحفظ بياناتي؟',
@@ -29,28 +25,33 @@ const FAQ = [
   },
 ]
 
-function mailLink(subject, body) {
-  return `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-}
-
-function contactLink() {
-  return mailLink('استفسار عن تطبيق ساعد', 'السلام عليكم،\n\nأود الاستفسار عن:\n')
-}
-
-// معلومات الجهاز تظهر للمستخدم داخل الرسالة قبل أن يقرر إرسالها
-function bugReportLink() {
-  const details = [
-    `نسخة التطبيق: ${packageInfo.version}`,
-    `الشاشة: ${window.screen.width}×${window.screen.height}`,
-    `المتصفح: ${navigator.userAgent}`,
-  ].join('\n')
-  return mailLink(
-    'بلاغ عن مشكلة في تطبيق ساعد',
-    `السلام عليكم،\n\nالمشكلة التي واجهتها:\n\n\nالخطوات التي سبقتها:\n\n\n---\n${details}\n`,
-  )
+// النسخ عبر المتصفح يحتاج اتصالاً آمناً، فنستخدم طريقة احتياطية إن لم يتوفر
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text)
+    return true
+  } catch {
+    const field = document.createElement('textarea')
+    field.value = text
+    field.setAttribute('readonly', '')
+    field.style.position = 'fixed'
+    field.style.opacity = '0'
+    document.body.append(field)
+    field.select()
+    const copied = document.execCommand('copy')
+    field.remove()
+    return copied
+  }
 }
 
 export default function SupportPage() {
+  const [showEmail, setShowEmail] = useState(false)
+  const [copied, setCopied] = useState(false)
+
+  async function handleCopy() {
+    setCopied(await copyText(SUPPORT_EMAIL))
+  }
+
   return (
     <div className="settings-stack">
       <section>
@@ -68,21 +69,30 @@ export default function SupportPage() {
       <section>
         <h3 className="settings-title">تواصل معنا</h3>
         <div className="settings-group">
-          <a className="settings-row settings-link pressable" href={contactLink()}>
+          <button
+            type="button"
+            className="settings-row settings-link pressable"
+            aria-expanded={showEmail}
+            onClick={() => setShowEmail((open) => !open)}
+          >
             <span className="settings-row-icon">
               <MailIcon size={20} />
             </span>
             <span className="settings-row-label">راسل الدعم</span>
-          </a>
-          <a className="settings-row settings-link pressable" href={bugReportLink()}>
-            <span className="settings-row-icon">
-              <HelpIcon size={20} />
-            </span>
-            <span className="settings-row-label">الإبلاغ عن مشكلة</span>
-          </a>
+          </button>
+          {showEmail && (
+            <div className="support-email">
+              <span className="support-email-address" dir="ltr">
+                {SUPPORT_EMAIL}
+              </span>
+              <button type="button" className="copy-button pressable" onClick={handleCopy}>
+                {copied ? 'تم النسخ' : 'نسخ'}
+              </button>
+            </div>
+          )}
         </div>
         <p className="settings-hint">
-          تُفتح رسالة جاهزة في تطبيق البريد لتراجعها قبل الإرسال. يضيف زر البلاغ نسخة التطبيق ومعلومات جهازك إلى الرسالة.
+          انسخ العنوان وأرسل لنا من بريدك استفسارك، أو أي مشكلة واجهتك.
         </p>
       </section>
     </div>

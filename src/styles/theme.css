@@ -15,7 +15,7 @@
   --switch-thumb: #ffffff;
 }
 
-/* مقاسات الخط الأربعة: كل نصوص التطبيق تتبع هذا الرقم */
+/* مقاسات الخط الثلاثة: كل نصوص التطبيق تتبع هذا الرقم */
 html,
 [data-font-size='medium'] {
   font-size: 16px;
@@ -27,10 +27,6 @@ html,
 
 [data-font-size='large'] {
   font-size: 18px;
-}
-
-[data-font-size='xlarge'] {
-  font-size: 20px;
 }
 
 /* --accent-metal: اللون المعدني اللامع للأزرار والأسطح والعناوين الكبيرة

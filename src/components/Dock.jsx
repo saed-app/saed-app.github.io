@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useLocation, useMatch, useNavigate } from 'react-router-dom'
 import { useEnabledTools } from '../core/enabledTools.jsx'
-import { useSettings } from '../core/settings.jsx'
 import ToolTile from './ToolTile.jsx'
 
 const LONG_PRESS_MS = 380
@@ -13,7 +12,6 @@ const EDGE_SPEED = 6
 // الضغط يفتح الأداة، والضغط المطول ثم السحب يغيّر مكانها، والسحب السريع يمرّر الشريط.
 export default function Dock() {
   const { enabledTools, reorderTools } = useEnabledTools()
-  const { haptics } = useSettings()
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const activeId = useMatch('/tool/:toolId')?.params.toolId
@@ -127,7 +125,7 @@ export default function Dock() {
     if (!current) return
     current.mode = 'drag'
     ignoreClick.current = true
-    if (haptics) navigator.vibrate?.(12)
+    navigator.vibrate?.(12)
 
     const el = scroller.current
     const items = [...el.children]
