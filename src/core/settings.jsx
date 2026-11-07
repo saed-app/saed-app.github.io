@@ -12,6 +12,7 @@ const DEFAULTS = {
   notifications: false,
   tourSeen: false,
   dockCollapsed: false,
+  homeDate: 'hijri',
 }
 
 const FONT_SIZES = ['small', 'medium', 'large']

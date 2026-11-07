@@ -1,6 +1,7 @@
 import { Navigate, useParams } from 'react-router-dom'
 import PageHeader from '../components/PageHeader.jsx'
 import ToolTile from '../components/ToolTile.jsx'
+import { ToolSettingsPanel, ToolSettingsPreview } from '../components/ToolSettings.jsx'
 import { useEnabledTools } from '../core/enabledTools.jsx'
 import { getTool } from '../tools/registry.js'
 
@@ -13,6 +14,10 @@ export default function StoreToolPage() {
   if (!tool) return <Navigate to="/store" replace />
   const enabled = isEnabled(tool.id)
 
+  let settings = null
+  if (tool.Settings) settings = <tool.Settings />
+  else if (import.meta.env.DEV) settings = <ToolSettingsPreview />
+
   return (
     <div className="page store-tool">
       <PageHeader title={tool.name} />
@@ -23,14 +28,9 @@ export default function StoreToolPage() {
         <p>{tool.description}</p>
       </div>
 
-      <section>
-        <h3 className="settings-title">إعدادات الأداة</h3>
-        {tool.Settings ? (
-          <tool.Settings />
-        ) : (
-          <p className="settings-hint settings-hint-top">لا توجد إعدادات لهذه الأداة بعد.</p>
-        )}
-      </section>
+      <ToolSettingsPanel tool={tool}>
+        {settings ?? <p className="tool-settings-note is-wide">لا توجد إعدادات لهذه الأداة بعد.</p>}
+      </ToolSettingsPanel>
 
       <div className="store-action-bar">
         <button

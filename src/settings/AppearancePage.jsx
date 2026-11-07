@@ -9,6 +9,11 @@ const FONT_SIZES = [
   { value: 'large', label: 'كبير' },
 ]
 
+const DATE_TYPES = [
+  { value: 'hijri', label: 'هجري' },
+  { value: 'gregorian', label: 'ميلادي' },
+]
+
 const WEEK_DAYS = [
   { value: 'saturday', label: 'السبت' },
   { value: 'sunday', label: 'الأحد' },
@@ -42,7 +47,7 @@ function SelectRow({ label, value, options, onChange }) {
 
 export default function AppearancePage() {
   const { theme, setTheme } = useTheme()
-  const { fontSize, weekStart, updateSettings } = useSettings()
+  const { fontSize, weekStart, homeDate, updateSettings } = useSettings()
 
   return (
     <div className="settings-stack">
@@ -69,6 +74,12 @@ export default function AppearancePage() {
           value={weekStart}
           options={WEEK_DAYS}
           onChange={(value) => updateSettings({ weekStart: value })}
+        />
+        <SelectRow
+          label="التاريخ في الرئيسية"
+          value={homeDate}
+          options={DATE_TYPES}
+          onChange={(value) => updateSettings({ homeDate: value })}
         />
       </div>
     </div>

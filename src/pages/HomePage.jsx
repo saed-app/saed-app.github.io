@@ -32,7 +32,7 @@ function useToday() {
 export default function HomePage() {
   const navigate = useNavigate()
   const { enabledTools } = useEnabledTools()
-  const { name } = useSettings()
+  const { name, homeDate } = useSettings()
   const today = useToday()
   const isEmpty = enabledTools.length === 0
   const trimmedName = name.trim()
@@ -58,8 +58,10 @@ export default function HomePage() {
       <h1>{greeting}</h1>
       <div className="today-card">
         <span className="today-weekday">{WEEKDAY.format(today)}</span>
-        <span className="today-hijri">{HIJRI.format(today)}</span>
-        <span className="today-gregorian">{GREGORIAN.format(today)}</span>
+        {/* نوع التاريخ يُختار من الإعدادات: المظهر والتفضيلات */}
+        <span className="today-date">
+          {(homeDate === 'gregorian' ? GREGORIAN : HIJRI).format(today)}
+        </span>
       </div>
     </div>
   )

@@ -171,13 +171,8 @@ h3 {
   color: transparent;
 }
 
-.today-hijri {
+.today-date {
   font-size: var(--fs-body);
-}
-
-.today-gregorian {
-  color: var(--text-muted);
-  font-size: var(--fs-small);
 }
 
 /* صفحة الأداة التي لم تُبنَ بعد */
@@ -193,15 +188,114 @@ h3 {
   text-align: center;
 }
 
-.coming-soon-icon {
-  display: grid;
-  place-items: center;
-  width: 72px;
-  height: 72px;
+/* الساعة الرملية تطفو بهدوء، والرمل يتساقط فيها */
+.hourglass {
   margin-bottom: var(--space-s);
-  border-radius: 24px;
-  background: var(--surface-2);
-  color: var(--accent);
+  animation: hourglass-float 3.2s ease-in-out infinite;
+}
+
+.hourglass-stream {
+  stroke-dasharray: 4 5;
+  animation: hourglass-sand 0.9s linear infinite;
+}
+
+@keyframes hourglass-float {
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes hourglass-sand {
+  to {
+    stroke-dashoffset: -9;
+  }
+}
+
+/* إعدادات الأداة: لوحة بلون الأداة، وكل إعداد بطاقة مستقلة */
+.tool-settings {
+  padding: var(--space-l);
+  border: 1px solid color-mix(in srgb, var(--tool-color) 35%, transparent);
+  border-radius: var(--radius-l);
+  background: color-mix(in srgb, var(--tool-color) 9%, var(--bg));
+}
+
+.tool-settings-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-m);
+  margin-bottom: var(--space-l);
+}
+
+.tool-settings-head h3 {
+  font-size: var(--fs-heading);
+}
+
+.tool-settings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-m);
+}
+
+.tool-setting {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-m) var(--space-l) var(--space-l);
+  border-radius: var(--radius-m);
+  background: var(--bg);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--tool-color) 25%, transparent);
+}
+
+.tool-setting.is-wide,
+.tool-settings-note.is-wide {
+  grid-column: 1 / -1;
+}
+
+.tool-setting-label {
+  font-family: var(--font-heading);
+  font-size: var(--fs-button);
+  font-weight: 700;
+}
+
+.tool-setting-hint {
+  color: var(--text-muted);
+  font-size: var(--fs-caption);
+}
+
+.tool-setting-control {
+  margin-top: var(--space-s);
+}
+
+.tool-choice {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-s);
+}
+
+.tool-choice-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 38px;
+  padding: 0 var(--space-m);
+  border: 2px solid var(--border);
+  border-radius: 999px;
+  background: none;
+  color: var(--text);
+  font-family: var(--font-heading);
+  font-size: var(--fs-caption);
+  font-weight: 700;
+}
+
+.tool-choice-option.is-selected {
+  border-color: var(--tool-color);
+  background: color-mix(in srgb, var(--tool-color) 16%, var(--bg));
+}
+
+.tool-settings-note {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--fs-small);
 }
 
 .coming-soon h2 {
@@ -482,6 +576,13 @@ h3 {
   background: var(--accent-metal);
 }
 
+/* على الكمبيوتر تكبر الأيقونة قليلاً جداً تحت الفأرة */
+@media (hover: hover) and (pointer: fine) {
+  .dock:not(.is-dragging) .dock-item:hover .tool-tile {
+    transform: translateY(-2px) scale(1.07);
+  }
+}
+
 /* تظهر الأدوات بهدوء عند فتح الشريط */
 .dock-scroll:not([hidden]) {
   animation: dock-reveal 0.26s cubic-bezier(0.32, 0.72, 0, 1);
@@ -560,8 +661,15 @@ h3 {
   justify-self: end;
 }
 
-.topbar-title {
+/* الشعار بجانب اسم التطبيق في منتصف الشريط العلوي */
+.topbar-brand {
   direction: rtl;
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+}
+
+.topbar-title {
   font-family: var(--font-heading);
   font-size: 1.4375rem;
   font-weight: 800;
