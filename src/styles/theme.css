@@ -61,6 +61,7 @@ html,
   --accent: #b98d1b;
   --accent-text: #946c12;
   --on-accent: #2b2212;
+  --logo-dot: #2b2212;
   --danger: #b3261e;
   --dock-bg: rgba(255, 255, 255, 0.85);
   --border: rgba(185, 141, 27, 0.3);
@@ -81,6 +82,7 @@ html,
   --accent: #a9adb2;
   --accent-text: #a9adb2;
   --on-accent: #0a0a0b;
+  --logo-dot: #d8dadd;
   --danger: #ff6b60;
   --dock-bg: rgba(28, 28, 31, 0.85);
   --border: rgba(169, 173, 178, 0.24);

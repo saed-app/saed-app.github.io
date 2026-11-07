@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useLocation, useMatch, useNavigate } from 'react-router-dom'
 import { useEnabledTools } from '../core/enabledTools.jsx'
 import { useSettings } from '../core/settings.jsx'
@@ -28,6 +28,29 @@ export default function Dock() {
   const [drag, setDrag] = useState(null)
 
   const ids = enabledTools.map((tool) => tool.id)
+
+  // حركة السهم: نحفظ مكانه قبل الفتح أو الإغلاق، ثم نحركه بسرعة من مكانه القديم إلى الجديد
+  const toggleButton = useRef(null)
+  const toggleStart = useRef(null)
+
+  function toggleDock() {
+    toggleStart.current = toggleButton.current?.getBoundingClientRect().left ?? null
+    updateSettings({ dockCollapsed: !dockCollapsed })
+  }
+
+  useLayoutEffect(() => {
+    const start = toggleStart.current
+    toggleStart.current = null
+    const button = toggleButton.current
+    if (start === null || !button) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const distance = start - button.getBoundingClientRect().left
+    if (Math.abs(distance) < 1) return
+    button.animate([{ transform: `translateX(${distance}px)` }, { transform: 'none' }], {
+      duration: 280,
+      easing: 'cubic-bezier(0.32, 0.72, 0, 1)',
+    })
+  }, [dockCollapsed])
 
   // عند إضافة أداة جديدة نمرّر لإظهارها، وعند فتح أداة نتأكد أنها ظاهرة
   useEffect(() => {
@@ -238,18 +261,6 @@ export default function Dock() {
   return (
     <div className={`dock-wrap${dockCollapsed ? ' is-collapsed' : ''}`}>
       <nav className={`dock${drag ? ' is-dragging' : ''}`} aria-label="الأدوات">
-        {/* السهم الثابت: يطوي الشريط إلى دائرة على اليمين ويفتحه من جديد */}
-        <button
-          type="button"
-          className="dock-toggle pressable"
-          aria-expanded={!dockCollapsed}
-          aria-controls="dock-tools"
-          aria-label={dockCollapsed ? 'إظهار شريط الأدوات' : 'إخفاء شريط الأدوات'}
-          onClick={() => updateSettings({ dockCollapsed: !dockCollapsed })}
-        >
-          <ChevronSideIcon direction={dockCollapsed ? 'left' : 'right'} size={22} />
-        </button>
-        <span className="dock-divider" aria-hidden="true" />
         <div className="dock-scroll" id="dock-tools" ref={scroller} hidden={dockCollapsed}>
           {enabledTools.map((tool, index) => (
             <button
@@ -274,6 +285,19 @@ export default function Dock() {
             </button>
           ))}
         </div>
+        <span className="dock-divider" aria-hidden="true" />
+        {/* السهم: عند الفتح ينتقل بسرعة من اليمين إلى يسار الشريط، وعند الإغلاق يعود إلى اليمين */}
+        <button
+          ref={toggleButton}
+          type="button"
+          className="dock-toggle pressable"
+          aria-expanded={!dockCollapsed}
+          aria-controls="dock-tools"
+          aria-label={dockCollapsed ? 'إظهار شريط الأدوات' : 'إخفاء شريط الأدوات'}
+          onClick={toggleDock}
+        >
+          <ChevronSideIcon direction={dockCollapsed ? 'left' : 'right'} size={22} />
+        </button>
       </nav>
     </div>
   )

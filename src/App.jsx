@@ -16,7 +16,9 @@ export default function App() {
   const navigate = useNavigate()
   const { enabledTools } = useEnabledTools()
   const { tourSeen, dockCollapsed, updateSettings } = useSettings()
-  const hasDock = enabledTools.length > 0
+  // الشريط العائم يظهر في الرئيسية وصفحات الأدوات فقط، ويختفي في المتجر
+  const onDockPage = location.pathname === '/' || location.pathname.startsWith('/tool/')
+  const hasDock = enabledTools.length > 0 && onDockPage
 
   // الدليل التعريفي يظهر تلقائياً في أول مرة فقط، ويُفتح بعدها من الإعدادات
   const [tourOpen, setTourOpen] = useState(!tourSeen)

@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { HashRouter } from 'react-router-dom'
 import App from './App.jsx'
 import LockGate from './components/LockGate.jsx'
+import Splash from './components/Splash.jsx'
 import { ThemeProvider, applyTheme, loadTheme } from './core/theme.jsx'
 import { SettingsProvider, applyFontSize, loadSettings } from './core/settings.jsx'
 import { LockProvider, loadLock } from './core/lock.jsx'
@@ -35,6 +36,7 @@ async function start() {
                   <App />
                 </LockGate>
               </HashRouter>
+              <Splash />
             </EnabledToolsProvider>
           </LockProvider>
         </SettingsProvider>

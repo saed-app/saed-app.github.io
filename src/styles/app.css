@@ -482,20 +482,63 @@ h3 {
   background: var(--accent-metal);
 }
 
-/* على الكمبيوتر تكبر الأيقونة تحت الفأرة وما يجاورها، مثل Dock في Mac */
-@media (hover: hover) and (pointer: fine) {
-  .dock-scroll {
-    margin-top: -16px;
-    padding: 24px 12px 8px;
-  }
+/* تظهر الأدوات بهدوء عند فتح الشريط */
+.dock-scroll:not([hidden]) {
+  animation: dock-reveal 0.26s cubic-bezier(0.32, 0.72, 0, 1);
+}
 
-  .dock:not(.is-dragging) .dock-item:hover .tool-tile {
-    transform: scale(1.28);
+@keyframes dock-reveal {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
   }
+}
 
-  .dock:not(.is-dragging) .dock-item:hover + .dock-item .tool-tile,
-  .dock:not(.is-dragging) .dock-item:has(+ .dock-item:hover) .tool-tile {
-    transform: scale(1.12);
+/* شاشة البداية */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-l);
+  background: var(--bg);
+  transition: opacity 0.35s ease;
+}
+
+.splash.is-fading {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.splash-mark {
+  animation: splash-mark-in 0.6s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@keyframes splash-mark-in {
+  from {
+    opacity: 0;
+    transform: scale(0.82) rotate(-25deg);
+  }
+}
+
+.splash-name {
+  font-family: var(--font-heading);
+  font-size: var(--fs-display);
+  font-weight: 800;
+  background: var(--accent-metal);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: splash-name-in 0.6s 0.15s cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+
+@keyframes splash-name-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
   }
 }
 
@@ -545,11 +588,19 @@ h3 {
 }
 
 /* عنوان الصفحات الداخلية */
+/* عنوان الصفحة وزر الرجوع يبقيان ثابتين في الأعلى أثناء النزول */
 .page-header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: var(--space-m);
+  margin: -8px -16px var(--space-l);
+  padding: var(--space-s) var(--space-l);
+  background: var(--dock-bg);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
 }
 
 .page-header h1 {
