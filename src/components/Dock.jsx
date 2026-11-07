@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useLocation, useMatch, useNavigate } from 'react-router-dom'
 import { useEnabledTools } from '../core/enabledTools.jsx'
+import { useSettings } from '../core/settings.jsx'
+import { ChevronSideIcon } from './Icons.jsx'
 import ToolTile from './ToolTile.jsx'
 
 const LONG_PRESS_MS = 380
@@ -12,6 +14,7 @@ const EDGE_SPEED = 6
 // الضغط يفتح الأداة، والضغط المطول ثم السحب يغيّر مكانها، والسحب السريع يمرّر الشريط.
 export default function Dock() {
   const { enabledTools, reorderTools } = useEnabledTools()
+  const { dockCollapsed, updateSettings } = useSettings()
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const activeId = useMatch('/tool/:toolId')?.params.toolId
@@ -233,9 +236,21 @@ export default function Dock() {
   }
 
   return (
-    <div className="dock-wrap">
+    <div className={`dock-wrap${dockCollapsed ? ' is-collapsed' : ''}`}>
       <nav className={`dock${drag ? ' is-dragging' : ''}`} aria-label="الأدوات">
-        <div className="dock-scroll" ref={scroller}>
+        {/* السهم الثابت: يطوي الشريط إلى دائرة على اليمين ويفتحه من جديد */}
+        <button
+          type="button"
+          className="dock-toggle pressable"
+          aria-expanded={!dockCollapsed}
+          aria-controls="dock-tools"
+          aria-label={dockCollapsed ? 'إظهار شريط الأدوات' : 'إخفاء شريط الأدوات'}
+          onClick={() => updateSettings({ dockCollapsed: !dockCollapsed })}
+        >
+          <ChevronSideIcon direction={dockCollapsed ? 'left' : 'right'} size={22} />
+        </button>
+        <span className="dock-divider" aria-hidden="true" />
+        <div className="dock-scroll" id="dock-tools" ref={scroller} hidden={dockCollapsed}>
           {enabledTools.map((tool, index) => (
             <button
               key={tool.id}

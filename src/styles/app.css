@@ -15,7 +15,7 @@ body {
   color: var(--text);
   font-family: var(--font-body);
   /* Amiri يبدو أصغر من Tajawal بنفس المقاس فنكبّره قليلاً */
-  font-size: 1.1875rem;
+  font-size: var(--fs-body);
   line-height: 1.6;
   overflow: hidden;
   overscroll-behavior: none;
@@ -99,7 +99,7 @@ h3 {
 }
 
 .home h1 {
-  font-size: 1.75rem;
+  font-size: var(--fs-display);
 }
 
 .home p {
@@ -131,18 +131,77 @@ h3 {
 
 .add-tools-label {
   font-family: var(--font-heading);
-  font-size: 1.25rem;
+  font-size: var(--fs-heading);
   font-weight: 700;
+}
+
+/* تاريخ اليوم في الرئيسية */
+.today-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-xl);
+  padding: var(--space-l) var(--space-xl);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-l);
+  background: var(--surface);
+}
+
+.today-weekday {
+  font-family: var(--font-heading);
+  font-size: var(--fs-heading);
+  font-weight: 800;
+  background: var(--accent-metal);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.today-hijri {
+  font-size: var(--fs-body);
+}
+
+.today-gregorian {
+  color: var(--text-muted);
+  font-size: var(--fs-small);
 }
 
 /* صفحة الأداة التي لم تُبنَ بعد */
 .coming-soon {
-  margin: 48px 0 0;
-  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-s);
+  margin-top: 48px;
+  padding: var(--space-xl);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-l);
   text-align: center;
 }
 
-/* أيقونة الأداة */
+.coming-soon-icon {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  margin-bottom: var(--space-s);
+  border-radius: 24px;
+  background: var(--surface-2);
+  color: var(--accent);
+}
+
+.coming-soon h2 {
+  font-size: var(--fs-heading);
+}
+
+.coming-soon p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--fs-small);
+}
+
+/* أيقونة الأداة بثلاثة أحجام */
 .tool-tile {
   display: grid;
   place-items: center;
@@ -153,58 +212,131 @@ h3 {
   color: #ffffff;
 }
 
+.tool-tile.is-small {
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
+}
+
+.tool-tile.is-large {
+  width: 84px;
+  height: 84px;
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+}
+
 /* المتجر */
 .store-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--space-m);
 }
 
 .store-card {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 14px;
+  gap: var(--space-m);
+  width: 100%;
+  padding: var(--space-l);
   border: 1px solid var(--border);
   border-radius: var(--radius-m);
   background: var(--surface);
+  color: inherit;
+  text-align: start;
+}
+
+.store-card.pressable:active {
+  transform: scale(0.98);
 }
 
 .store-card-text {
+  display: flex;
   flex: 1;
+  flex-direction: column;
   min-width: 0;
 }
 
-.store-card h2 {
-  font-size: 1.125rem;
+.store-card-name {
+  font-family: var(--font-heading);
+  font-size: var(--fs-heading);
   font-weight: 700;
 }
 
-.store-card p {
-  margin: 2px 0 0;
+.store-card-description {
+  margin-top: 2px;
   color: var(--text-muted);
-  font-size: 1.0625rem;
+  font-size: var(--fs-small);
   line-height: 1.45;
 }
 
-.store-action {
+.store-badge {
+  display: inline-flex;
   flex: none;
-  min-width: 76px;
-  min-height: 44px;
-  padding: 0 14px;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--accent-text);
+  font-family: var(--font-heading);
+  font-size: var(--fs-caption);
+  font-weight: 700;
+}
+
+/* صفحة الأداة في المتجر */
+.store-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-s);
+  margin-bottom: var(--space-xl);
+  text-align: center;
+}
+
+.store-hero h2 {
+  margin-top: var(--space-s);
+  font-size: var(--fs-title);
+}
+
+.store-hero p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--fs-small);
+}
+
+/* زر الإضافة أو الإزالة يبقى ظاهراً أسفل الشاشة أثناء التمرير */
+.store-action-bar {
+  position: sticky;
+  bottom: var(--space-l);
+  z-index: 3;
+  margin-top: var(--space-xl);
+  padding-top: var(--space-l);
+  background: linear-gradient(to bottom, transparent, var(--bg) 40%);
+}
+
+.has-dock .store-action-bar {
+  bottom: 104px;
+}
+
+.store-action {
+  width: 100%;
+  min-height: 52px;
+  padding: 0 var(--space-l);
   border: 1px solid transparent;
   border-radius: 999px;
   background: var(--accent-metal);
   color: var(--on-accent);
   font-family: var(--font-heading);
-  font-size: 1rem;
+  font-size: var(--fs-button);
   font-weight: 700;
+  box-shadow: var(--shadow);
 }
 
 .store-action.is-remove {
-  border-color: var(--border);
-  background: var(--surface-2);
-  color: var(--text);
+  border-color: var(--danger);
+  background: var(--bg);
+  color: var(--danger);
+  box-shadow: none;
 }
 
 /* الشريط العائم مثل Dock في Mac */
@@ -220,12 +352,19 @@ h3 {
   pointer-events: none;
 }
 
+/* عند الطي يصبح الشريط دائرة على يمين الشاشة */
+.dock-wrap.is-collapsed {
+  justify-content: flex-start;
+}
+
 .dock {
   display: flex;
-  max-width: min(100%, 640px);
-  padding: 4px 10px;
+  align-items: center;
+  gap: var(--space-s);
+  max-width: min(100%, 680px);
+  padding: 4px 8px;
   border: 1px solid var(--border);
-  border-radius: 26px;
+  border-radius: 28px;
   background: var(--dock-bg);
   -webkit-backdrop-filter: blur(18px) saturate(1.3);
   backdrop-filter: blur(18px) saturate(1.3);
@@ -233,11 +372,41 @@ h3 {
   pointer-events: auto;
 }
 
+.is-collapsed .dock {
+  padding: 4px;
+  border-radius: 50%;
+}
+
+.dock-toggle {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--surface-2);
+  color: var(--accent-text);
+}
+
+.dock-divider {
+  width: 1px;
+  height: 36px;
+  flex: none;
+  background: var(--border);
+}
+
+.is-collapsed .dock-divider,
+.dock-scroll[hidden] {
+  display: none;
+}
+
 .dock-scroll {
   display: flex;
-  gap: 8px;
+  gap: var(--space-s);
   min-width: 0;
-  padding-block: 7px;
+  padding: 8px 2px;
   overflow-x: auto;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
@@ -252,7 +421,7 @@ h3 {
   flex: none;
   padding: 0;
   border: 0;
-  border-radius: 15px;
+  border-radius: 16px;
   background: none;
   cursor: pointer;
   touch-action: pan-x;
@@ -261,12 +430,16 @@ h3 {
   -webkit-touch-callout: none;
 }
 
-.dock.is-dragging .dock-item {
-  transition: transform 0.2s ease;
+.dock-item .tool-tile {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  transform-origin: 50% 100%;
+  transition: transform 0.18s cubic-bezier(0.3, 0.7, 0.4, 1.3), box-shadow 0.16s ease;
 }
 
-.dock-item .tool-tile {
-  transition: transform 0.16s cubic-bezier(0.3, 0.7, 0.4, 1.3), box-shadow 0.16s ease;
+.dock.is-dragging .dock-item {
+  transition: transform 0.2s ease;
 }
 
 .dock-item:active .tool-tile {
@@ -283,29 +456,37 @@ h3 {
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
 }
 
+/* علامة الأداة المفتوحة: خط قصير تحتها */
 .dock-item.is-active::after {
   content: '';
   position: absolute;
-  bottom: -6px;
+  bottom: -7px;
   left: 50%;
-  width: 5px;
-  height: 5px;
-  margin-left: -2.5px;
-  border-radius: 50%;
-  background: var(--accent);
+  width: 16px;
+  height: 4px;
+  margin-left: -8px;
+  border-radius: 999px;
+  background: var(--accent-metal);
 }
 
-@media (hover: hover) {
-  .dock-item:hover .tool-tile {
-    transform: translateY(-2px) scale(1.05);
+/* على الكمبيوتر تكبر الأيقونة تحت الفأرة وما يجاورها، مثل Dock في Mac */
+@media (hover: hover) and (pointer: fine) {
+  .dock-scroll {
+    margin-top: -16px;
+    padding: 24px 12px 8px;
   }
 
-  .dock-item.is-held:hover .tool-tile {
-    transform: scale(1.1);
+  .dock:not(.is-dragging) .dock-item:hover .tool-tile {
+    transform: scale(1.28);
+  }
+
+  .dock:not(.is-dragging) .dock-item:hover + .dock-item .tool-tile,
+  .dock:not(.is-dragging) .dock-item:has(+ .dock-item:hover) .tool-tile {
+    transform: scale(1.12);
   }
 }
 
-/* الشريط العلوي: direction: ltr يثبّت الحساب يساراً والمتجر يميناً */
+/* الشريط العلوي: direction: ltr يثبّت المتجر يساراً والإعدادات يميناً */
 .topbar {
   direction: ltr;
   display: grid;
@@ -359,7 +540,7 @@ h3 {
 }
 
 .page-header h1 {
-  font-size: 1.5rem;
+  font-size: var(--fs-title);
 }
 
 /* صفحة الإعدادات: صفحة كاملة تملأ التطبيق */
@@ -404,7 +585,7 @@ h3 {
 .settings-header h1 {
   flex: 1;
   min-width: 0;
-  font-size: 1.375rem;
+  font-size: var(--fs-title);
   line-height: 1.3;
 }
 
@@ -440,7 +621,7 @@ h3 {
   gap: 4px;
   color: var(--accent-text);
   font-family: var(--font-heading);
-  font-size: 0.9375rem;
+  font-size: var(--fs-caption);
   font-weight: 700;
 }
 
@@ -472,7 +653,7 @@ h3 {
   min-width: 0;
   overflow-wrap: anywhere;
   font-family: var(--font-heading);
-  font-size: 0.9375rem;
+  font-size: var(--fs-caption);
   font-weight: 700;
   text-align: left;
   -webkit-user-select: all;
@@ -489,7 +670,7 @@ h3 {
   background: var(--accent-metal);
   color: var(--on-accent);
   font-family: var(--font-heading);
-  font-size: 0.9375rem;
+  font-size: var(--fs-caption);
   font-weight: 700;
 }
 
@@ -807,7 +988,7 @@ h3 {
 }
 
 .tour-title {
-  font-size: 1.375rem;
+  font-size: var(--fs-title);
 }
 
 .tour-text {
@@ -848,7 +1029,7 @@ h3 {
   min-height: 50px;
   border-radius: 999px;
   font-family: var(--font-heading);
-  font-size: 1.0625rem;
+  font-size: var(--fs-button);
   font-weight: 700;
 }
 
@@ -868,7 +1049,7 @@ h3 {
 .settings-stack {
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: var(--space-xl);
   padding-bottom: 8px;
 }
 
@@ -876,14 +1057,14 @@ h3 {
   margin-bottom: 8px;
   padding-inline-start: 4px;
   color: var(--text-muted);
-  font-size: 0.9375rem;
+  font-size: var(--fs-caption);
   font-weight: 700;
 }
 
 .settings-hint {
   margin: 8px 4px 0;
   color: var(--text-muted);
-  font-size: 1rem;
+  font-size: var(--fs-small);
   line-height: 1.45;
 }
 
@@ -934,18 +1115,18 @@ h3 {
 }
 
 .faq-item summary {
-  padding: 13px 14px;
+  padding: var(--space-m) var(--space-l);
   font-family: var(--font-heading);
-  font-size: 0.9375rem;
+  font-size: var(--fs-button);
   font-weight: 700;
   cursor: pointer;
 }
 
 .faq-item p {
   margin: 0;
-  padding: 0 14px 14px;
+  padding: 0 var(--space-l) var(--space-l);
   color: var(--text-muted);
-  font-size: 1.0625rem;
+  font-size: var(--fs-small);
   line-height: 1.5;
 }
 
@@ -971,7 +1152,7 @@ h3 {
   padding: 0 18px;
   border-radius: 999px;
   font-family: var(--font-heading);
-  font-size: 1rem;
+  font-size: var(--fs-button);
   font-weight: 700;
 }
 
@@ -1015,7 +1196,7 @@ h3 {
 }
 
 .pinpad-title {
-  font-size: 1.125rem;
+  font-size: var(--fs-heading);
   font-weight: 700;
   text-align: center;
 }
@@ -1056,7 +1237,7 @@ h3 {
   min-height: 1.6em;
   margin: 8px 0;
   color: var(--danger);
-  font-size: 1rem;
+  font-size: var(--fs-small);
   text-align: center;
 }
 
@@ -1095,7 +1276,7 @@ h3 {
   background: none;
   color: var(--accent-text);
   font-family: var(--font-heading);
-  font-size: 1rem;
+  font-size: var(--fs-button);
   font-weight: 700;
 }
 
@@ -1126,7 +1307,7 @@ h3 {
   align-items: center;
   gap: 12px;
   min-height: 60px;
-  padding: 8px 14px;
+  padding: var(--space-s) var(--space-l);
 }
 
 .settings-row-icon {

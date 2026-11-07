@@ -8,13 +8,14 @@ import { useEnabledTools } from './core/enabledTools.jsx'
 import { useSettings } from './core/settings.jsx'
 import HomePage from './pages/HomePage.jsx'
 import StorePage from './pages/StorePage.jsx'
+import StoreToolPage from './pages/StoreToolPage.jsx'
 import ToolPage from './pages/ToolPage.jsx'
 
 export default function App() {
   const location = useLocation()
   const navigate = useNavigate()
   const { enabledTools } = useEnabledTools()
-  const { tourSeen, updateSettings } = useSettings()
+  const { tourSeen, dockCollapsed, updateSettings } = useSettings()
   const hasDock = enabledTools.length > 0
 
   // الدليل التعريفي يظهر تلقائياً في أول مرة فقط، ويُفتح بعدها من الإعدادات
@@ -63,7 +64,7 @@ export default function App() {
   return (
     <div className="app">
       <div
-        className={`app-shell${hasDock ? ' has-dock' : ''}`}
+        className={`app-shell${hasDock ? ' has-dock' : ''}${hasDock && dockCollapsed ? ' dock-collapsed' : ''}`}
         hidden={settingsOpen}
         inert={settingsOpen || tourOpen}
       >
@@ -72,6 +73,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/store" element={<StorePage />} />
+            <Route path="/store/:toolId" element={<StoreToolPage />} />
             <Route path="/tool/:toolId" element={<ToolPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

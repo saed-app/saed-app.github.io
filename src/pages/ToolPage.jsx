@@ -13,7 +13,7 @@ export default function ToolPage() {
 
   return (
     <div className="page">
-      <PageHeader title={tool.name} />
+      <PageHeader title={tool.name} tool={tool} />
       <tool.Page key={tool.id} />
     </div>
   )

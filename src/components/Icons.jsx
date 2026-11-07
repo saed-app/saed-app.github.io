@@ -84,6 +84,30 @@ export function GuideIcon(props) {
   )
 }
 
+export function HourglassIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="M6.500 3.500h11M6.500 20.500h11M7.500 3.500c0 4.500 4.500 6 4.500 8.500s-4.500 4-4.500 8.500M16.500 3.500c0 4.500-4.500 6-4.500 8.500s4.500 4 4.500 8.500" />
+    </Svg>
+  )
+}
+
+export function CheckIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="M5.500 12.500l4 4 9-9.500" />
+    </Svg>
+  )
+}
+
+export function ChevronSideIcon({ direction = 'left', ...props }) {
+  return (
+    <Svg {...props}>
+      <path d={direction === 'left' ? 'M14.500 5.500L8 12l6.500 6.500' : 'M9.500 5.500L16 12l-6.500 6.500'} />
+    </Svg>
+  )
+}
+
 export function ChevronDownIcon(props) {
   return (
     <Svg {...props}>

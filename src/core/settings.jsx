@@ -11,6 +11,7 @@ const DEFAULTS = {
   sounds: true,
   notifications: false,
   tourSeen: false,
+  dockCollapsed: false,
 }
 
 const FONT_SIZES = ['small', 'medium', 'large']

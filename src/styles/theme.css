@@ -5,6 +5,22 @@
   --font-heading: 'Tajawal', sans-serif;
   --font-body: 'Amiri', serif;
 
+  /* سلّم أحجام النصوص: كل نص في التطبيق يستخدم واحداً منها */
+  --fs-display: 1.75rem; /* التحية في الرئيسية */
+  --fs-title: 1.375rem; /* عنوان الصفحة */
+  --fs-heading: 1.125rem; /* عنوان بطاقة أو قسم بارز */
+  --fs-body: 1.1875rem; /* النص العادي */
+  --fs-small: 1.0625rem; /* الوصف والملاحظات */
+  --fs-button: 1rem; /* الأزرار */
+  --fs-caption: 0.9375rem; /* عناوين الأقسام الصغيرة والقيم */
+
+  /* المسافات مبنية على مضاعفات 4 و8 */
+  --space-xs: 4px;
+  --space-s: 8px;
+  --space-m: 12px;
+  --space-l: 16px;
+  --space-xl: 24px;
+
   /* مقاسات الحواف المدورة */
   --radius-s: 14px;
   --radius-m: 20px;

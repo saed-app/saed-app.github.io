@@ -1,7 +1,9 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 import { BackIcon } from './Icons.jsx'
+import ToolTile from './ToolTile.jsx'
 
-export default function PageHeader({ title }) {
+// عنوان الصفحات الداخلية، ومع tool تظهر أيقونة الأداة بجانب اسمها
+export default function PageHeader({ title, tool }) {
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -16,6 +18,7 @@ export default function PageHeader({ title }) {
       <button type="button" className="icon-button pressable" aria-label="رجوع" onClick={goBack}>
         <BackIcon />
       </button>
+      {tool && <ToolTile tool={tool} size="small" />}
       <h1>{title}</h1>
     </div>
   )
