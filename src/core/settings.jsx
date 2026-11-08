@@ -11,7 +11,6 @@ const DEFAULTS = {
   sounds: true,
   notifications: false,
   tourSeen: false,
-  dockCollapsed: false,
   homeDate: 'hijri',
 }
 

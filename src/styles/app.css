@@ -421,10 +421,6 @@ h3 {
   background: linear-gradient(to bottom, transparent, var(--bg) 40%);
 }
 
-.has-dock .store-action-bar {
-  bottom: 104px;
-}
-
 .store-action {
   width: 100%;
   min-height: 52px;
@@ -444,155 +440,6 @@ h3 {
   background: var(--bg);
   color: var(--danger);
   box-shadow: none;
-}
-
-/* الشريط العائم مثل Dock في Mac */
-.dock-wrap {
-  position: absolute;
-  bottom: calc(14px + env(safe-area-inset-bottom));
-  left: 0;
-  right: 0;
-  z-index: 10;
-  display: flex;
-  justify-content: center;
-  padding-inline: 12px;
-  pointer-events: none;
-}
-
-/* عند الطي يصبح الشريط دائرة على يمين الشاشة */
-.dock-wrap.is-collapsed {
-  justify-content: flex-start;
-}
-
-.dock {
-  display: flex;
-  align-items: center;
-  gap: var(--space-s);
-  max-width: min(100%, 680px);
-  padding: 4px 8px;
-  border: 1px solid var(--border);
-  border-radius: 28px;
-  background: var(--dock-bg);
-  -webkit-backdrop-filter: blur(18px) saturate(1.3);
-  backdrop-filter: blur(18px) saturate(1.3);
-  box-shadow: var(--shadow);
-  pointer-events: auto;
-}
-
-.is-collapsed .dock {
-  padding: 4px;
-  border-radius: 50%;
-}
-
-.dock-toggle {
-  display: grid;
-  flex: none;
-  place-items: center;
-  width: 46px;
-  height: 46px;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background: var(--surface-2);
-  color: var(--accent-text);
-}
-
-.dock-divider {
-  width: 1px;
-  height: 36px;
-  flex: none;
-  background: var(--border);
-}
-
-.is-collapsed .dock-divider,
-.dock-scroll[hidden] {
-  display: none;
-}
-
-.dock-scroll {
-  display: flex;
-  gap: var(--space-s);
-  min-width: 0;
-  padding: 8px 2px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-}
-
-.dock-scroll::-webkit-scrollbar {
-  display: none;
-}
-
-.dock-item {
-  position: relative;
-  flex: none;
-  padding: 0;
-  border: 0;
-  border-radius: 16px;
-  background: none;
-  cursor: pointer;
-  touch-action: pan-x;
-  -webkit-user-select: none;
-  user-select: none;
-  -webkit-touch-callout: none;
-}
-
-.dock-item .tool-tile {
-  width: 56px;
-  height: 56px;
-  border-radius: 16px;
-  transform-origin: 50% 100%;
-  transition: transform 0.18s cubic-bezier(0.3, 0.7, 0.4, 1.3), box-shadow 0.16s ease;
-}
-
-.dock.is-dragging .dock-item {
-  transition: transform 0.2s ease;
-}
-
-.dock-item:active .tool-tile {
-  transform: scale(0.92);
-}
-
-.dock.is-dragging .dock-item.is-held {
-  z-index: 2;
-  transition: none;
-}
-
-.dock-item.is-held .tool-tile {
-  transform: scale(1.1);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
-}
-
-/* علامة الأداة المفتوحة: خط قصير تحتها */
-.dock-item.is-active::after {
-  content: '';
-  position: absolute;
-  bottom: -7px;
-  left: 50%;
-  width: 16px;
-  height: 4px;
-  margin-left: -8px;
-  border-radius: 999px;
-  background: var(--accent-metal);
-}
-
-/* على الكمبيوتر تكبر الأيقونة قليلاً جداً تحت الفأرة */
-@media (hover: hover) and (pointer: fine) {
-  .dock:not(.is-dragging) .dock-item:hover .tool-tile {
-    transform: translateY(-2px) scale(1.07);
-  }
-}
-
-/* تظهر الأدوات بهدوء عند فتح الشريط */
-.dock-scroll:not([hidden]) {
-  animation: dock-reveal 0.26s cubic-bezier(0.32, 0.72, 0, 1);
-}
-
-@keyframes dock-reveal {
-  from {
-    opacity: 0;
-    transform: translateX(16px);
-  }
 }
 
 /* شاشة البداية */
@@ -1000,67 +847,6 @@ h3 {
   height: 7px;
 }
 
-.mock-add {
-  padding: 3px 9px;
-  border-radius: 999px;
-  background: var(--accent-metal);
-  color: var(--on-accent);
-  font-family: var(--font-heading);
-  font-size: 10px;
-  font-weight: 700;
-}
-
-.mock-dock {
-  position: absolute;
-  bottom: 14px;
-  left: 50%;
-  display: flex;
-  gap: 6px;
-  padding: 6px 8px;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  background: var(--dock-bg);
-  transform: translateX(-50%);
-}
-
-.mock-dock .tool-tile {
-  width: 32px;
-  height: 32px;
-  border-radius: 10px;
-}
-
-.mock-dock .tool-tile.is-swap-a {
-  animation: tour-swap-a 2.8s ease-in-out infinite;
-}
-
-.mock-dock .tool-tile.is-swap-b {
-  animation: tour-swap-b 2.8s ease-in-out infinite;
-}
-
-@keyframes tour-swap-a {
-  0%,
-  35% {
-    transform: none;
-  }
-
-  65%,
-  100% {
-    transform: translateX(-38px) scale(1.1);
-  }
-}
-
-@keyframes tour-swap-b {
-  0%,
-  35% {
-    transform: none;
-  }
-
-  65%,
-  100% {
-    transform: translateX(38px);
-  }
-}
-
 /* اليد المتحركة: تدخل ثم تضغط على المكان المقصود */
 .tour-hand {
   position: absolute;
@@ -1133,13 +919,13 @@ h3 {
   }
 
   65% {
-    transform: translateX(-38px) scale(0.82);
+    transform: translateX(-45px) scale(0.82);
   }
 
   75%,
   100% {
     opacity: 1;
-    transform: translateX(-38px);
+    transform: translateX(-45px);
   }
 }
 
@@ -1571,4 +1357,296 @@ h3 {
   padding-inline-start: 1.4em;
   text-align: start;
   line-height: 1.8;
+}
+
+/* الشريط السفلي: خمسة أزرار ثابتة */
+.bottom-bar {
+  position: absolute;
+  bottom: calc(12px + env(safe-area-inset-bottom));
+  left: 12px;
+  right: 12px;
+  z-index: 10;
+  direction: rtl;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 560px;
+  margin-inline: auto;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  background: var(--dock-bg);
+  -webkit-backdrop-filter: blur(18px) saturate(1.3);
+  backdrop-filter: blur(18px) saturate(1.3);
+  box-shadow: var(--shadow);
+}
+
+.bar-button {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--text);
+}
+
+.bar-button.is-current {
+  background: var(--surface-2);
+  color: var(--accent-text);
+}
+
+.bar-add {
+  width: 56px;
+  height: 56px;
+  background: var(--accent-metal);
+  color: var(--on-accent);
+  box-shadow: var(--shadow);
+}
+
+.bar-arrow svg {
+  transition: transform 0.26s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.bar-arrow.is-open svg {
+  transform: rotate(180deg);
+}
+
+.bar-toast {
+  position: absolute;
+  bottom: calc(96px + env(safe-area-inset-bottom));
+  left: 50%;
+  z-index: 11;
+  padding: var(--space-s) var(--space-l);
+  border-radius: 999px;
+  background: var(--text);
+  color: var(--bg);
+  font-family: var(--font-heading);
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  animation: toast-in 0.2s ease;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 8px);
+  }
+}
+
+/* لوحة الأدوات: ترتفع إلى ما فوق منتصف الشاشة بقليل، والشريط السفلي يبقى مكانه */
+.sheet-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  background: var(--scrim);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.26s ease;
+}
+
+.sheet-scrim.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.tools-sheet {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9;
+  height: 62%;
+  max-width: 680px;
+  margin-inline: auto;
+  padding-bottom: calc(92px + env(safe-area-inset-bottom));
+  border-radius: var(--radius-l) var(--radius-l) 0 0;
+  background: var(--bg);
+  box-shadow: var(--shadow);
+  visibility: hidden;
+  transform: translateY(105%);
+  transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1), visibility 0s linear 0.3s;
+}
+
+.tools-sheet.is-open {
+  visibility: visible;
+  transform: none;
+  transition-delay: 0s;
+}
+
+.tools-sheet-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-content: start;
+  justify-items: center;
+  gap: var(--space-l) var(--space-s);
+  height: 100%;
+  padding: var(--space-xl) var(--space-l);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.tools-sheet-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-l);
+  height: 100%;
+  padding: var(--space-xl);
+  text-align: center;
+}
+
+.tools-sheet-empty p {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.sheet-item {
+  position: relative;
+  padding: 0;
+  border: 0;
+  border-radius: 18px;
+  background: none;
+  cursor: pointer;
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.sheet-item .tool-tile {
+  width: 62px;
+  height: 62px;
+  border-radius: 18px;
+  transition: transform 0.18s cubic-bezier(0.3, 0.7, 0.4, 1.3), box-shadow 0.16s ease;
+}
+
+.tools-sheet.is-dragging .sheet-item {
+  transition: transform 0.2s ease;
+}
+
+.sheet-item:active .tool-tile {
+  transform: scale(0.92);
+}
+
+.tools-sheet.is-dragging .sheet-item.is-held {
+  z-index: 2;
+  transition: none;
+}
+
+.sheet-item.is-held .tool-tile {
+  transform: scale(1.1);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+/* علامة الأداة المفتوحة: خط قصير تحتها */
+.sheet-item.is-active::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  width: 18px;
+  height: 4px;
+  margin-left: -9px;
+  border-radius: 999px;
+  background: var(--accent-metal);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tools-sheet:not(.is-dragging) .sheet-item:hover .tool-tile {
+    transform: translateY(-2px) scale(1.07);
+  }
+}
+
+/* الشريط السفلي ولوحة الأدوات داخل رسم الدليل التعريفي */
+.mock-bar {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
+  z-index: 2;
+  direction: rtl;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 5px 0;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--dock-bg);
+  color: var(--text);
+}
+
+.mock-bar span {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+}
+
+.mock-bar .mock-bar-add {
+  border-radius: 50%;
+  background: var(--accent-metal);
+  color: var(--on-accent);
+}
+
+.mock-sheet {
+  position: absolute;
+  top: 40%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-content: start;
+  justify-items: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 20px 20px 0 0;
+  background: var(--surface);
+  box-shadow: 0 -4px 14px rgba(0, 0, 0, 0.14);
+}
+
+.mock-sheet .tool-tile {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+}
+
+.mock-sheet .tool-tile.is-swap-a {
+  animation: tour-swap-a 2.8s ease-in-out infinite;
+}
+
+.mock-sheet .tool-tile.is-swap-b {
+  animation: tour-swap-b 2.8s ease-in-out infinite;
+}
+
+@keyframes tour-swap-a {
+  0%,
+  35% {
+    transform: none;
+  }
+
+  65%,
+  100% {
+    transform: translateX(-45px) scale(1.1);
+  }
+}
+
+@keyframes tour-swap-b {
+  0%,
+  35% {
+    transform: none;
+  }
+
+  65%,
+  100% {
+    transform: translateX(45px);
+  }
 }

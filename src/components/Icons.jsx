@@ -84,10 +84,18 @@ export function GuideIcon(props) {
   )
 }
 
-export function HourglassIcon(props) {
+export function ChartIcon(props) {
   return (
     <Svg {...props}>
-      <path d="M6.500 3.500h11M6.500 20.500h11M7.500 3.500c0 4.500 4.500 6 4.500 8.500s-4.500 4-4.500 8.500M16.500 3.500c0 4.500-4.500 6-4.500 8.500s4.500 4 4.500 8.500" />
+      <path d="M5 20v-8M12 20V5M19 20v-5" />
+    </Svg>
+  )
+}
+
+export function ChevronUpIcon(props) {
+  return (
+    <Svg {...props}>
+      <path d="M6 15l6-6 6 6" />
     </Svg>
   )
 }

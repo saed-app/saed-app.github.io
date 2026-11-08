@@ -1,61 +1,102 @@
 import { useEffect, useRef, useState } from 'react'
 import { tools } from '../tools/registry.js'
-import { GearIcon, HandIcon, PlusIcon, StoreIcon } from './Icons.jsx'
+import {
+  ChartIcon,
+  ChevronUpIcon,
+  GearIcon,
+  HandIcon,
+  PlusIcon,
+  SlidersIcon,
+  StoreIcon,
+} from './Icons.jsx'
 import ToolTile from './ToolTile.jsx'
 
 // الدليل التعريفي: شاشات متتالية، في كل منها جوال يعرض نسخة مبسطة من التطبيق ويد تشير إلى المكان المقصود.
 // المواضع x وy نسبة مئوية داخل شاشة الجوال.
 const STEPS = [
   {
-    screen: 'home',
+    screen: 'empty',
     hand: { x: 50, y: 53 },
     title: 'أضف أدواتك',
     text: 'ابدأ من هنا: اضغط «أدوات» لتختار ما تحتاجه.',
   },
   {
     screen: 'store',
-    hand: { x: 18, y: 19 },
+    hand: { x: 50, y: 19 },
     title: 'المتجر',
-    text: 'في المتجر تضيف الأداة بضغطة، وتزيلها متى شئت.',
+    text: 'اضغط على أي أداة لتتعرف عليها، ثم أضفها بضغطة زر.',
   },
   {
-    screen: 'dock',
-    hand: { x: 13, y: 7 },
+    screen: 'home',
+    hand: { x: 13, y: 92 },
     title: 'المتجر دائماً قريب',
-    text: 'تصل إلى المتجر في أي وقت من هذه الأيقونة.',
+    text: 'تصل إلى المتجر في أي وقت من هذا الزر.',
   },
   {
-    screen: 'dock',
-    hand: { x: 50, y: 92 },
-    title: 'افتح أدواتك',
-    text: 'تظهر أدواتك في الشريط السفلي، فاضغط أي أداة لتفتحها.',
+    screen: 'sheet',
+    hand: { x: 87, y: 92 },
+    title: 'كل أدواتك هنا',
+    text: 'اضغط السهم لتظهر لوحة أدواتك، ثم اختر الأداة التي تريدها.',
   },
   {
-    screen: 'dock',
-    hand: { x: 69, y: 92 },
+    screen: 'sheet',
+    hand: { x: 84, y: 47 },
     drag: true,
     title: 'رتّب أدواتك',
     text: 'اضغط مطولاً على أداة، ثم اسحبها لتغيير مكانها.',
   },
   {
-    screen: 'dock',
+    screen: 'home',
+    hand: { x: 50, y: 92 },
+    title: 'أضف بسرعة',
+    text: 'زر + يضيف جديداً في الأداة المفتوحة: ملاحظة، أو مهمة، أو غيرهما.',
+  },
+  {
+    screen: 'home',
+    hand: { x: 68, y: 92 },
+    title: 'إعدادات الأداة وإحصائياتها',
+    text: 'على يمين الزر + إعدادات الأداة المفتوحة، وعلى يساره إحصائياتها.',
+  },
+  {
+    screen: 'home',
     hand: { x: 87, y: 7 },
-    title: 'الإعدادات',
-    text: 'ومن هنا الإعدادات: المظهر، والقفل، والدعم، وهذا الدليل.',
+    title: 'إعدادات التطبيق',
+    text: 'ومن هنا إعدادات التطبيق كله: المظهر، والقفل، والدعم، وهذا الدليل.',
   },
 ]
 
-const SAMPLE_TOOLS = tools.slice(0, 3)
+const STORE_TOOLS = tools.slice(0, 3)
+const SHEET_TOOLS = tools.slice(0, 8)
 
 function MockTopBar() {
   return (
     <div className="mock-topbar">
-      <span className="mock-icon">
-        <StoreIcon size={14} />
-      </span>
+      <span />
       <span className="mock-title">ساعد</span>
       <span className="mock-icon">
         <GearIcon size={14} />
+      </span>
+    </div>
+  )
+}
+
+function MockBottomBar() {
+  return (
+    <div className="mock-bar">
+      <span>
+        <ChevronUpIcon size={15} />
+      </span>
+      <span>
+        <SlidersIcon size={15} />
+      </span>
+      <span className="mock-bar-add">
+        <PlusIcon size={15} />
+      </span>
+      <span>
+        <ChartIcon size={15} />
+      </span>
+      <span>
+        <StoreIcon size={15} />
       </span>
     </div>
   )
@@ -65,14 +106,13 @@ function MockScreen({ screen, drag }) {
   if (screen === 'store') {
     return (
       <div className="mock-store">
-        {SAMPLE_TOOLS.map((tool) => (
+        {STORE_TOOLS.map((tool) => (
           <div className="mock-card" key={tool.id}>
             <ToolTile tool={tool} />
             <span className="mock-card-text">
               <span className="mock-line" />
               <span className="mock-line is-short" />
             </span>
-            <span className="mock-add">إضافة</span>
           </div>
         ))}
       </div>
@@ -84,7 +124,7 @@ function MockScreen({ screen, drag }) {
       <div className="mock-home">
         <span className="mock-line" />
         <span className="mock-line is-short" />
-        {screen === 'home' && (
+        {screen === 'empty' && (
           <>
             <span className="mock-plus">
               <PlusIcon size={30} />
@@ -93,18 +133,19 @@ function MockScreen({ screen, drag }) {
           </>
         )}
       </div>
-      {screen === 'dock' && (
-        <div className="mock-dock">
-          {SAMPLE_TOOLS.map((tool, index) => {
+      {screen === 'sheet' && (
+        <div className="mock-sheet">
+          {SHEET_TOOLS.map((tool, index) => {
             const swap = drag && index === 0 ? ' is-swap-a' : drag && index === 1 ? ' is-swap-b' : ''
             return (
               <span key={tool.id} className={`tool-tile${swap}`} style={{ background: tool.color }}>
-                <tool.Icon size={18} />
+                <tool.Icon size={17} />
               </span>
             )
           })}
         </div>
       )}
+      <MockBottomBar />
     </>
   )
 }
