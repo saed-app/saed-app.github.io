@@ -13,7 +13,7 @@ function iconSvg(scale) {
   <rect width="64" height="64" fill="#FBF8F2"/>
   <g transform="translate(${offset} ${offset}) scale(${scale})">
     <path d="${RING}" fill="none" stroke="#BF9730" stroke-width="8" stroke-linecap="round"/>
-    <circle cx="${DOT.cx}" cy="${DOT.cy}" r="${DOT.r}" fill="#000000" stroke="#BF9730" stroke-width="1.5"/>
+    <circle cx="${DOT.cx}" cy="${DOT.cy}" r="${DOT.r}" fill="#000000"/>
   </g>
 </svg>`
 }
@@ -21,14 +21,15 @@ function iconSvg(scale) {
 const ICONS = [
   { file: 'pwa-192.png', size: 192, scale: 0.86 },
   { file: 'pwa-512.png', size: 512, scale: 0.86 },
+  { file: 'pwa-1024.png', size: 1024, scale: 0.86 },
   { file: 'maskable-512.png', size: 512, scale: 0.66 },
   { file: 'apple-touch-icon.png', size: 180, scale: 0.8 },
 ]
 
 await mkdir('public/icons', { recursive: true })
 for (const icon of ICONS) {
-  const png = await sharp(Buffer.from(iconSvg(icon.scale)), { density: 600 })
-    .resize(icon.size, icon.size)
+  const png = await sharp(Buffer.from(iconSvg(icon.scale)), { density: 1200 })
+    .resize(icon.size, icon.size, { kernel: 'lanczos3' })
     .png()
     .toBuffer()
   await writeFile(`public/icons/${icon.file}`, png)

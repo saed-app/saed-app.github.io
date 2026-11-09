@@ -6,6 +6,7 @@ export const LOGO_DOT = { cx: 44.73, cy: 19.27, r: 5 }
 export default function Logo({ size = 64, title }) {
   return (
     <svg
+      shapeRendering="geometricPrecision"
       width={size}
       height={size}
       viewBox="0 0 64 64"
@@ -14,7 +15,7 @@ export default function Logo({ size = 64, title }) {
       aria-hidden={title ? undefined : 'true'}
     >
       <path d={LOGO_RING} fill="none" stroke="var(--logo-ring)" strokeWidth="8" strokeLinecap="round" />
-      <circle {...LOGO_DOT} fill="var(--logo-dot)" stroke="var(--logo-ring)" strokeWidth="1.5" />
+      <circle {...LOGO_DOT} fill="var(--logo-dot)" />
     </svg>
   )
 }
