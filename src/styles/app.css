@@ -1439,92 +1439,86 @@ h3 {
   }
 }
 
-/* لوحة الأدوات: ترتفع إلى ما فوق منتصف الشاشة بقليل، والشريط السفلي يبقى مكانه */
-.sheet-scrim {
-  position: absolute;
-  inset: 0;
-  z-index: 8;
-  background: var(--scrim);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.26s ease;
-}
-
-.sheet-scrim.is-open {
-  opacity: 1;
-  pointer-events: auto;
-}
-
+/* شريط الأدوات: صف يتمرر يميناً ويساراً، يرتفع فوق الشريط السفلي بالسهم ويعود للأسفل */
 .tools-sheet {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  bottom: calc(88px + env(safe-area-inset-bottom));
+  left: 12px;
+  right: 12px;
   z-index: 9;
-  height: 62%;
-  max-width: 680px;
+  width: fit-content;
+  max-width: min(560px, calc(100% - 24px));
   margin-inline: auto;
-  padding-bottom: calc(92px + env(safe-area-inset-bottom));
-  border-radius: var(--radius-l) var(--radius-l) 0 0;
-  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 26px;
+  background: var(--dock-bg);
+  -webkit-backdrop-filter: blur(18px) saturate(1.3);
+  backdrop-filter: blur(18px) saturate(1.3);
   box-shadow: var(--shadow);
+  opacity: 0;
   visibility: hidden;
-  transform: translateY(105%);
-  transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1), visibility 0s linear 0.3s;
+  transform: translateY(calc(100% + 96px));
+  transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.2s ease, visibility 0s linear 0.3s;
 }
 
 .tools-sheet.is-open {
+  opacity: 1;
   visibility: visible;
   transform: none;
   transition-delay: 0s;
 }
 
 .tools-sheet-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  align-content: start;
-  justify-items: center;
-  gap: var(--space-l) var(--space-s);
-  height: 100%;
-  padding: var(--space-xl) var(--space-l);
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--border) transparent;
+  display: flex;
+  align-items: center;
+  gap: var(--space-m);
+  padding: var(--space-m) var(--space-l) var(--space-l);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.tools-sheet-grid::-webkit-scrollbar {
+  display: none;
 }
 
 .tools-sheet-empty {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
   gap: var(--space-l);
-  height: 100%;
-  padding: var(--space-xl);
-  text-align: center;
+  padding: var(--space-m) var(--space-l);
 }
 
 .tools-sheet-empty p {
   margin: 0;
   color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.tools-sheet-empty .store-action {
+  width: auto;
+  min-height: 44px;
+  white-space: nowrap;
 }
 
 .sheet-item {
   position: relative;
+  flex: none;
   padding: 0;
   border: 0;
-  border-radius: 18px;
+  border-radius: 16px;
   background: none;
   cursor: pointer;
-  touch-action: pan-y;
+  touch-action: pan-x;
   -webkit-user-select: none;
   user-select: none;
   -webkit-touch-callout: none;
 }
 
 .sheet-item .tool-tile {
-  width: 62px;
-  height: 62px;
-  border-radius: 18px;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
   transition: transform 0.18s cubic-bezier(0.3, 0.7, 0.4, 1.3), box-shadow 0.16s ease;
 }
 
@@ -1598,22 +1592,22 @@ h3 {
 
 .mock-sheet {
   position: absolute;
-  top: 40%;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  align-content: start;
-  justify-items: center;
-  gap: 8px;
-  padding: 12px;
-  border-radius: 20px 20px 0 0;
+  bottom: 46px;
+  left: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 8px 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 14px;
   background: var(--surface);
-  box-shadow: 0 -4px 14px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
 }
 
 .mock-sheet .tool-tile {
+  flex: none;
   width: 30px;
   height: 30px;
   border-radius: 9px;
@@ -1648,5 +1642,267 @@ h3 {
   65%,
   100% {
     transform: translateX(45px);
+  }
+}
+
+/* ========= العرض على الشاشات الكبيرة =========
+   نقاط التحول، ويجب أن تطابق core/viewport.js:
+   الجوال: أقل من 768، وهو الأساس في كل ما سبق ولا يتأثر بهذا القسم.
+   التابلت: من 768. واللابتوب: من 1024. والشاشات الواسعة: من 1440. */
+
+/* لوحة الإعدادات: خلفيتها تظهر على اللابتوب فقط */
+.settings-scrim {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .page {
+    max-width: 880px;
+    padding-inline: var(--space-xl);
+  }
+
+  .page-header {
+    margin-inline: calc(var(--space-xl) * -1);
+    padding-inline: var(--space-xl);
+  }
+
+  .bottom-bar {
+    width: fit-content;
+    gap: var(--space-m);
+  }
+
+  .store-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .store-tool.page {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .page {
+    max-width: 1120px;
+  }
+
+  .store-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* في الشبكة تنتقل علامة «مضافة» إلى الزاوية حتى يأخذ النص عرض البطاقة كله */
+  .store-card {
+    position: relative;
+    align-items: flex-start;
+  }
+
+  .store-card .settings-row-chevron {
+    display: none;
+  }
+
+  .store-badge {
+    position: absolute;
+    bottom: var(--space-m);
+    inset-inline-end: var(--space-m);
+  }
+
+  .store-card-text {
+    padding-bottom: var(--space-xl);
+  }
+
+  /* لا يوجد شريط أزرار على اللابتوب، فالسهم وحده صغير ولا يحجز مساحة */
+  .has-dock .page {
+    padding-bottom: 72px;
+  }
+
+  .bottom-bar {
+    bottom: 10px;
+    padding: 0 var(--space-s);
+    border-radius: 999px;
+  }
+
+  .bottom-bar .bar-arrow {
+    width: 56px;
+    height: 30px;
+  }
+
+  .tools-sheet {
+    bottom: 52px;
+    max-width: min(760px, calc(100% - 48px));
+  }
+
+  .bar-toast {
+    bottom: 56px;
+  }
+
+  /* صفحة الأداة: الإعدادات بطاقة صغيرة على اليمين والأداة في الوسط */
+  .tool-layout {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: var(--space-xl);
+    align-items: start;
+  }
+
+  .tool-layout-main {
+    grid-row: 1;
+    grid-column: 2;
+    min-width: 0;
+  }
+
+  .tool-layout-side {
+    position: sticky;
+    top: 76px;
+    grid-row: 1;
+    grid-column: 1;
+    max-height: calc(100dvh - 200px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+    border-radius: var(--radius-l);
+  }
+
+  .tool-layout-side:focus-visible {
+    outline-offset: -3px;
+  }
+
+  .tool-layout-side .tool-settings {
+    padding: var(--space-m);
+  }
+
+  .tool-layout-side .tool-settings-head {
+    margin-bottom: var(--space-m);
+  }
+
+  .tool-layout-side .tool-settings-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-s);
+  }
+
+  .tool-layout-side .tool-setting {
+    padding: var(--space-s) var(--space-m) var(--space-m);
+  }
+
+  .tool-actions {
+    display: flex;
+    gap: var(--space-s);
+  }
+
+  .tool-action-add {
+    border: 0;
+    background: var(--accent-metal);
+    color: var(--on-accent);
+  }
+
+  /* الإعدادات العامة: لوحة جانبية بعرض ثابت من اليسار، والتطبيق ظاهر خلفها */
+  .settings-scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 49;
+    background: var(--scrim);
+    animation: settings-scrim-in 0.26s ease;
+  }
+
+  .settings-screen {
+    right: auto;
+    width: 420px;
+    box-shadow: var(--shadow);
+    animation-name: settings-panel-in;
+  }
+}
+
+@keyframes settings-scrim-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes settings-panel-in {
+  from {
+    transform: translateX(-100%);
+  }
+}
+
+@media (min-width: 1280px) {
+  /* عمود فارغ مساوٍ لعمود الإعدادات حتى تكون الأداة في منتصف الشاشة تماماً */
+  .tool-layout {
+    grid-template-columns: 260px minmax(0, 1fr) 260px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .page {
+    max-width: 1280px;
+  }
+
+  .store-list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .store-tool.page {
+    max-width: 720px;
+  }
+}
+
+/* تأثيرات المرور بالفأرة: للأجهزة التي فيها فأرة فقط، فلا تظهر على اللمس */
+@media (hover: hover) and (pointer: fine) {
+  .pressable {
+    transition: transform 0.16s cubic-bezier(0.3, 0.7, 0.4, 1.3), background-color 0.2s ease,
+      border-color 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  }
+
+  .icon-button:hover,
+  .bar-button:not(.bar-add):hover,
+  .cancel-button:hover,
+  .pinpad-key:not(.is-plain):hover,
+  .tour-prev:hover {
+    background: var(--surface-2);
+    border-color: var(--accent);
+  }
+
+  .tool-action-add:hover,
+  .bar-add:hover,
+  .store-action:not(.is-remove):hover,
+  .copy-button:hover,
+  .tour-next:hover,
+  .add-tools:hover .add-tools-circle {
+    filter: brightness(1.08);
+  }
+
+  .store-card:hover:not(:active) {
+    border-color: var(--accent);
+    box-shadow: var(--shadow);
+    transform: translateY(-3px);
+  }
+
+  .settings-link:hover,
+  .select-row:hover,
+  .faq-item summary:hover {
+    background: var(--surface-2);
+  }
+
+  .tool-choice-option:not(.is-selected):hover {
+    border-color: var(--tool-color);
+  }
+
+  .danger-button:hover,
+  .store-action.is-remove:hover {
+    background: color-mix(in srgb, var(--danger) 12%, transparent);
+  }
+
+  .text-button:hover {
+    background: var(--surface-2);
+  }
+
+  .toggle:hover {
+    filter: brightness(1.08);
+  }
+
+  .bar-arrow:hover:not(:active) svg {
+    transform: translateY(-2px);
+  }
+
+  .bar-arrow.is-open:hover:not(:active) svg {
+    transform: rotate(180deg) translateY(-2px);
   }
 }

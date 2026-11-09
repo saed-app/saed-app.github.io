@@ -2,10 +2,11 @@ import { useEffect, useRef, useState } from 'react'
 import { useLocation, useMatch, useNavigate } from 'react-router-dom'
 import { useEnabledTools } from '../core/enabledTools.jsx'
 import { getTool } from '../tools/registry.js'
+import { useIsLaptop } from '../core/viewport.js'
 import { ChartIcon, ChevronUpIcon, PlusIcon, SlidersIcon, StoreIcon } from './Icons.jsx'
 import ToolsSheet from './ToolsSheet.jsx'
 
-// الشريط السفلي: خمسة أزرار ثابتة. من اليمين إلى اليسار:
+// الشريط السفلي في الجوال والتابلت: خمسة أزرار ثابتة، وعلى اللابتوب يبقى السهم وحده. من اليمين إلى اليسار:
 // سهم لوحة الأدوات، إعدادات الأداة، زر +، إحصائيات الأداة، المتجر.
 export default function BottomBar() {
   const navigate = useNavigate()
@@ -14,11 +15,12 @@ export default function BottomBar() {
   const toolId = useMatch('/tool/:toolId/*')?.params.toolId
   const activeTool = toolId && isEnabled(toolId) ? getTool(toolId) : null
 
+  const isLaptop = useIsLaptop()
   const [sheetOpen, setSheetOpen] = useState(false)
   const [toast, setToast] = useState('')
   const toastTimer = useRef(0)
 
-  // تُغلق اللوحة عند الانتقال إلى أي صفحة
+  // يُغلق الشريط عند الانتقال إلى أي صفحة
   useEffect(() => {
     setSheetOpen(false)
   }, [pathname])
@@ -42,7 +44,7 @@ export default function BottomBar() {
 
   const toolHome = activeTool ? `/tool/${activeTool.id}` : null
 
-  // في الرئيسية لا توجد أداة مفتوحة، فالأزرار الثلاثة ترفع لوحة الأدوات لتختار واحدة
+  // في الرئيسية لا توجد أداة مفتوحة، فالأزرار الثلاثة ترفع شريط الأدوات لتختار واحدة
   function openToolPage(page) {
     if (!activeTool) {
       setSheetOpen(true)
@@ -78,11 +80,6 @@ export default function BottomBar() {
 
   return (
     <>
-      <div
-        className={`sheet-scrim${sheetOpen ? ' is-open' : ''}`}
-        onClick={() => setSheetOpen(false)}
-        aria-hidden="true"
-      />
       <ToolsSheet
         open={sheetOpen}
         activeId={activeTool?.id}
@@ -107,6 +104,8 @@ export default function BottomBar() {
         >
           <ChevronUpIcon size={24} />
         </button>
+        {!isLaptop && (
+          <>
         <button
           type="button"
           className={`bar-button pressable${onSettings ? ' is-current' : ''}`}
@@ -141,6 +140,8 @@ export default function BottomBar() {
         >
           <StoreIcon size={24} />
         </button>
+          </>
+        )}
       </nav>
     </>
   )

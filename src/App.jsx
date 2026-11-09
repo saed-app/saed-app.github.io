@@ -5,6 +5,7 @@ import BottomBar from './components/BottomBar.jsx'
 import SettingsScreen from './components/SettingsScreen.jsx'
 import Tour from './components/Tour.jsx'
 import { useSettings } from './core/settings.jsx'
+import { useIsLaptop } from './core/viewport.js'
 import HomePage from './pages/HomePage.jsx'
 import StorePage from './pages/StorePage.jsx'
 import StoreToolPage from './pages/StoreToolPage.jsx'
@@ -15,6 +16,7 @@ export default function App() {
   const navigate = useNavigate()
   const { tourSeen, updateSettings } = useSettings()
   // الشريط السفلي يظهر في الرئيسية وصفحات الأدوات فقط، ويختفي في المتجر
+  const isLaptop = useIsLaptop()
   const hasBar = location.pathname === '/' || location.pathname.startsWith('/tool/')
 
   // الدليل التعريفي يظهر تلقائياً في أول مرة فقط، ويُفتح بعدها من الإعدادات
@@ -64,7 +66,7 @@ export default function App() {
     <div className="app">
       <div
         className={`app-shell${hasBar ? ' has-dock' : ''}`}
-        hidden={settingsOpen}
+        hidden={settingsOpen && !isLaptop}
         inert={settingsOpen || tourOpen}
       >
         <TopBar onOpenSettings={openSettings} />
@@ -90,6 +92,7 @@ export default function App() {
           onOpenPage={openSettingsPage}
           onBack={settingsBack}
           onOpenGuide={() => setTourOpen(true)}
+          onOpenStore={() => navigate('/store', { replace: true })}
           inert={tourOpen}
         />
       )}

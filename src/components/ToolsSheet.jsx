@@ -7,8 +7,8 @@ const MOVE_TOLERANCE = 8
 const EDGE_ZONE = 44
 const EDGE_SPEED = 6
 
-// لوحة الأدوات: ترتفع فوق الشريط السفلي عند الضغط على السهم.
-// الضغط على أداة يفتحها، والضغط المطول ثم السحب يغيّر مكانها، والسحب السريع يمرّر اللوحة.
+// شريط الأدوات: صف يتمرر يميناً ويساراً، يرتفع عند الضغط على السهم ويعود للأسفل.
+// الضغط على أداة يفتحها، والضغط المطول ثم السحب يغيّر مكانها، والسحب السريع يمرّر الشريط.
 export default function ToolsSheet({ open, activeId, onSelect, onOpenStore }) {
   const { enabledTools, reorderTools } = useEnabledTools()
   const grid = useRef(null)
@@ -20,7 +20,7 @@ export default function ToolsSheet({ open, activeId, onSelect, onOpenStore }) {
 
   const ids = enabledTools.map((tool) => tool.id)
 
-  // يمنع الجوال من تمرير اللوحة أثناء سحب أداة
+  // يمنع الجوال من تمرير الشريط أثناء سحب أداة
   useEffect(() => {
     const el = grid.current
     if (!el) return undefined
@@ -45,14 +45,14 @@ export default function ToolsSheet({ open, activeId, onSelect, onOpenStore }) {
     if (!geometry) return
     const el = grid.current
     const rect = el.getBoundingClientRect()
-    const shift = el.scrollTop - geometry.scrollStart
+    const shift = el.scrollLeft - geometry.scrollStart
     const fingerX = Math.min(Math.max(geometry.lastX - geometry.grabX, rect.left), rect.right)
     const fingerY = Math.min(Math.max(geometry.lastY - geometry.grabY, rect.top), rect.bottom)
 
     let target = 0
     let best = Infinity
     geometry.centers.forEach((center, index) => {
-      const distance = Math.hypot(fingerX - center.x, fingerY - (center.y - shift))
+      const distance = Math.hypot(fingerX - (center.x - shift), fingerY - center.y)
       if (distance < best) {
         best = distance
         target = index
@@ -67,21 +67,21 @@ export default function ToolsSheet({ open, activeId, onSelect, onOpenStore }) {
       id: geometry.id,
       order,
       centers: geometry.centers,
-      offsetX: fingerX - home.x,
-      offsetY: fingerY - (home.y - shift),
+      offsetX: fingerX - (home.x - shift),
+      offsetY: fingerY - home.y,
     })
   }, [])
 
-  // عند اقتراب الإصبع من طرف اللوحة تتحرك تلقائياً للوصول إلى الأدوات المخفية
+  // عند اقتراب الإصبع من طرف الشريط يتحرك تلقائياً للوصول إلى الأدوات المخفية
   const tick = useCallback(() => {
     const geometry = dragGeometry.current
     if (!geometry) return
     const el = grid.current
     const rect = el.getBoundingClientRect()
-    const before = el.scrollTop
-    if (geometry.lastY < rect.top + EDGE_ZONE) el.scrollTop -= EDGE_SPEED
-    else if (geometry.lastY > rect.bottom - EDGE_ZONE) el.scrollTop += EDGE_SPEED
-    if (el.scrollTop !== before) updateDrag()
+    const before = el.scrollLeft
+    if (geometry.lastX < rect.left + EDGE_ZONE) el.scrollLeft -= EDGE_SPEED
+    else if (geometry.lastX > rect.right - EDGE_ZONE) el.scrollLeft += EDGE_SPEED
+    if (el.scrollLeft !== before) updateDrag()
     frame.current = requestAnimationFrame(tick)
   }, [updateDrag])
 
@@ -102,7 +102,7 @@ export default function ToolsSheet({ open, activeId, onSelect, onOpenStore }) {
       id: current.id,
       ids,
       centers,
-      scrollStart: el.scrollTop,
+      scrollStart: el.scrollLeft,
       grabX: current.lastX - home.x,
       grabY: current.lastY - home.y,
       lastX: current.lastX,
@@ -130,7 +130,7 @@ export default function ToolsSheet({ open, activeId, onSelect, onOpenStore }) {
       startY: event.clientY,
       lastX: event.clientX,
       lastY: event.clientY,
-      scrollStart: grid.current.scrollTop,
+      scrollStart: grid.current.scrollLeft,
       mouse: event.pointerType === 'mouse',
       mode: 'press',
       timer: setTimeout(beginDrag, LONG_PRESS_MS),
@@ -154,7 +154,7 @@ export default function ToolsSheet({ open, activeId, onSelect, onOpenStore }) {
     }
 
     if (current.mode === 'scroll') {
-      grid.current.scrollTop = current.scrollStart - (event.clientY - current.startY)
+      grid.current.scrollLeft = current.scrollStart - (event.clientX - current.startX)
     } else if (current.mode === 'drag') {
       dragGeometry.current.lastX = event.clientX
       dragGeometry.current.lastY = event.clientY
