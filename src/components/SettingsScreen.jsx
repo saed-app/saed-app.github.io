@@ -3,6 +3,7 @@ import { BackIcon, ChevronStartIcon } from './Icons.jsx'
 import { SETTINGS_PAGES } from '../settings/pages.js'
 import { isInstalled } from '../core/install.js'
 import { useIsLaptop } from '../core/viewport.js'
+import { APP_VERSION } from '../config.js'
 
 // صفحة الإعدادات: تملأ التطبيق، وفيها قائمة التصنيفات وصفحاتها الداخلية.
 // زر الرجوع يعيد من الصفحة الداخلية إلى القائمة، ومن القائمة إلى التطبيق.
@@ -64,6 +65,7 @@ export default function SettingsScreen({ page, onOpenPage, onBack, onOpenGuide, 
           {current ? (
             <current.Page />
           ) : (
+            <>
             <nav className="settings-group" aria-label="تصنيفات الإعدادات">
               {items.map((item) => (
                 <button
@@ -82,6 +84,8 @@ export default function SettingsScreen({ page, onOpenPage, onBack, onOpenGuide, 
                 </button>
               ))}
             </nav>
+            <p className="settings-version">الإصدار {APP_VERSION}</p>
+            </>
           )}
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import TopBar from './components/TopBar.jsx'
+import UpdateBanner from './components/UpdateBanner.jsx'
 import BottomBar from './components/BottomBar.jsx'
 import SettingsScreen from './components/SettingsScreen.jsx'
 import Tour from './components/Tour.jsx'
@@ -70,6 +71,7 @@ export default function App() {
         inert={settingsOpen || tourOpen}
       >
         <TopBar onOpenSettings={openSettings} />
+        <UpdateBanner />
         <main className="app-main">
           {/* المفتاح يعيد تشغيل حركة الظهور الخفيفة عند فتح كل صفحة */}
           <div className="route-view" key={location.pathname}>
