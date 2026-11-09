@@ -40,11 +40,11 @@ describe('اللابتوب', () => {
     expect(await screen.findByText('عدد الإضافات: 1')).toBeTruthy()
   })
 
-  it('زر + في الأداة غير الجاهزة يعرض «هذه الأداة قريباً»', async () => {
+  it('الأداة التي لا تبدأ عنصراً جديداً ليس لها زر +', async () => {
     useScreen(1440)
     await renderApp({ route: '/tool/soon', tools: ['soon'] })
-    clickButton('إضافة جديدة في أداة غير جاهزة')
-    expect(screen.getByRole('status').textContent).toBe('هذه الأداة قريباً')
+    expect(screen.queryByRole('button', { name: 'إضافة جديدة في أداة غير جاهزة' })).toBeNull()
+    expect(screen.getByRole('button', { name: 'إحصائيات الأداة' })).toBeTruthy()
   })
 
   it('زر الإحصائيات في العنوان يفتحها', async () => {

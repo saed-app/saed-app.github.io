@@ -1,16 +1,21 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useEnabledTools } from '../core/enabledTools.jsx'
 import ToolTile from './ToolTile.jsx'
+import { useIsLaptop } from '../core/viewport.js'
 
 const LONG_PRESS_MS = 380
 const MOVE_TOLERANCE = 8
 const EDGE_ZONE = 44
 const EDGE_SPEED = 6
 
-// شريط الأدوات: صف يتمرر يميناً ويساراً، يرتفع عند الضغط على السهم ويعود للأسفل.
+// شريط الأدوات: عمود طويل في الجوال والتابلت، وصف أفقي على اللابتوب، ويظهر بالضغط على السهم.
 // الضغط على أداة يفتحها، والضغط المطول ثم السحب يغيّر مكانها، والسحب السريع يمرّر الشريط.
 export default function ToolsSheet({ open, activeId, onSelect, onOpenStore }) {
   const { enabledTools, reorderTools } = useEnabledTools()
+  // عمودي في الجوال والتابلت، وأفقي على اللابتوب
+  const isLaptop = useIsLaptop()
+  const axis = useRef(isLaptop ? 'scrollLeft' : 'scrollTop')
+  axis.current = isLaptop ? 'scrollLeft' : 'scrollTop'
   const grid = useRef(null)
   const press = useRef(null)
   const dragGeometry = useRef(null)
@@ -45,14 +50,16 @@ export default function ToolsSheet({ open, activeId, onSelect, onOpenStore }) {
     if (!geometry) return
     const el = grid.current
     const rect = el.getBoundingClientRect()
-    const shift = el.scrollLeft - geometry.scrollStart
+    const shift = el[axis.current] - geometry.scrollStart
+    const shiftX = axis.current === 'scrollLeft' ? shift : 0
+    const shiftY = axis.current === 'scrollTop' ? shift : 0
     const fingerX = Math.min(Math.max(geometry.lastX - geometry.grabX, rect.left), rect.right)
     const fingerY = Math.min(Math.max(geometry.lastY - geometry.grabY, rect.top), rect.bottom)
 
     let target = 0
     let best = Infinity
     geometry.centers.forEach((center, index) => {
-      const distance = Math.hypot(fingerX - (center.x - shift), fingerY - center.y)
+      const distance = Math.hypot(fingerX - (center.x - shiftX), fingerY - (center.y - shiftY))
       if (distance < best) {
         best = distance
         target = index
@@ -67,8 +74,8 @@ export default function ToolsSheet({ open, activeId, onSelect, onOpenStore }) {
       id: geometry.id,
       order,
       centers: geometry.centers,
-      offsetX: fingerX - (home.x - shift),
-      offsetY: fingerY - home.y,
+      offsetX: fingerX - (home.x - shiftX),
+      offsetY: fingerY - (home.y - shiftY),
     })
   }, [])
 
@@ -78,10 +85,15 @@ export default function ToolsSheet({ open, activeId, onSelect, onOpenStore }) {
     if (!geometry) return
     const el = grid.current
     const rect = el.getBoundingClientRect()
-    const before = el.scrollLeft
-    if (geometry.lastX < rect.left + EDGE_ZONE) el.scrollLeft -= EDGE_SPEED
-    else if (geometry.lastX > rect.right - EDGE_ZONE) el.scrollLeft += EDGE_SPEED
-    if (el.scrollLeft !== before) updateDrag()
+    const key = axis.current
+    const before = el[key]
+    const [position, start, end] =
+      key === 'scrollLeft'
+        ? [geometry.lastX, rect.left, rect.right]
+        : [geometry.lastY, rect.top, rect.bottom]
+    if (position < start + EDGE_ZONE) el[key] -= EDGE_SPEED
+    else if (position > end - EDGE_ZONE) el[key] += EDGE_SPEED
+    if (el[key] !== before) updateDrag()
     frame.current = requestAnimationFrame(tick)
   }, [updateDrag])
 
@@ -102,7 +114,7 @@ export default function ToolsSheet({ open, activeId, onSelect, onOpenStore }) {
       id: current.id,
       ids,
       centers,
-      scrollStart: el.scrollLeft,
+      scrollStart: el[axis.current],
       grabX: current.lastX - home.x,
       grabY: current.lastY - home.y,
       lastX: current.lastX,
@@ -130,7 +142,7 @@ export default function ToolsSheet({ open, activeId, onSelect, onOpenStore }) {
       startY: event.clientY,
       lastX: event.clientX,
       lastY: event.clientY,
-      scrollStart: grid.current.scrollLeft,
+      scrollStart: grid.current[axis.current],
       mouse: event.pointerType === 'mouse',
       mode: 'press',
       timer: setTimeout(beginDrag, LONG_PRESS_MS),
@@ -154,7 +166,9 @@ export default function ToolsSheet({ open, activeId, onSelect, onOpenStore }) {
     }
 
     if (current.mode === 'scroll') {
-      grid.current.scrollLeft = current.scrollStart - (event.clientX - current.startX)
+      grid.current[axis.current] =
+        current.scrollStart -
+        (axis.current === 'scrollLeft' ? event.clientX - current.startX : event.clientY - current.startY)
     } else if (current.mode === 'drag') {
       dragGeometry.current.lastX = event.clientX
       dragGeometry.current.lastY = event.clientY

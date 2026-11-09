@@ -103,10 +103,18 @@ describe('صفحة الأداة والشريط السفلي', () => {
     expect(await screen.findByText('عدد الإضافات: 1')).toBeTruthy()
   })
 
-  it('زر + في الأداة غير الجاهزة يعرض «هذه الأداة قريباً»', async () => {
+  it('زر + يعيد من إعدادات الأداة إلى صفحتها الأساسية', async () => {
+    await renderApp({ route: '/tool/ready/settings', tools: ['ready'] })
+    clickButton('إضافة جديدة في أداة جاهزة')
+    expect(await screen.findByText('عدد الإضافات: 0')).toBeTruthy()
+    expect(currentPath()).toBe('/tool/ready')
+  })
+
+  it('زر + في الأداة غير الجاهزة يبقى في صفحتها دون رسالة', async () => {
     await renderApp({ route: '/tool/soon', tools: ['soon'] })
     clickButton('إضافة جديدة في أداة غير جاهزة')
-    expect(screen.getByRole('status').textContent).toBe('هذه الأداة قريباً')
+    expect(screen.queryByRole('status')).toBeNull()
+    expect(currentPath()).toBe('/tool/soon')
   })
 
   it('زر إعدادات الأداة يفتحها، وضغطه مرة أخرى يعيد إلى الأداة', async () => {

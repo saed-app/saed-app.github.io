@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation, useMatch, useNavigate } from 'react-router-dom'
 import { useEnabledTools } from '../core/enabledTools.jsx'
 import { getTool } from '../tools/registry.js'
@@ -17,15 +17,11 @@ export default function BottomBar() {
 
   const isLaptop = useIsLaptop()
   const [sheetOpen, setSheetOpen] = useState(false)
-  const [toast, setToast] = useState('')
-  const toastTimer = useRef(0)
 
   // يُغلق الشريط عند الانتقال إلى أي صفحة
   useEffect(() => {
     setSheetOpen(false)
   }, [pathname])
-
-  useEffect(() => () => clearTimeout(toastTimer.current), [])
 
   useEffect(() => {
     if (!sheetOpen) return undefined
@@ -35,12 +31,6 @@ export default function BottomBar() {
     document.addEventListener('keydown', handleKey)
     return () => document.removeEventListener('keydown', handleKey)
   }, [sheetOpen])
-
-  function showToast(message) {
-    setToast(message)
-    clearTimeout(toastTimer.current)
-    toastTimer.current = setTimeout(() => setToast(''), 2200)
-  }
 
   const toolHome = activeTool ? `/tool/${activeTool.id}` : null
 
@@ -55,19 +45,18 @@ export default function BottomBar() {
     else navigate(target, { replace: pathname !== toolHome })
   }
 
+  // لكل أداة ثلاث صفحات: + صفحتها الأساسية، وعلى يمينها إعداداتها، وعلى يسارها إحصائياتها
   function handleAdd() {
     if (!activeTool) {
       setSheetOpen(true)
       return
     }
-    if (!activeTool.supportsAdd) {
-      showToast('هذه الأداة قريباً')
+    if (pathname !== toolHome) {
+      navigate(toolHome, { replace: true })
       return
     }
-    navigate(toolHome, {
-      replace: pathname.startsWith('/tool/'),
-      state: { toolAdd: Date.now() },
-    })
+    // وهو في صفحة + أصلاً: الأداة التي تدعم ذلك تبدأ عنصراً جديداً
+    if (activeTool.supportsAdd) navigate(toolHome, { replace: true, state: { toolAdd: Date.now() } })
   }
 
   function selectTool(id) {
@@ -77,6 +66,7 @@ export default function BottomBar() {
 
   const onSettings = Boolean(toolHome) && pathname === `${toolHome}/settings`
   const onStats = Boolean(toolHome) && pathname === `${toolHome}/stats`
+  const onHome = Boolean(toolHome) && pathname === toolHome
 
   return (
     <>
@@ -86,12 +76,6 @@ export default function BottomBar() {
         onSelect={selectTool}
         onOpenStore={() => navigate('/store')}
       />
-
-      {toast && (
-        <div className="bar-toast" role="status">
-          {toast}
-        </div>
-      )}
 
       <nav className="bottom-bar" aria-label="الشريط السفلي">
         <button
@@ -119,6 +103,7 @@ export default function BottomBar() {
           type="button"
           className="bar-button bar-add pressable"
           aria-label={activeTool ? `إضافة جديدة في ${activeTool.name}` : 'اختر أداة'}
+          aria-current={onHome ? 'page' : undefined}
           onClick={handleAdd}
         >
           <PlusIcon size={28} />

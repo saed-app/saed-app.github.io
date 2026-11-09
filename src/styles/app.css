@@ -1415,40 +1415,15 @@ h3 {
   transform: rotate(180deg);
 }
 
-.bar-toast {
-  position: absolute;
-  bottom: calc(96px + env(safe-area-inset-bottom));
-  left: 50%;
-  z-index: 11;
-  padding: var(--space-s) var(--space-l);
-  border-radius: 999px;
-  background: var(--text);
-  color: var(--bg);
-  font-family: var(--font-heading);
-  font-size: var(--fs-caption);
-  font-weight: 700;
-  white-space: nowrap;
-  transform: translateX(-50%);
-  animation: toast-in 0.2s ease;
-}
-
-@keyframes toast-in {
-  from {
-    opacity: 0;
-    transform: translate(-50%, 8px);
-  }
-}
-
-/* شريط الأدوات: صف يتمرر يميناً ويساراً، يرتفع فوق الشريط السفلي بالسهم ويعود للأسفل */
+/* شريط الأدوات في الجوال والتابلت: عمود طويل من فوق لتحت، والسهم يصعد إلى أعلاه وينقلب.
+   عرضه ومكانه على يمين الشاشة محسوبان ليكون السهم في منتصفه */
 .tools-sheet {
   position: absolute;
+  top: calc(64px + env(safe-area-inset-top));
   bottom: calc(88px + env(safe-area-inset-bottom));
-  left: 12px;
-  right: 12px;
+  right: max(12px, calc(50% - 280px));
   z-index: 9;
-  width: fit-content;
-  max-width: min(560px, calc(100% - 24px));
-  margin-inline: auto;
+  width: 68px;
   border: 1px solid var(--border);
   border-radius: 26px;
   background: var(--dock-bg);
@@ -1457,24 +1432,37 @@ h3 {
   box-shadow: var(--shadow);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(calc(100% + 96px));
-  transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.2s ease, visibility 0s linear 0.3s;
+  clip-path: inset(100% 0 0 0 round 26px);
+  transition: clip-path 0.3s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.2s ease, visibility 0s linear 0.3s;
 }
 
 .tools-sheet.is-open {
   opacity: 1;
   visibility: visible;
-  transform: none;
+  clip-path: inset(0 round 26px);
   transition-delay: 0s;
+}
+
+/* السهم يتحرك بالسرعة نفسها إلى أعلى العمود */
+.bottom-bar .bar-arrow {
+  transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.bottom-bar .bar-arrow.is-open {
+  transform: translateY(
+    calc(145px + env(safe-area-inset-top) + env(safe-area-inset-bottom) - 100dvh)
+  );
 }
 
 .tools-sheet-grid {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: var(--space-m);
-  padding: var(--space-m) var(--space-l) var(--space-l);
-  overflow-x: auto;
-  overflow-y: hidden;
+  height: 100%;
+  padding: 66px 5px var(--space-l);
+  overflow-x: hidden;
+  overflow-y: auto;
   scrollbar-width: none;
 }
 
@@ -1482,17 +1470,24 @@ h3 {
   display: none;
 }
 
+.tools-sheet:has(.tools-sheet-empty) {
+  width: 190px;
+}
+
 .tools-sheet-empty {
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: var(--space-l);
-  padding: var(--space-m) var(--space-l);
+  height: 100%;
+  padding: 66px var(--space-m) var(--space-l);
+  text-align: center;
 }
 
 .tools-sheet-empty p {
   margin: 0;
   color: var(--text-muted);
-  white-space: nowrap;
 }
 
 .tools-sheet-empty .store-action {
@@ -1509,7 +1504,7 @@ h3 {
   border-radius: 16px;
   background: none;
   cursor: pointer;
-  touch-action: pan-x;
+  touch-action: pan-y;
   -webkit-user-select: none;
   user-select: none;
   -webkit-touch-callout: none;
@@ -1592,13 +1587,15 @@ h3 {
 
 .mock-sheet {
   position: absolute;
+  top: 44px;
   bottom: 46px;
-  left: 8px;
   right: 8px;
+  width: 42px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 15px;
-  padding: 8px 10px;
+  padding: 32px 0 8px;
   overflow: hidden;
   border: 1px solid var(--border);
   border-radius: 14px;
@@ -1729,10 +1726,6 @@ h3 {
   .tools-sheet {
     bottom: 52px;
     max-width: min(760px, calc(100% - 48px));
-  }
-
-  .bar-toast {
-    bottom: 56px;
   }
 
   /* صفحة الأداة: الإعدادات بطاقة صغيرة على اليمين والأداة في الوسط */
@@ -1961,6 +1954,9 @@ h3 {
 }
 
 .mock-sheet.is-laptop {
+  top: auto;
+  flex-direction: row;
+  padding: 8px 10px;
   bottom: 30px;
   left: 50%;
   right: auto;
@@ -2064,5 +2060,140 @@ h3 {
     transform: scale(0.82);
     transform-origin: top center;
     margin-bottom: -60px;
+  }
+}
+
+/* التابلت: الشريط السفلي في الوسط بعرض 318، فالعمود يتبع السهم */
+@media (min-width: 768px) {
+  .tools-sheet {
+    right: calc(50% - 159px);
+  }
+}
+
+/* اللابتوب: يبقى شريط الأدوات أفقياً في أسفل الوسط مثل شريط Mac، والسهم في مكانه */
+@media (min-width: 1024px) {
+  .tools-sheet,
+  .tools-sheet.is-open {
+    clip-path: none;
+  }
+
+  .tools-sheet {
+    top: auto;
+    bottom: 52px;
+    left: 0;
+    right: 0;
+    width: fit-content;
+    max-width: min(760px, calc(100% - 48px));
+    margin-inline: auto;
+    transform: translateY(calc(100% + 96px));
+    transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.2s ease, visibility 0s linear 0.3s;
+  }
+
+  .tools-sheet.is-open {
+    transform: none;
+  }
+
+  .tools-sheet:has(.tools-sheet-empty) {
+    width: fit-content;
+  }
+
+  .bottom-bar .bar-arrow.is-open {
+    transform: none;
+  }
+
+  .tools-sheet-grid {
+    flex-direction: row;
+    height: auto;
+    padding: var(--space-m) var(--space-l) var(--space-l);
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .tools-sheet-empty {
+    flex-direction: row;
+    height: auto;
+    padding: var(--space-m) var(--space-l);
+  }
+
+  .tools-sheet-empty p {
+    white-space: nowrap;
+  }
+
+  .sheet-item {
+    touch-action: pan-x;
+  }
+}
+
+/* رسم الشريط العمودي داخل دليل الجوال */
+.mock-sheet:not(.is-laptop) .is-swap-a {
+  animation-name: tour-swap-a-y;
+}
+
+.mock-sheet:not(.is-laptop) .is-swap-b {
+  animation-name: tour-swap-b-y;
+}
+
+.mock-sheet-arrow {
+  position: absolute;
+  top: 6px;
+  left: 0;
+  right: 0;
+  display: grid;
+  place-items: center;
+  height: 22px;
+  color: var(--text);
+}
+
+.tour-hand.is-drag-y {
+  animation-name: tour-drag-y;
+}
+
+@keyframes tour-swap-a-y {
+  0%,
+  35% {
+    transform: none;
+  }
+
+  65%,
+  100% {
+    transform: translateY(45px) scale(1.1);
+  }
+}
+
+@keyframes tour-swap-b-y {
+  0%,
+  35% {
+    transform: none;
+  }
+
+  65%,
+  100% {
+    transform: translateY(-45px);
+  }
+}
+
+@keyframes tour-drag-y {
+  0% {
+    opacity: 0;
+    transform: translate(40px, 70px);
+  }
+
+  25% {
+    opacity: 1;
+    transform: none;
+  }
+
+  33% {
+    transform: scale(0.82);
+  }
+
+  65% {
+    transform: translateY(45px) scale(0.82);
+  }
+
+  75%,
+  100% {
+    opacity: 1;
+    transform: translateY(45px);
   }
 }

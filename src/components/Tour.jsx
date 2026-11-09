@@ -35,13 +35,13 @@ const STEPS = [
   },
   {
     screen: 'sheet',
-    hand: { x: 87, y: 92 },
+    hand: { x: 85, y: 16 },
     title: 'كل أدواتك هنا',
-    text: 'اضغط السهم ليرتفع شريط أدواتك، ثم اختر الأداة التي تريدها.',
+    text: 'اضغط السهم فيصعد ويظهر شريط أدواتك الطويل، ثم اختر الأداة التي تريدها.',
   },
   {
     screen: 'sheet',
-    hand: { x: 84, y: 82 },
+    hand: { x: 85, y: 23 },
     drag: true,
     title: 'رتّب أدواتك',
     text: 'اضغط مطولاً على أداة، ثم اسحبها لتغيير مكانها.',
@@ -49,14 +49,14 @@ const STEPS = [
   {
     screen: 'home',
     hand: { x: 50, y: 92 },
-    title: 'أضف بسرعة',
-    text: 'زر + يضيف جديداً في الأداة المفتوحة: ملاحظة، أو مهمة، أو غيرهما.',
+    title: 'صفحة الأداة',
+    text: 'لكل أداة ثلاث صفحات. زر + هو صفحتها الأساسية: تكتب ملاحظة جديدة، أو تبدأ مهامك.',
   },
   {
     screen: 'home',
     hand: { x: 68, y: 92 },
     title: 'إعدادات الأداة وإحصائياتها',
-    text: 'على يمين الزر + إعدادات الأداة المفتوحة، وعلى يساره إحصائياتها.',
+    text: 'على يمين الزر + إعدادات الأداة، وعلى يساره إحصائياتها وتتبع إنجازك فيها.',
   },
   {
     screen: 'home',
@@ -108,8 +108,8 @@ const LAPTOP_STEPS = [
   {
     screen: 'tool',
     hand: { x: 5, y: 21 },
-    title: 'أضف بسرعة',
-    text: 'زر + في أعلى صفحة الأداة يضيف جديداً، وبجانبه إحصائياتها.',
+    title: 'صفحة الأداة',
+    text: 'في وسط الشاشة الصفحة الأساسية للأداة، ومن زر في أعلاها تفتح إحصائياتها.',
   },
   {
     screen: 'tool',
@@ -135,10 +135,10 @@ function MockTopBar() {
   )
 }
 
-function MockBottomBar() {
+function MockBottomBar({ arrowUp }) {
   return (
     <div className="mock-bar">
-      <span>
+      <span style={arrowUp ? { visibility: 'hidden' } : undefined}>
         <ChevronUpIcon size={15} />
       </span>
       <span>
@@ -191,9 +191,6 @@ function MockLaptopScreen({ screen, drag }) {
           <span className="mock-tool-actions">
             <span className="mock-icon">
               <ChartIcon size={13} />
-            </span>
-            <span className="mock-icon mock-bar-add">
-              <PlusIcon size={13} />
             </span>
           </span>
         </div>
@@ -290,6 +287,9 @@ function MockScreen({ screen, drag }) {
       </div>
       {screen === 'sheet' && (
         <div className="mock-sheet">
+          <span className="mock-sheet-arrow" style={{ transform: 'rotate(180deg)' }}>
+            <ChevronUpIcon size={15} />
+          </span>
           {SHEET_TOOLS.map((tool, index) => {
             const swap = drag && index === 0 ? ' is-swap-a' : drag && index === 1 ? ' is-swap-b' : ''
             return (
@@ -300,7 +300,7 @@ function MockScreen({ screen, drag }) {
           })}
         </div>
       )}
-      <MockBottomBar />
+      <MockBottomBar arrowUp={screen === 'sheet'} />
     </>
   )
 }
@@ -345,7 +345,7 @@ export default function Tour({ onClose }) {
               <MockScreen screen={step.screen} drag={step.drag} />
             )}
             <span className="tour-ripple" style={position} />
-            <span className={`tour-hand${step.drag ? ' is-drag' : ''}`} style={position}>
+            <span className={`tour-hand${step.drag ? (isLaptop ? ' is-drag' : ' is-drag-y') : ''}`} style={position}>
               <HandIcon />
             </span>
           </div>
