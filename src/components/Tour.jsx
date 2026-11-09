@@ -6,6 +6,7 @@ import {
   GearIcon,
   HandIcon,
   PlusIcon,
+  SidebarIcon,
   SlidersIcon,
   StoreIcon,
 } from './Icons.jsx'
@@ -81,16 +82,16 @@ const LAPTOP_STEPS = [
     text: 'اضغط على أي أداة لتتعرف عليها، ثم أضفها بضغطة زر.',
   },
   {
-    screen: 'home',
+    screen: 'panel',
     hand: { x: 95, y: 8 },
     title: 'إعدادات التطبيق',
-    text: 'من هذا الزر تفتح لوحة الإعدادات على اليسار: ملفك، والمظهر، والقفل، والدعم.',
+    text: 'الإعدادات دائماً في العمود على اليمين، وهذا الزر يغلقها ويفتحها.',
   },
   {
     screen: 'panel',
-    hand: { x: 16, y: 28 },
+    hand: { x: 84, y: 28 },
     title: 'المتجر دائماً قريب',
-    text: 'تصل إلى المتجر في أي وقت من لوحة الإعدادات.',
+    text: 'تصل إلى المتجر في أي وقت من عمود الإعدادات.',
   },
   {
     screen: 'strip',
@@ -123,13 +124,13 @@ const STORE_TOOLS = tools.slice(0, 3)
 const SHEET_TOOLS = tools.slice(0, 8)
 const LAPTOP_STORE_TOOLS = tools.slice(0, 6)
 
-function MockTopBar() {
+function MockTopBar({ isLaptop }) {
   return (
     <div className="mock-topbar">
       <span />
       <span className="mock-title">ساعد</span>
       <span className="mock-icon">
-        <GearIcon size={14} />
+        {isLaptop ? <SidebarIcon size={14} /> : <GearIcon size={14} />}
       </span>
     </div>
   )
@@ -240,7 +241,6 @@ function MockLaptopScreen({ screen, drag }) {
       <MockArrow />
       {screen === 'panel' && (
         <>
-          <span className="mock-panel-scrim" />
           <div className="mock-panel">
             {['ملفي', 'المتجر', 'المظهر والتفضيلات', 'الدعم', 'حول التطبيق'].map((label) => (
               <span className="mock-panel-row" key={label}>
@@ -338,7 +338,7 @@ export default function Tour({ onClose }) {
       <div className={`tour-stage${isLaptop ? ' is-laptop' : ''}`}>
         <div className={`tour-phone${isLaptop ? ' is-laptop' : ''}`} aria-hidden="true">
           <div className="tour-screen" key={index}>
-            <MockTopBar />
+            <MockTopBar isLaptop={isLaptop} />
             {isLaptop ? (
               <MockLaptopScreen screen={step.screen} drag={step.drag} />
             ) : (

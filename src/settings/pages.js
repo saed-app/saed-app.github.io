@@ -19,7 +19,7 @@ import SupportPage from './SupportPage.jsx'
 // العنصر الذي فيه action لا يفتح صفحة بل ينفذ أمراً، مثل فتح الدليل التعريفي.
 export const SETTINGS_PAGES = [
   { id: 'profile', title: 'ملفي', Icon: PersonIcon, Page: ProfilePage },
-  // على اللابتوب لا يوجد الشريط السفلي، فالمتجر يُفتح من هنا
+  // على اللابتوب لا يوجد الشريط السفلي، فالمتجر يُفتح من عمود الإعدادات
   { id: 'store', title: 'المتجر', Icon: StoreIcon, action: 'store', laptopOnly: true },
   { id: 'appearance', title: 'المظهر والتفضيلات', Icon: SlidersIcon, Page: AppearancePage },
   { id: 'sound', title: 'الصوت والإشعارات', Icon: SoundIcon, Page: SoundPage },

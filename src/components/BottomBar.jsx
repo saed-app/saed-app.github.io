@@ -23,6 +23,16 @@ export default function BottomBar() {
     setSheetOpen(false)
   }, [pathname])
 
+  // في الجوال والتابلت: الضغط على أي مكان خارج الشريط يغلقه ويعيد السهم
+  useEffect(() => {
+    if (!sheetOpen || isLaptop) return undefined
+    function handlePointer(event) {
+      if (!event.target.closest?.('#tools-sheet, .bottom-bar')) setSheetOpen(false)
+    }
+    document.addEventListener('pointerdown', handlePointer)
+    return () => document.removeEventListener('pointerdown', handlePointer)
+  }, [sheetOpen, isLaptop])
+
   useEffect(() => {
     if (!sheetOpen) return undefined
     function handleKey(event) {

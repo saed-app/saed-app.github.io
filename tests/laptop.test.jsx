@@ -60,31 +60,6 @@ describe('اللابتوب', () => {
     await waitFor(() => expect(currentPath()).toBe('/tool/ready'))
   })
 
-  it('الإعدادات لوحة جانبية والتطبيق ظاهر خلفها', async () => {
-    useScreen(1440)
-    await renderApp()
-    clickButton('الإعدادات')
-    expect(await screen.findByRole('heading', { name: 'الإعدادات' })).toBeTruthy()
-    expect(shell().hidden).toBe(false)
-  })
-
-  it('الضغط خارج لوحة الإعدادات يغلقها', async () => {
-    useScreen(1440)
-    await renderApp()
-    clickButton('الإعدادات')
-    await screen.findByRole('heading', { name: 'الإعدادات' })
-    fireEvent.click(document.querySelector('.settings-scrim'))
-    await waitFor(() => expect(document.querySelector('.settings-screen')).toBeNull())
-  })
-
-  it('المتجر يُفتح من الإعدادات وتُغلق اللوحة', async () => {
-    useScreen(1440)
-    await renderApp()
-    clickButton('الإعدادات')
-    fireEvent.click(await screen.findByRole('button', { name: 'المتجر' }))
-    await waitFor(() => expect(currentPath()).toBe('/store'))
-    expect(document.querySelector('.settings-screen')).toBeNull()
-  })
 })
 
 describe('الجوال يبقى كما هو', () => {

@@ -259,7 +259,11 @@ describe('الإعدادات العامة', () => {
   })
 
   it('يخفي «تثبيت التطبيق» بعد تثبيته', async () => {
-    vi.spyOn(window, 'matchMedia').mockReturnValue({ matches: true })
+    vi.spyOn(window, 'matchMedia').mockImplementation((query) => ({
+      matches: query.includes('display-mode'),
+      addEventListener() {},
+      removeEventListener() {},
+    }))
     await renderApp()
     clickButton('الإعدادات')
     await screen.findByRole('heading', { name: 'الإعدادات' })

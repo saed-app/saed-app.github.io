@@ -5,9 +5,9 @@ import { isInstalled } from '../core/install.js'
 import { useIsLaptop } from '../core/viewport.js'
 import { APP_VERSION } from '../config.js'
 
-// صفحة الإعدادات: تملأ التطبيق، وفيها قائمة التصنيفات وصفحاتها الداخلية.
-// زر الرجوع يعيد من الصفحة الداخلية إلى القائمة، ومن القائمة إلى التطبيق.
-export default function SettingsScreen({ page, onOpenPage, onBack, onOpenGuide, onOpenStore, inert }) {
+// الإعدادات: في الجوال والتابلت صفحة تملأ التطبيق، وزر الرجوع يعيد من الصفحة الداخلية إلى القائمة،
+// ومن القائمة إلى التطبيق. وعلى اللابتوب (panel) عمود ثابت على اليمين، وزر الرجوع للصفحات الداخلية فقط.
+export default function SettingsScreen({ page, onOpenPage, onBack, onOpenGuide, onOpenStore, inert, panel }) {
   const backButton = useRef(null)
   const screen = useRef(null)
   const current = SETTINGS_PAGES.find((item) => item.id === page && item.Page)
@@ -23,13 +23,13 @@ export default function SettingsScreen({ page, onOpenPage, onBack, onOpenGuide, 
   }, [page])
 
   useEffect(() => {
-    if (inert) return undefined
+    if (inert || panel) return undefined
     function handleKey(event) {
       if (event.key === 'Escape') onBack()
     }
     document.addEventListener('keydown', handleKey)
     return () => document.removeEventListener('keydown', handleKey)
-  }, [onBack, inert])
+  }, [onBack, inert, panel])
 
   function openItem(item) {
     if (item.action === 'guide') onOpenGuide()
@@ -37,18 +37,15 @@ export default function SettingsScreen({ page, onOpenPage, onBack, onOpenGuide, 
     else onOpenPage(item.id)
   }
 
+  const Root = panel ? 'aside' : 'div'
+  const rootProps = panel
+    ? { 'aria-labelledby': 'settings-title' }
+    : { role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'settings-title' }
+
   return (
-    <>
-      <div className="settings-scrim" onClick={onBack} aria-hidden="true" />
-      <div
-        className="settings-screen"
-        ref={screen}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="settings-title"
-        inert={inert}
-      >
-        <header className="settings-header">
+    <Root className={`settings-screen${panel ? ' is-panel' : ''}`} ref={screen} inert={inert} {...rootProps}>
+      <header className="settings-header">
+        {(!panel || current) && (
           <button
             ref={backButton}
             type="button"
@@ -58,14 +55,15 @@ export default function SettingsScreen({ page, onOpenPage, onBack, onOpenGuide, 
           >
             <BackIcon />
           </button>
-          <h1 id="settings-title">{current ? current.title : 'الإعدادات'}</h1>
-        </header>
-  
-        <div className="settings-content" key={current?.id ?? 'menu'}>
-          {current ? (
-            <current.Page />
-          ) : (
-            <>
+        )}
+        <h1 id="settings-title">{current ? current.title : 'الإعدادات'}</h1>
+      </header>
+
+      <div className="settings-content" key={current?.id ?? 'menu'}>
+        {current ? (
+          <current.Page />
+        ) : (
+          <>
             <nav className="settings-group" aria-label="تصنيفات الإعدادات">
               {items.map((item) => (
                 <button
@@ -85,10 +83,9 @@ export default function SettingsScreen({ page, onOpenPage, onBack, onOpenGuide, 
               ))}
             </nav>
             <p className="settings-version">الإصدار {APP_VERSION}</p>
-            </>
-          )}
-        </div>
+          </>
+        )}
       </div>
-    </>
+    </Root>
   )
 }

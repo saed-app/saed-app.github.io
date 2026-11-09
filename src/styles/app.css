@@ -1647,11 +1647,6 @@ h3 {
    الجوال: أقل من 768، وهو الأساس في كل ما سبق ولا يتأثر بهذا القسم.
    التابلت: من 768. واللابتوب: من 1024. والشاشات الواسعة: من 1440. */
 
-/* لوحة الإعدادات: خلفيتها تظهر على اللابتوب فقط */
-.settings-scrim {
-  display: none;
-}
-
 @media (min-width: 768px) {
   .page {
     max-width: 880px;
@@ -1786,34 +1781,6 @@ h3 {
     color: var(--on-accent);
   }
 
-  /* الإعدادات العامة: لوحة جانبية بعرض ثابت من اليسار، والتطبيق ظاهر خلفها */
-  .settings-scrim {
-    display: block;
-    position: fixed;
-    inset: 0;
-    z-index: 49;
-    background: var(--scrim);
-    animation: settings-scrim-in 0.26s ease;
-  }
-
-  .settings-screen {
-    right: auto;
-    width: 420px;
-    box-shadow: var(--shadow);
-    animation-name: settings-panel-in;
-  }
-}
-
-@keyframes settings-scrim-in {
-  from {
-    opacity: 0;
-  }
-}
-
-@keyframes settings-panel-in {
-  from {
-    transform: translateX(-100%);
-  }
 }
 
 @media (min-width: 1280px) {
@@ -1964,18 +1931,11 @@ h3 {
   margin-left: -150px;
 }
 
-.mock-panel-scrim {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background: var(--scrim);
-}
-
 .mock-panel {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
+  right: 0;
   z-index: 2;
   display: flex;
   flex-direction: column;
@@ -2196,4 +2156,66 @@ h3 {
     opacity: 1;
     transform: translateY(45px);
   }
+}
+
+/* عمود الإعدادات على اللابتوب: ثابت على اليمين بجانب التطبيق، وزره في زاوية ثابتة */
+@media (min-width: 1024px) {
+  .app {
+    display: flex;
+  }
+
+  .app-shell {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .app-main {
+    container: main / inline-size;
+  }
+
+  .settings-screen.is-panel {
+    position: static;
+    order: -1;
+    flex: none;
+    width: 340px;
+    height: 100dvh;
+    border-inline-end: 1px solid var(--border);
+    animation: none;
+  }
+
+  .settings-screen.is-panel .settings-header {
+    padding-inline-start: 68px;
+    min-height: 65px;
+  }
+
+  .sidebar-toggle {
+    position: fixed;
+    top: calc(10px + env(safe-area-inset-top));
+    right: var(--space-l);
+    z-index: 55;
+  }
+}
+
+/* أعمدة المحتوى تتبع المساحة المتبقية بعد عمود الإعدادات */
+@container main (max-width: 759px) {
+  .store-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container main (min-width: 1100px) {
+  .store-list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@container main (max-width: 1039px) {
+  .tool-layout {
+    grid-template-columns: 260px minmax(0, 1fr);
+  }
+}
+
+.tour-phone.is-laptop .mock-topbar {
+  position: relative;
+  z-index: 3;
 }

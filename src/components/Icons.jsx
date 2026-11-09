@@ -16,6 +16,15 @@ export function Svg({ children, size = 24 }) {
   )
 }
 
+export function SidebarIcon(props) {
+  return (
+    <Svg {...props}>
+      <rect x="3.5" y="4.5" width="17" height="15" rx="3" />
+      <path d="M14.500 4.500v15" />
+    </Svg>
+  )
+}
+
 export function PlusIcon(props) {
   return (
     <Svg {...props}>

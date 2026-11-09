@@ -4,6 +4,7 @@ import TopBar from './components/TopBar.jsx'
 import BottomBar from './components/BottomBar.jsx'
 import SettingsScreen from './components/SettingsScreen.jsx'
 import Tour from './components/Tour.jsx'
+import { SidebarIcon } from './components/Icons.jsx'
 import { useSettings } from './core/settings.jsx'
 import { useIsLaptop } from './core/viewport.js'
 import HomePage from './pages/HomePage.jsx'
@@ -14,7 +15,7 @@ import ToolPage, { ToolSettingsPage, ToolStatsPage } from './pages/ToolPage.jsx'
 export default function App() {
   const location = useLocation()
   const navigate = useNavigate()
-  const { tourSeen, updateSettings } = useSettings()
+  const { tourSeen, sidebarOpen, updateSettings } = useSettings()
   // الشريط السفلي يظهر في الرئيسية وصفحات الأدوات فقط، ويختفي في المتجر
   const isLaptop = useIsLaptop()
   const hasBar = location.pathname === '/' || location.pathname.startsWith('/tool/')
@@ -29,8 +30,11 @@ export default function App() {
 
   // حالة الإعدادات وصفحتها الداخلية محفوظتان في سجل التنقل،
   // فزر الرجوع في الجوال يعمل مثل زر الرجوع داخل الإعدادات
-  const settingsOpen = Boolean(location.state?.settingsOpen)
+  const settingsOpen = !isLaptop && Boolean(location.state?.settingsOpen)
   const settingsPage = location.state?.settingsPage ?? null
+  // عمود الإعدادات على اللابتوب: ظاهر تلقائياً، ويُحفظ اختيار إغلاقه
+  const panelOpen = sidebarOpen !== false
+  const [panelPage, setPanelPage] = useState(null)
   const leaving = useRef(false)
   const settingsOpener = useRef(null)
 
@@ -66,7 +70,7 @@ export default function App() {
     <div className="app">
       <div
         className={`app-shell${hasBar ? ' has-dock' : ''}`}
-        hidden={settingsOpen && !isLaptop}
+        hidden={settingsOpen}
         inert={settingsOpen || tourOpen}
       >
         <TopBar onOpenSettings={openSettings} />
@@ -92,9 +96,30 @@ export default function App() {
           onOpenPage={openSettingsPage}
           onBack={settingsBack}
           onOpenGuide={() => setTourOpen(true)}
-          onOpenStore={() => navigate('/store', { replace: true })}
           inert={tourOpen}
         />
+      )}
+      {isLaptop && panelOpen && (
+        <SettingsScreen
+          panel
+          page={panelPage}
+          onOpenPage={setPanelPage}
+          onBack={() => setPanelPage(null)}
+          onOpenGuide={() => setTourOpen(true)}
+          onOpenStore={() => navigate('/store')}
+          inert={tourOpen}
+        />
+      )}
+      {isLaptop && (
+        <button
+          type="button"
+          className="icon-button sidebar-toggle pressable"
+          aria-label={panelOpen ? 'إغلاق الإعدادات' : 'فتح الإعدادات'}
+          aria-expanded={panelOpen}
+          onClick={() => updateSettings({ sidebarOpen: !panelOpen })}
+        >
+          <SidebarIcon size={22} />
+        </button>
       )}
       {tourOpen && <Tour onClose={closeTour} />}
     </div>
