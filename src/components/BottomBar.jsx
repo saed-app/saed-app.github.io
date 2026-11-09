@@ -44,10 +44,11 @@ export default function BottomBar() {
 
   const toolHome = activeTool ? `/tool/${activeTool.id}` : null
 
-  // في الرئيسية لا توجد أداة مفتوحة، فالأزرار الثلاثة ترفع شريط الأدوات لتختار واحدة
+  // في الرئيسية لا توجد أداة مفتوحة، فتظهر صفحة «غير متوفر حالياً»
   function openToolPage(page) {
     if (!activeTool) {
-      setSheetOpen(true)
+      const unavailable = `/soon/${page}`
+      navigate(pathname === unavailable ? '/' : unavailable, { replace: pathname !== '/' })
       return
     }
     const target = `${toolHome}/${page}`
@@ -74,8 +75,8 @@ export default function BottomBar() {
     navigate(`/tool/${id}`, { replace: pathname.startsWith('/tool/') })
   }
 
-  const onSettings = Boolean(toolHome) && pathname === `${toolHome}/settings`
-  const onStats = Boolean(toolHome) && pathname === `${toolHome}/stats`
+  const onSettings = pathname === (toolHome ? `${toolHome}/settings` : '/soon/settings')
+  const onStats = pathname === (toolHome ? `${toolHome}/stats` : '/soon/stats')
   const onHome = Boolean(toolHome) && pathname === toolHome
 
   return (

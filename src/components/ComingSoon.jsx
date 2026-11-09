@@ -36,12 +36,15 @@ function HourglassArt() {
 }
 
 // صفحة مؤقتة للأداة التي لها اسم وأيقونة فقط. عند بنائها فعلياً نستبدل بها صفحتها الحقيقية
-export default function ComingSoon() {
+export default function ComingSoon({
+  title = 'قريباً',
+  text = 'نعمل على هذه الأداة، وستكون جاهزة لك قريباً.',
+}) {
   return (
     <div className="coming-soon">
       <HourglassArt />
-      <h2>قريباً</h2>
-      <p>نعمل على هذه الأداة، وستكون جاهزة لك قريباً.</p>
+      <h2>{title}</h2>
+      <p>{text}</p>
     </div>
   )
 }

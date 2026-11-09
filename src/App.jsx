@@ -10,7 +10,7 @@ import { useIsLaptop } from './core/viewport.js'
 import HomePage from './pages/HomePage.jsx'
 import StorePage from './pages/StorePage.jsx'
 import StoreToolPage from './pages/StoreToolPage.jsx'
-import ToolPage, { ToolSettingsPage, ToolStatsPage } from './pages/ToolPage.jsx'
+import ToolPage, { ToolSettingsPage, ToolStatsPage, UnavailablePage } from './pages/ToolPage.jsx'
 
 export default function App() {
   const location = useLocation()
@@ -18,7 +18,10 @@ export default function App() {
   const { tourSeen, sidebarOpen, updateSettings } = useSettings()
   // الشريط السفلي يظهر في الرئيسية وصفحات الأدوات فقط، ويختفي في المتجر
   const isLaptop = useIsLaptop()
-  const hasBar = location.pathname === '/' || location.pathname.startsWith('/tool/')
+  const hasBar =
+    location.pathname === '/' ||
+    location.pathname.startsWith('/tool/') ||
+    location.pathname.startsWith('/soon/')
 
   // الدليل التعريفي يظهر تلقائياً في أول مرة فقط، ويُفتح بعدها من الإعدادات
   const [tourOpen, setTourOpen] = useState(!tourSeen)
@@ -84,6 +87,7 @@ export default function App() {
             <Route path="/tool/:toolId" element={<ToolPage />} />
             <Route path="/tool/:toolId/settings" element={<ToolSettingsPage />} />
             <Route path="/tool/:toolId/stats" element={<ToolStatsPage />} />
+            <Route path="/soon/:page" element={<UnavailablePage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
           </div>

@@ -150,14 +150,33 @@ describe('لوحة الأدوات', () => {
     expect(isOpen()).toBe(false)
   })
 
-  it.each(['إعدادات الأداة', 'اختر أداة', 'إحصائيات الأداة'])(
-    'في الرئيسية يرفعها زر «%s»',
-    async (name) => {
-      await renderApp({ tools: ['ready'] })
-      clickButton(name)
-      expect(isOpen()).toBe(true)
-    },
-  )
+  it('في الرئيسية يرفعها زر +', async () => {
+    await renderApp({ tools: ['ready'] })
+    clickButton('اختر أداة')
+    expect(isOpen()).toBe(true)
+  })
+
+  it.each([
+    ['إعدادات الأداة', '/soon/settings'],
+    ['إحصائيات الأداة', '/soon/stats'],
+  ])('في الرئيسية زر «%s» يفتح صفحة غير متوفر ولا يرفعها', async (name, path) => {
+    await renderApp({ tools: ['ready'] })
+    clickButton(name)
+    expect(await screen.findByText('غير متوفر حالياً')).toBeTruthy()
+    expect(screen.getByText('سيتوفر قريباً.')).toBeTruthy()
+    expect(currentPath()).toBe(path)
+    expect(isOpen()).toBe(false)
+  })
+
+  it.each([
+    ['إعدادات الأداة', '/tool/soon/settings'],
+    ['إحصائيات الأداة', '/tool/soon/stats'],
+  ])('الأداة التي ليس فيها «%s» تعرض غير متوفر', async (name, path) => {
+    await renderApp({ route: '/tool/soon', tools: ['soon'] })
+    clickButton(name)
+    expect(await screen.findByText('غير متوفر حالياً')).toBeTruthy()
+    expect(currentPath()).toBe(path)
+  })
 
   it('زر Escape يغلقها', async () => {
     await renderApp({ tools: ['ready'] })

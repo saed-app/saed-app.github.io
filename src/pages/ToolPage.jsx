@@ -7,6 +7,10 @@ import { useEnabledTools } from '../core/enabledTools.jsx'
 import { getTool } from '../tools/registry.js'
 import { useIsLaptop } from '../core/viewport.js'
 
+// ما يظهر عند فتح صفحة إعدادات أو إحصائيات غير متوفرة بعد
+const UNAVAILABLE = { title: 'غير متوفر حالياً', text: 'سيتوفر قريباً.' }
+const UNAVAILABLE_TITLES = { settings: 'إعدادات الأداة', stats: 'إحصائيات الأداة' }
+
 function useOpenTool() {
   const { toolId } = useParams()
   const { isEnabled } = useEnabledTools()
@@ -63,6 +67,14 @@ export function ToolSettingsPage() {
   const isLaptop = useIsLaptop()
   if (!tool) return <Navigate to="/" replace />
   if (isLaptop) return <Navigate to={`/tool/${tool.id}`} replace />
+  if (!tool.Settings) {
+    return (
+      <div className="page">
+        <PageHeader title={`إعدادات ${tool.name}`} tool={tool} />
+        <ComingSoon {...UNAVAILABLE} />
+      </div>
+    )
+  }
 
   return (
     <div className="page">
@@ -80,7 +92,21 @@ export function ToolStatsPage() {
   return (
     <div className="page">
       <PageHeader title={`إحصائيات ${tool.name}`} tool={tool} />
-      {tool.Stats ? <tool.Stats /> : <ComingSoon />}
+      {tool.Stats ? <tool.Stats /> : <ComingSoon {...UNAVAILABLE} />}
+    </div>
+  )
+}
+
+// زرا الإعدادات والإحصائيات في الرئيسية، حيث لا توجد أداة مفتوحة
+export function UnavailablePage() {
+  const { page } = useParams()
+  const title = UNAVAILABLE_TITLES[page]
+  if (!title) return <Navigate to="/" replace />
+
+  return (
+    <div className="page">
+      <PageHeader title={title} />
+      <ComingSoon {...UNAVAILABLE} />
     </div>
   )
 }
