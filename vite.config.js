@@ -9,8 +9,8 @@ export default defineConfig({
     VitePWA({
       // نسجل الـ service worker بأنفسنا في main.jsx حتى نتجنبه داخل Capacitor
       injectRegister: false,
-      // النسخة الجديدة تُحمَّل في الخلفية وتنتظر موافقة المستخدم من شريط التحديث
-      registerType: 'prompt',
+      // عند نشر نسخة جديدة تُحمَّل في الخلفية وتعمل عند الفتح التالي
+      registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'icons/apple-touch-icon.png', 'licenses/*.txt'],
       manifest: {
         name: 'ساعد',
