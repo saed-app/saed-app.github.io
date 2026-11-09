@@ -37,26 +37,8 @@
   --switch-on: #228b22;
   --switch-thumb: #ffffff;
 
-  /* ألوان الأدوات: عائلة واحدة بإضاءة وتشبع متقاربين (oklch 0.56 / 0.075) */
-  --on-tool: #fbf8f2;
-  --tool-recipes: #9b6266;
-  --tool-expenses: #9a664f;
-  --tool-notes: #8c703f;
-  --tool-adhkar: #777843;
-  --tool-habits: #588059;
-  --tool-reading: #3e8372;
-  --tool-water: #36808d;
-  --tool-appointments: #497a9c;
-  --tool-tasks: #5f74a1;
-  --tool-focus: #776c9c;
-  --tool-shopping: #8b658d;
-  --tool-goals: #986277;
-
   /* الشعار: حلقة ذهبية في الوضعين، ونقطة تتبع الوضع */
   --logo-ring: #bf9730;
-
-  /* الأيقونات */
-  --icon-stroke: 1.75;
 
   /* الحركة: ضغطة سريعة ثم عودة نابضة */
   --press-scale: 0.94;
@@ -77,6 +59,33 @@
   :root {
     --page-gutter: 32px;
   }
+}
+
+/* عائلات ألوان الأدوات: عامة، وتضم أي عدد من الأدوات. يتغير الـ hue فقط،
+   والإضاءة والتشبع مشتركان ومعرّفان لكل وضع أدناه. ولا تقترب أي عائلة من الذهبي (hue 87).
+   تختار كل أداة عائلتها بالاسم في ملفها، ولا تُضاف عائلة جديدة إلا بموافقة صاحب المشروع. */
+[data-family='paper'] {
+  --family-h: 55;
+}
+
+[data-family='clay'] {
+  --family-h: 28;
+}
+
+[data-family='berry'] {
+  --family-h: 350;
+}
+
+[data-family='indigo'] {
+  --family-h: 285;
+}
+
+[data-family='blue'] {
+  --family-h: 240;
+}
+
+[data-family='green'] {
+  --family-h: 155;
 }
 
 /* مقاسات الخط الثلاثة: كل نصوص التطبيق تتبع هذا الرقم */
@@ -115,6 +124,11 @@ html,
   --dock-bg: rgba(251, 248, 242, 0.9);
   --shadow-float: 0 8px 28px rgba(44, 39, 35, 0.14);
   --switch-off: #8e8e93;
+  /* مربع الأداة وأيقونتها */
+  --tile-l: 0.92;
+  --tile-c: 0.03;
+  --tool-icon-l: 0.45;
+  --tool-icon-c: 0.085;
 }
 
 /* الليل: أسود ناعم وفضي واحد مسطح */
@@ -132,4 +146,9 @@ html,
   --dock-bg: rgba(30, 29, 26, 0.9);
   --shadow-float: 0 8px 28px rgba(0, 0, 0, 0.5);
   --switch-off: #6e6e73;
+  /* مربع الأداة وأيقونتها */
+  --tile-l: 0.31;
+  --tile-c: 0.04;
+  --tool-icon-l: 0.84;
+  --tool-icon-c: 0.07;
 }

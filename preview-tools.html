@@ -1,0 +1,200 @@
+<!doctype html>
+<!-- صفحة معاينة أثناء التطوير فقط: أيقونات الأدوات وألوانها. تعرض كل الأدوات الموجودة أياً كان عددها -->
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>معاينة الأدوات</title>
+    <style>
+      html,
+      body {
+        height: auto !important;
+        overflow: auto !important;
+      }
+
+      body {
+        margin: 0;
+        padding: 16px 24px 48px;
+        background: #26262a !important;
+        color: #f2f2f4 !important;
+        font-family: system-ui, sans-serif !important;
+      }
+
+      h1 {
+        margin: 0 0 8px;
+        font-size: 20px;
+      }
+
+      h2 {
+        margin: 32px 0 12px;
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      a {
+        color: #d8dadd;
+      }
+
+      .panels {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .panel {
+        padding: 20px;
+        border-radius: 20px;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      .panel h3 {
+        margin: 0 0 16px;
+        font: 600 14px system-ui, sans-serif;
+      }
+
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+        gap: 16px 8px;
+      }
+
+      .item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        font: 12px system-ui, sans-serif;
+      }
+
+      .sizes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .frames {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: flex-start;
+      }
+
+      .frame-box {
+        overflow: hidden;
+        border-radius: 14px;
+        background: #000;
+      }
+
+      .frame-box iframe {
+        display: block;
+        border: 0;
+        transform-origin: top right;
+      }
+
+      .caption {
+        margin: 6px 2px 0;
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>الأيقونات والألوان</h1>
+    <a href="/preview.html">رجوع إلى معاينة الجوال واللابتوب</a>
+
+    <h2>بحجمها الحقيقي في الوضعين</h2>
+    <div class="panels">
+      <section class="panel" data-theme="light"><h3>النهار</h3><div class="gallery"></div><div class="sizes"></div></section>
+      <section class="panel" data-theme="dark"><h3>الليل</h3><div class="gallery"></div><div class="sizes"></div></section>
+    </div>
+
+    <h2>على الجوال</h2>
+    <div class="frames" id="phones"></div>
+
+    <h2>على اللابتوب</h2>
+    <div class="frames" id="laptops"></div>
+
+    <script type="module">
+      import { createElement as h } from 'react'
+      import { createRoot } from 'react-dom/client'
+      import ToolTile from '/src/components/ToolTile.jsx'
+      import { tools } from '/src/tools/registry.js'
+      import '/src/styles/fonts.css'
+      import '/src/styles/theme.css'
+      import '/src/styles/app.css'
+
+      document.documentElement.dataset.theme = 'light'
+
+      for (const panel of document.querySelectorAll('.panel')) {
+        createRoot(panel.querySelector('.gallery')).render(
+          tools.map((tool) => h('div', { className: 'item', key: tool.id }, h(ToolTile, { tool }), tool.name)),
+        )
+        createRoot(panel.querySelector('.sizes')).render(
+          tools.map((tool) => h(ToolTile, { tool, size: 'small', key: tool.id })),
+        )
+      }
+
+      // تجهيز مؤقت حتى تظهر كل الأدوات داخل الإطارات، ثم تعود بيانات التجربة كما كانت
+      const KEYS = ['saed:enabledTools', 'saed:settings']
+      const saved = KEYS.map((key) => localStorage.getItem(key))
+      localStorage.setItem('saed:enabledTools', JSON.stringify(tools.map((tool) => tool.id)))
+      localStorage.setItem('saed:settings', JSON.stringify({ tourSeen: true, sidebarOpen: true }))
+      let pending = 0
+
+      function restore() {
+        KEYS.forEach((key, index) => {
+          if (saved[index] === null) localStorage.removeItem(key)
+          else localStorage.setItem(key, saved[index])
+        })
+      }
+
+      window.addEventListener('pagehide', restore)
+
+      function addFrame(parent, { width, height, scale, theme, route, openBar, caption }) {
+        const wrap = document.createElement('div')
+        const box = document.createElement('div')
+        box.className = 'frame-box'
+        box.style.width = `${width * scale}px`
+        box.style.height = `${height * scale}px`
+        const frame = document.createElement('iframe')
+        frame.title = caption
+        frame.style.width = `${width}px`
+        frame.style.height = `${height}px`
+        frame.style.transform = `scale(${scale})`
+        frame.src = `/#${route}`
+        pending += 1
+        frame.addEventListener('load', () => {
+          const timer = setInterval(() => {
+            const doc = frame.contentDocument
+            // ننتظر حتى يكتمل التطبيق، ونخفي شاشة البداية داخل الإطار
+            if (!doc.querySelector('.app')) return
+            clearInterval(timer)
+            const style = doc.createElement('style')
+            style.textContent = '.splash { display: none !important; }'
+            doc.head.append(style)
+            doc.documentElement.dataset.theme = theme
+            if (openBar) doc.querySelector('.bar-arrow')?.click()
+            pending -= 1
+            if (pending === 0) restore()
+          }, 200)
+        })
+        box.append(frame)
+        const label = document.createElement('p')
+        label.className = 'caption'
+        label.textContent = caption
+        wrap.append(box, label)
+        parent.append(wrap)
+      }
+
+      const phones = document.getElementById('phones')
+      const laptops = document.getElementById('laptops')
+      for (const [theme, name] of [['light', 'النهار'], ['dark', 'الليل']]) {
+        addFrame(phones, { width: 390, height: 844, scale: 0.62, theme, route: '/', openBar: true, caption: `شريط الأدوات: ${name}` })
+        addFrame(phones, { width: 390, height: 844, scale: 0.62, theme, route: '/store', caption: `المتجر: ${name}` })
+        addFrame(laptops, { width: 1440, height: 900, scale: 0.42, theme, route: '/', openBar: true, caption: `شريط الأدوات: ${name}` })
+        addFrame(laptops, { width: 1440, height: 900, scale: 0.42, theme, route: '/store', caption: `المتجر: ${name}` })
+      }
+    </script>
+  </body>
+</html>

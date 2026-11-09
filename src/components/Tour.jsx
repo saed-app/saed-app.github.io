@@ -187,7 +187,7 @@ function MockLaptopScreen({ screen, drag }) {
     return (
       <>
         <div className="mock-tool-head">
-          <ToolTile tool={tools[0]} />
+          {tools[0] && <ToolTile tool={tools[0]} />}
           <span className="mock-line is-short" />
           <span className="mock-tool-actions">
             <span className="mock-icon">
@@ -231,8 +231,8 @@ function MockLaptopScreen({ screen, drag }) {
           {LAPTOP_STORE_TOOLS.map((tool, index) => {
             const swap = drag && index === 0 ? ' is-swap-a' : drag && index === 1 ? ' is-swap-b' : ''
             return (
-              <span key={tool.id} className={`tool-tile${swap}`} style={{ background: tool.color }}>
-                <tool.Icon size={17} />
+              <span key={tool.id} className={`tool-tile${swap}`} data-family={tool.family}>
+                <tool.Icon size={22} />
               </span>
             )
           })}
@@ -293,8 +293,8 @@ function MockScreen({ screen, drag }) {
           {SHEET_TOOLS.map((tool, index) => {
             const swap = drag && index === 0 ? ' is-swap-a' : drag && index === 1 ? ' is-swap-b' : ''
             return (
-              <span key={tool.id} className={`tool-tile${swap}`} style={{ background: tool.color }}>
-                <tool.Icon size={17} />
+              <span key={tool.id} className={`tool-tile${swap}`} data-family={tool.family}>
+                <tool.Icon size={22} />
               </span>
             )
           })}

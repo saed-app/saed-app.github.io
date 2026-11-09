@@ -15,7 +15,7 @@ import Toggle from './Toggle.jsx'
 
 export function ToolSettingsPanel({ tool, children }) {
   return (
-    <section className="tool-settings" style={{ '--tool-color': tool.color }}>
+    <section className="tool-settings">
       <header className="tool-settings-head">
         <h3>إعدادات {tool.name}</h3>
       </header>

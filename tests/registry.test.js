@@ -1,3 +1,7 @@
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
+import { createElement } from 'react'
+import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 import { getTool, tools } from '../src/tools/registry.js'
 
@@ -11,11 +15,21 @@ describe('السجل المركزي للأدوات', () => {
       expect(typeof tool.id, 'id').toBe('string')
       expect(tool.name, `name: ${tool.id}`).toBeTruthy()
       expect(tool.description, `description: ${tool.id}`).toBeTruthy()
-      expect(tool.color, `color: ${tool.id}`).toBeTruthy()
+      expect(tool.family, `family: ${tool.id}`).toBeTruthy()
       expect(typeof tool.Icon, `Icon: ${tool.id}`).toBe('function')
       expect(typeof tool.Page, `Page: ${tool.id}`).toBe('function')
       expect(typeof tool.order, `order: ${tool.id}`).toBe('number')
     }
+  })
+
+  it('كل أداة تستخدم عائلة لونية معرّفة في theme.css', () => {
+    const theme = readFileSync(join(process.cwd(), 'src/styles/theme.css'), 'utf8')
+    for (const tool of tools) expect(theme, tool.id).toContain(`[data-family='${tool.family}']`)
+  })
+
+  it('لا تتشابه أيقونتان', () => {
+    const icons = tools.map((tool) => renderToStaticMarkup(createElement(tool.Icon, { size: 28 })))
+    expect(new Set(icons).size).toBe(icons.length)
   })
 
   it('لا تتكرر معرّفات الأدوات', () => {

@@ -1,11 +1,22 @@
 import ComingSoon from '../../components/ComingSoon.jsx'
-import { Svg } from '../../components/Icons.jsx'
 
-function AdhkarIcon(props) {
+// السبحة غير موجودة في Phosphor، فهي مرسومة بنمط duotone نفسه: حبات وشرّابة
+function RosaryIcon({ size = 28 }) {
   return (
-    <Svg {...props}>
-      <path d="M19.500 14.500a7.500 7.500 0 1 1-10-10 6 6 0 0 0 10 10z" />
-    </Svg>
+    <svg width={size} height={size} viewBox="0 0 256 256" fill="currentColor" aria-hidden="true">
+      <circle cx="105" cy="154" r="15" />
+      <circle cx="71" cy="125" r="15" />
+      <circle cx="63" cy="81" r="15" />
+      <circle cx="86" cy="41" r="15" />
+      <circle cx="128" cy="26" r="15" />
+      <circle cx="170" cy="41" r="15" />
+      <circle cx="193" cy="81" r="15" />
+      <circle cx="185" cy="125" r="15" />
+      <circle cx="151" cy="154" r="15" />
+      <circle cx="128" cy="176" r="16" />
+      <path d="M128 196l-20 42h40z" opacity="0.2" />
+      <path d="M128 196l-20 42h40z" fill="none" stroke="currentColor" strokeWidth="16" strokeLinejoin="round" />
+    </svg>
   )
 }
 
@@ -13,8 +24,8 @@ export default {
   id: 'adhkar',
   name: 'الأذكار',
   description: 'أذكار يومك قريبة منك.',
-  color: 'var(--tool-adhkar)',
-  Icon: AdhkarIcon,
+  family: 'green',
+  Icon: RosaryIcon,
   Page: ComingSoon,
   order: 10,
 }
