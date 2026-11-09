@@ -1,6 +1,6 @@
-import { Target } from '@phosphor-icons/react'
+import Target from '@mingcute/react/core-filled/target'
 import ComingSoon from '../../components/ComingSoon.jsx'
-import { duotone } from '../../components/Icons.jsx'
+import { filled } from '../../components/Icons.jsx'
 
 export default {
   id: 'goals',
@@ -8,7 +8,7 @@ export default {
   description: 'ضع هدفك وتقدّم إليه خطوة خطوة.',
   details: 'حدد ما تريد الوصول إليه، وقسّمه إلى خطوات، وتابع تقدمك فيها.',
   family: 'berry',
-  Icon: duotone(Target),
+  Icon: filled(Target, 0.95),
   Page: ComingSoon,
   order: 6,
 }

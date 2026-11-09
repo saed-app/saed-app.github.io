@@ -1,6 +1,6 @@
-import { CookingPot } from '@phosphor-icons/react'
+import SoupPot from '@mingcute/react/core-filled/soup-pot-2'
 import ComingSoon from '../../components/ComingSoon.jsx'
-import { duotone } from '../../components/Icons.jsx'
+import { filled } from '../../components/Icons.jsx'
 
 export default {
   id: 'recipes',
@@ -8,7 +8,7 @@ export default {
   description: 'وصفاتك التي تحبها، محفوظة.',
   details: 'احفظ وصفاتك بمقاديرها وخطواتها، وارجع إليها عند الطبخ.',
   family: 'clay',
-  Icon: duotone(CookingPot),
+  Icon: filled(SoupPot, 1.03),
   Page: ComingSoon,
   order: 11,
 }

@@ -1,6 +1,6 @@
-import { BookOpen } from '@phosphor-icons/react'
+import BookOpen from '@mingcute/react/core-filled/book-open-text'
 import ComingSoon from '../../components/ComingSoon.jsx'
-import { duotone } from '../../components/Icons.jsx'
+import { filled } from '../../components/Icons.jsx'
 
 export default {
   id: 'reading',
@@ -8,7 +8,7 @@ export default {
   description: 'كتبك وما وصلت إليه فيها.',
   details: 'أضف الكتب التي تقرؤها، وسجّل الصفحة التي وصلت إليها.',
   family: 'paper',
-  Icon: duotone(BookOpen),
+  Icon: filled(BookOpen, 1.03),
   Page: ComingSoon,
   order: 9,
 }

@@ -192,8 +192,10 @@
       for (const [theme, name] of [['light', 'النهار'], ['dark', 'الليل']]) {
         addFrame(phones, { width: 390, height: 844, scale: 0.62, theme, route: '/', openBar: true, caption: `شريط الأدوات: ${name}` })
         addFrame(phones, { width: 390, height: 844, scale: 0.62, theme, route: '/store', caption: `المتجر: ${name}` })
+        addFrame(phones, { width: 390, height: 844, scale: 0.62, theme, route: `/tool/${tools[0].id}`, caption: `عنوان الأداة: ${name}` })
         addFrame(laptops, { width: 1440, height: 900, scale: 0.42, theme, route: '/', openBar: true, caption: `شريط الأدوات: ${name}` })
         addFrame(laptops, { width: 1440, height: 900, scale: 0.42, theme, route: '/store', caption: `المتجر: ${name}` })
+        addFrame(laptops, { width: 1440, height: 900, scale: 0.42, theme, route: `/tool/${tools[0].id}`, caption: `عنوان الأداة: ${name}` })
       }
     </script>
   </body>

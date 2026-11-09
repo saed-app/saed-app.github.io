@@ -1,6 +1,6 @@
-import { Timer } from '@phosphor-icons/react'
+import Stopwatch from '@mingcute/react/core-filled/stopwatch'
 import ComingSoon from '../../components/ComingSoon.jsx'
-import { duotone } from '../../components/Icons.jsx'
+import { filled } from '../../components/Icons.jsx'
 
 export default {
   id: 'focus',
@@ -8,7 +8,7 @@ export default {
   description: 'وقت بلا مقاطعات لما يهمك.',
   details: 'اختر مدة للعمل بلا مقاطعات، وخذ راحة قصيرة بعدها.',
   family: 'indigo',
-  Icon: duotone(Timer),
+  Icon: filled(Stopwatch, 1.03),
   Page: ComingSoon,
   order: 7,
 }

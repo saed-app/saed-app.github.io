@@ -1,21 +1,24 @@
 import ComingSoon from '../../components/ComingSoon.jsx'
 
-// السبحة غير موجودة في Phosphor، فهي مرسومة بنمط duotone نفسه: حبات وشرّابة
-function RosaryIcon({ size = 28 }) {
+// السبحة غير موجودة في MingCute، فهي مرسومة بشبكة 24 وبامتلائها وزواياها الناعمة
+function RosaryIcon({ size = 46 }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 256 256" fill="currentColor" aria-hidden="true">
-      <circle cx="105" cy="154" r="15" />
-      <circle cx="71" cy="125" r="15" />
-      <circle cx="63" cy="81" r="15" />
-      <circle cx="86" cy="41" r="15" />
-      <circle cx="128" cy="26" r="15" />
-      <circle cx="170" cy="41" r="15" />
-      <circle cx="193" cy="81" r="15" />
-      <circle cx="185" cy="125" r="15" />
-      <circle cx="151" cy="154" r="15" />
-      <circle cx="128" cy="176" r="16" />
-      <path d="M128 196l-20 42h40z" opacity="0.2" />
-      <path d="M128 196l-20 42h40z" fill="none" stroke="currentColor" strokeWidth="16" strokeLinejoin="round" />
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <circle cx="7.37" cy="15.52" r="1.9" />
+      <circle cx="4.91" cy="11.25" r="1.9" />
+      <circle cx="5.76" cy="6.40" r="1.9" />
+      <circle cx="9.54" cy="3.23" r="1.9" />
+      <circle cx="14.46" cy="3.23" r="1.9" />
+      <circle cx="18.24" cy="6.40" r="1.9" />
+      <circle cx="19.09" cy="11.25" r="1.9" />
+      <circle cx="16.63" cy="15.52" r="1.9" />
+      <circle cx="12" cy="17.600" r="2" />
+      <path
+        d="M12 19.300l1.900 2.300h-3.800z"
+        stroke="currentColor"
+        strokeWidth="1.200"
+        strokeLinejoin="round"
+      />
     </svg>
   )
 }

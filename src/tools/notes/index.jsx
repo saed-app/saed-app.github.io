@@ -1,6 +1,6 @@
-import { NotePencil } from '@phosphor-icons/react'
+import FilePenLine from '@mingcute/react/core-filled/file-pen-line'
 import ComingSoon from '../../components/ComingSoon.jsx'
-import { duotone } from '../../components/Icons.jsx'
+import { filled } from '../../components/Icons.jsx'
 
 export default {
   id: 'notes',
@@ -8,7 +8,7 @@ export default {
   description: 'دوّن ما يخطر ببالك قبل أن يفوتك.',
   details: 'اكتب فكرتك في لحظتها، وصنّف ملاحظاتك لتجدها حين تحتاجها.',
   family: 'paper',
-  Icon: duotone(NotePencil),
+  Icon: filled(FilePenLine),
   Page: ComingSoon,
   order: 1,
 }

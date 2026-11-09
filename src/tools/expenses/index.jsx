@@ -1,6 +1,6 @@
-import { Wallet } from '@phosphor-icons/react'
+import Wallet from '@mingcute/react/core-filled/wallet'
 import ComingSoon from '../../components/ComingSoon.jsx'
-import { duotone } from '../../components/Icons.jsx'
+import { filled } from '../../components/Icons.jsx'
 
 export default {
   id: 'expenses',
@@ -8,7 +8,7 @@ export default {
   description: 'اعرف أين يذهب مالك.',
   details: 'سجّل ما تصرفه أولاً بأول، وشاهد أين يذهب مالك كل شهر.',
   family: 'clay',
-  Icon: duotone(Wallet),
+  Icon: filled(Wallet, 1.1),
   Page: ComingSoon,
   order: 4,
 }

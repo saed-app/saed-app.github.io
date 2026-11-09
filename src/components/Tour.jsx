@@ -232,7 +232,7 @@ function MockLaptopScreen({ screen, drag }) {
             const swap = drag && index === 0 ? ' is-swap-a' : drag && index === 1 ? ' is-swap-b' : ''
             return (
               <span key={tool.id} className={`tool-tile${swap}`} data-family={tool.family}>
-                <tool.Icon size={22} />
+                <tool.Icon size={26} />
               </span>
             )
           })}
@@ -294,7 +294,7 @@ function MockScreen({ screen, drag }) {
             const swap = drag && index === 0 ? ' is-swap-a' : drag && index === 1 ? ' is-swap-b' : ''
             return (
               <span key={tool.id} className={`tool-tile${swap}`} data-family={tool.family}>
-                <tool.Icon size={22} />
+                <tool.Icon size={26} />
               </span>
             )
           })}
