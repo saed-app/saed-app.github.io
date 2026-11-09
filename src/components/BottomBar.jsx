@@ -108,7 +108,7 @@ export default function BottomBar() {
           aria-current={onSettings ? 'page' : undefined}
           onClick={() => openToolPage('settings')}
         >
-          <SlidersIcon size={24} />
+          <SlidersIcon size={24} active={onSettings} />
         </button>
         <button
           type="button"
@@ -126,7 +126,7 @@ export default function BottomBar() {
           aria-current={onStats ? 'page' : undefined}
           onClick={() => openToolPage('stats')}
         >
-          <ChartIcon size={24} />
+          <ChartIcon size={24} active={onStats} />
         </button>
         <button
           type="button"
@@ -134,7 +134,7 @@ export default function BottomBar() {
           aria-label="المتجر"
           onClick={() => navigate('/store')}
         >
-          <StoreIcon size={24} />
+          <StoreIcon size={24} active={pathname.startsWith('/store')} />
         </button>
           </>
         )}

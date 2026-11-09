@@ -250,7 +250,7 @@ export default function ToolsSheet({ open, activeId, onSelect, onOpenStore }) {
               onClick={(event) => handleClick(event, tool.id)}
               onKeyDown={(event) => handleKeyDown(event, tool.id)}
             >
-              <ToolTile tool={tool} />
+              <ToolTile tool={tool} active={tool.id === activeId} />
             </button>
           ))}
         </div>

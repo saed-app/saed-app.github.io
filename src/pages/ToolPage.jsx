@@ -87,11 +87,16 @@ export function ToolSettingsPage() {
 // إحصائيات الأداة: تُفتح من زر الشريط السفلي
 export function ToolStatsPage() {
   const tool = useOpenTool()
+  const isLaptop = useIsLaptop()
   if (!tool) return <Navigate to="/" replace />
 
   return (
     <div className="page">
-      <PageHeader title={`إحصائيات ${tool.name}`} tool={tool} />
+      <PageHeader
+        title={`إحصائيات ${tool.name}`}
+        tool={tool}
+        action={isLaptop ? <ToolActions tool={tool} activePage="stats" /> : undefined}
+      />
       {tool.Stats ? <tool.Stats /> : <ComingSoon {...UNAVAILABLE} />}
     </div>
   )

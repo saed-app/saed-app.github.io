@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { useLocation } from 'react-router-dom'
 import { BackIcon, ChevronStartIcon } from './Icons.jsx'
 import { SETTINGS_PAGES } from '../settings/pages.js'
 import { isInstalled } from '../core/install.js'
@@ -8,6 +9,7 @@ import { APP_VERSION } from '../config.js'
 // الإعدادات: في الجوال والتابلت صفحة تملأ التطبيق، وزر الرجوع يعيد من الصفحة الداخلية إلى القائمة،
 // ومن القائمة إلى التطبيق. وعلى اللابتوب (panel) عمود ثابت على اليمين، وزر الرجوع للصفحات الداخلية فقط.
 export default function SettingsScreen({ page, onOpenPage, onBack, onOpenGuide, onOpenStore, inert, panel }) {
+  const { pathname } = useLocation()
   const backButton = useRef(null)
   const screen = useRef(null)
   const current = SETTINGS_PAGES.find((item) => item.id === page && item.Page)
@@ -73,7 +75,10 @@ export default function SettingsScreen({ page, onOpenPage, onBack, onOpenGuide, 
                   onClick={() => openItem(item)}
                 >
                   <span className="settings-row-icon">
-                    <item.Icon size={20} />
+                    <item.Icon
+                      size={20}
+                      active={item.action === 'store' ? pathname.startsWith('/store') : item.id === page}
+                    />
                   </span>
                   <span className="settings-row-label">{item.title}</span>
                   <span className="settings-row-chevron">

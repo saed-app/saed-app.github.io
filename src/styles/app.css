@@ -2152,3 +2152,34 @@ h3 {
     padding-top: var(--space-xl);
   }
 }
+
+/* حالتا الأيقونة: Line عادةً، وFill عند الضغط أو عندما يكون المستخدم داخل ما تمثله */
+.state-icon {
+  display: inline-grid;
+  flex: none;
+}
+
+.state-icon > svg {
+  grid-area: 1 / 1;
+  transition: opacity var(--dur-quick) ease;
+}
+
+.state-icon-fill,
+.state-icon[data-active='true'] .state-icon-line {
+  opacity: 0;
+}
+
+.state-icon[data-active='true'] .state-icon-fill {
+  opacity: 1;
+}
+
+/* أثناء الضغط تتحول فوراً، وتعود بهدوء إذا لم يفتح الضغط شيئاً */
+button:active .state-icon-fill {
+  opacity: 1;
+  transition-duration: 0s;
+}
+
+button:active .state-icon-line {
+  opacity: 0;
+  transition-duration: 0s;
+}

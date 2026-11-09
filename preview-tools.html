@@ -67,6 +67,10 @@
         font: 12px system-ui, sans-serif;
       }
 
+      .state-title {
+        margin-top: 20px !important;
+      }
+
       .sizes {
         display: flex;
         flex-wrap: wrap;
@@ -105,8 +109,8 @@
 
     <h2>بحجمها الحقيقي في الوضعين</h2>
     <div class="panels">
-      <section class="panel" data-theme="light"><h3>النهار</h3><div class="gallery"></div><div class="sizes"></div></section>
-      <section class="panel" data-theme="dark"><h3>الليل</h3><div class="gallery"></div><div class="sizes"></div></section>
+      <section class="panel" data-theme="light"><h3>النهار</h3><div class="gallery"></div><h3 class="state-title">عند الفتح أو الضغط</h3><div class="gallery is-active"></div><div class="sizes"></div></section>
+      <section class="panel" data-theme="dark"><h3>الليل</h3><div class="gallery"></div><h3 class="state-title">عند الفتح أو الضغط</h3><div class="gallery is-active"></div><div class="sizes"></div></section>
     </div>
 
     <h2>على الجوال</h2>
@@ -130,6 +134,9 @@
         createRoot(panel.querySelector('.gallery')).render(
           tools.map((tool) => h('div', { className: 'item', key: tool.id }, h(ToolTile, { tool }), tool.name)),
         )
+        createRoot(panel.querySelector('.gallery.is-active')).render(
+          tools.map((tool) => h('div', { className: 'item', key: tool.id }, h(ToolTile, { tool, active: true }), tool.name)),
+        )
         createRoot(panel.querySelector('.sizes')).render(
           tools.map((tool) => h(ToolTile, { tool, size: 'small', key: tool.id })),
         )
@@ -137,7 +144,11 @@
 
       // تجهيز مؤقت حتى تظهر كل الأدوات داخل الإطارات، ثم تعود بيانات التجربة كما كانت
       const KEYS = ['saed:enabledTools', 'saed:settings']
-      const saved = KEYS.map((key) => localStorage.getItem(key))
+      const BACKUP = 'saed-preview-backup'
+      if (!sessionStorage.getItem(BACKUP)) {
+        sessionStorage.setItem(BACKUP, JSON.stringify(KEYS.map((key) => localStorage.getItem(key))))
+      }
+      const saved = JSON.parse(sessionStorage.getItem(BACKUP))
       localStorage.setItem('saed:enabledTools', JSON.stringify(tools.map((tool) => tool.id)))
       localStorage.setItem('saed:settings', JSON.stringify({ tourSeen: true, sidebarOpen: true }))
       let pending = 0
@@ -147,7 +158,11 @@
           if (saved[index] === null) localStorage.removeItem(key)
           else localStorage.setItem(key, saved[index])
         })
+        sessionStorage.removeItem(BACKUP)
       }
+
+      // احتياط: تعود بيانات التجربة حتى لو لم يكتمل تحميل أحد الإطارات
+      setTimeout(restore, 20000)
 
       window.addEventListener('pagehide', restore)
 

@@ -18,7 +18,7 @@ export default function PageHeader({ title, tool, action }) {
       <button type="button" className="icon-button pressable" aria-label="رجوع" onClick={goBack}>
         <BackIcon />
       </button>
-      {tool && <ToolTile tool={tool} size="small" />}
+      {tool && <ToolTile tool={tool} size="small" active />}
       <h1>{title}</h1>
       {action}
     </div>

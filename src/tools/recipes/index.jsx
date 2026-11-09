@@ -1,6 +1,7 @@
-import SoupPot from '@mingcute/react/core-filled/soup-pot-2'
+import SoupPotLine from '@mingcute/react/core-regular/soup-pot-2'
+import SoupPotFill from '@mingcute/react/core-filled/soup-pot-2'
 import ComingSoon from '../../components/ComingSoon.jsx'
-import { filled } from '../../components/Icons.jsx'
+import { dual } from '../../components/Icons.jsx'
 
 export default {
   id: 'recipes',
@@ -8,7 +9,7 @@ export default {
   description: 'وصفاتك التي تحبها، محفوظة.',
   details: 'احفظ وصفاتك بمقاديرها وخطواتها، وارجع إليها عند الطبخ.',
   family: 'clay',
-  Icon: filled(SoupPot, 1.03),
+  Icon: dual(SoupPotLine, SoupPotFill, 1.03),
   Page: ComingSoon,
   order: 11,
 }

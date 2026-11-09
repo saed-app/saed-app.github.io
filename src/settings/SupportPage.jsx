@@ -76,7 +76,7 @@ export default function SupportPage() {
             onClick={() => setShowEmail((open) => !open)}
           >
             <span className="settings-row-icon">
-              <MailIcon size={20} />
+              <MailIcon size={20} active={showEmail} />
             </span>
             <span className="settings-row-label">راسلنا</span>
           </button>

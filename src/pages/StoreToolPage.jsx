@@ -18,7 +18,7 @@ export default function StoreToolPage() {
       <PageHeader title={tool.name} />
 
       <div className="store-hero">
-        <ToolTile tool={tool} size="large" />
+        <ToolTile tool={tool} size="large" active />
         <div className="store-hero-text">
           <h2>{tool.name}</h2>
           <p>{tool.description}</p>

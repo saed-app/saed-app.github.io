@@ -1,8 +1,12 @@
 import { useState } from 'react'
+import { dual } from '../../src/components/Icons.jsx'
 import { useToolAdd } from '../../src/core/toolAdd.js'
 
 // أدوات وهمية ثابتة، حتى لا تتأثر اختبارات الواجهة عند بناء الأدوات الحقيقية
-const Icon = () => <svg aria-hidden="true" />
+const Icon = dual(
+  () => <svg data-kind="line" aria-hidden="true" />,
+  () => <svg data-kind="fill" aria-hidden="true" />,
+)
 
 function ReadyPage() {
   const [count, setCount] = useState(0)

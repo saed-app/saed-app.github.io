@@ -3,7 +3,7 @@ import { ChartIcon, PlusIcon } from './Icons.jsx'
 
 // على اللابتوب لا يوجد الشريط السفلي، فزر الإحصائيات في عنوان صفحة الأداة.
 // وصفحة + هي الصفحة المفتوحة نفسها، فزرها يظهر فقط إن كانت الأداة تبدأ فيها عنصراً جديداً
-export default function ToolActions({ tool }) {
+export default function ToolActions({ tool, activePage }) {
   const navigate = useNavigate()
   const toolHome = `/tool/${tool.id}`
 
@@ -13,9 +13,10 @@ export default function ToolActions({ tool }) {
         type="button"
         className="icon-button pressable"
         aria-label="إحصائيات الأداة"
-        onClick={() => navigate(`${toolHome}/stats`)}
+        aria-current={activePage === 'stats' ? 'page' : undefined}
+        onClick={() => navigate(activePage === 'stats' ? toolHome : `${toolHome}/stats`)}
       >
-        <ChartIcon size={22} />
+        <ChartIcon size={22} active={activePage === 'stats'} />
       </button>
       {tool.supportsAdd && (
         <button

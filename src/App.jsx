@@ -122,7 +122,7 @@ export default function App() {
           aria-expanded={panelOpen}
           onClick={() => updateSettings({ sidebarOpen: !panelOpen })}
         >
-          <SidebarIcon size={22} />
+          <SidebarIcon size={22} active={panelOpen} />
         </button>
       )}
       {tourOpen && <Tour onClose={closeTour} />}

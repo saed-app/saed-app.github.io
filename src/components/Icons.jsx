@@ -19,8 +19,20 @@ import SidebarRightLine from '@mingcute/react/core-regular/sidebar-right'
 import UpLine from '@mingcute/react/core-regular/up'
 import UserLine from '@mingcute/react/core-regular/user-3'
 import VolumeLine from '@mingcute/react/core-regular/volume'
+import ShopFill from '@mingcute/react/core-filled/shop'
+import SettingsFill from '@mingcute/react/core-filled/settings-3'
+import ChartBarFill from '@mingcute/react/core-filled/chart-bar'
+import SettingsHorizontalFill from '@mingcute/react/core-filled/settings-horizontal'
+import UserFill from '@mingcute/react/core-filled/user-3'
+import VolumeFill from '@mingcute/react/core-filled/volume'
+import MapFill from '@mingcute/react/core-filled/map'
+import DownloadFill from '@mingcute/react/core-filled/download-2'
+import QuestionFill from '@mingcute/react/core-filled/question'
+import InformationFill from '@mingcute/react/core-filled/information'
+import MailFill from '@mingcute/react/core-filled/mail'
+import SidebarRightFill from '@mingcute/react/core-filled/sidebar-right'
 
-// كل أيقونات التطبيق من مكتبة MingCute: Line للواجهة، وFill للأدوات.
+// كل أيقونات التطبيق من مكتبة MingCute. لكل أيقونة حالتان: Line عادةً، وFill عند الضغط أو عندما يكون المستخدم داخل ما تمثله.
 // ملفاتها داخل التطبيق نفسه، فتعمل بدون إنترنت.
 function line(Icon) {
   return function UiIcon({ size = 24, ...props }) {
@@ -28,31 +40,39 @@ function line(Icon) {
   }
 }
 
+// المكوّن المشترك للحالتين. الطبقتان فوق بعضهما فلا يتغير الحجم ولا المكان عند التبديل.
+// active تعني أن المستخدم داخل ما تمثله الأيقونة، والضغط يتولاه CSS.
 // scale: معامل بسيط لتوازن الأيقونة بصرياً مع بقية الأدوات
-export function filled(Icon, scale = 1) {
-  return function ToolIcon({ size = 46, ...props }) {
-    return <Icon size={Math.round(size * scale)} aria-hidden="true" {...props} />
+export function dual(LineIcon, FillIcon, scale = 1) {
+  return function StateIcon({ size = 24, active = false }) {
+    const pixels = Math.round(size * scale)
+    return (
+      <span className="state-icon" data-active={active} style={{ width: pixels, height: pixels }} aria-hidden="true">
+        <LineIcon size={pixels} className="state-icon-line" />
+        <FillIcon size={pixels} className="state-icon-fill" />
+      </span>
+    )
   }
 }
 
-export const SidebarIcon = line(SidebarRightLine)
+export const SidebarIcon = dual(SidebarRightLine, SidebarRightFill)
 export const PlusIcon = line(AddLine)
-export const PersonIcon = line(UserLine)
-export const StoreIcon = line(ShopLine)
+export const PersonIcon = dual(UserLine, UserFill)
+export const StoreIcon = dual(ShopLine, ShopFill)
 export const BackIcon = line(RightLine)
-export const GearIcon = line(SettingsLine)
-export const SoundIcon = line(VolumeLine)
-export const GuideIcon = line(MapLine)
-export const ChartIcon = line(ChartBarLine)
+export const GearIcon = dual(SettingsLine, SettingsFill)
+export const SoundIcon = dual(VolumeLine, VolumeFill)
+export const GuideIcon = dual(MapLine, MapFill)
+export const ChartIcon = dual(ChartBarLine, ChartBarFill)
 export const ChevronUpIcon = line(UpLine)
-export const DownloadIcon = line(DownloadLine)
+export const DownloadIcon = dual(DownloadLine, DownloadFill)
 export const CheckIcon = line(CheckLine)
 export const ChevronDownIcon = line(DownLine)
 export const HandIcon = line(FingerTapLine)
 export const ChevronStartIcon = line(LeftLine)
-export const SlidersIcon = line(SettingsHorizontalLine)
-export const HelpIcon = line(QuestionLine)
-export const InfoIcon = line(InformationLine)
-export const MailIcon = line(MailLine)
+export const SlidersIcon = dual(SettingsHorizontalLine, SettingsHorizontalFill)
+export const HelpIcon = dual(QuestionLine, QuestionFill)
+export const InfoIcon = dual(InformationLine, InformationFill)
+export const MailIcon = dual(MailLine, MailFill)
 export const BackspaceIcon = line(DeleteBackLine)
 export const MoonIcon = line(MoonLine)
