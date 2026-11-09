@@ -10,17 +10,10 @@ const DOT = { cx: 44.73, cy: 19.27, r: 5 }
 function iconSvg(scale) {
   const offset = 32 - 32 * scale
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#9C7213"/>
-      <stop offset=".45" stop-color="#E8C75A"/>
-      <stop offset="1" stop-color="#B98D1B"/>
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" fill="#000000"/>
+  <rect width="64" height="64" fill="#FBF8F2"/>
   <g transform="translate(${offset} ${offset}) scale(${scale})">
-    <path d="${RING}" fill="none" stroke="url(#g)" stroke-width="8" stroke-linecap="round"/>
-    <circle cx="${DOT.cx}" cy="${DOT.cy}" r="${DOT.r}" fill="#D8DADD"/>
+    <path d="${RING}" fill="none" stroke="#BF9730" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="${DOT.cx}" cy="${DOT.cy}" r="${DOT.r}" fill="#000000" stroke="#BF9730" stroke-width="1.5"/>
   </g>
 </svg>`
 }

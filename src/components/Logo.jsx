@@ -3,7 +3,7 @@
 export const LOGO_RING = 'M34.19 14.13A18 18 0 1 0 49.87 29.81'
 export const LOGO_DOT = { cx: 44.73, cy: 19.27, r: 5 }
 
-export default function Logo({ size = 64, dot = 'var(--logo-dot)', title }) {
+export default function Logo({ size = 64, title }) {
   return (
     <svg
       width={size}
@@ -13,8 +13,8 @@ export default function Logo({ size = 64, dot = 'var(--logo-dot)', title }) {
       aria-label={title}
       aria-hidden={title ? undefined : 'true'}
     >
-      <path d={LOGO_RING} fill="none" stroke="var(--accent)" strokeWidth="8" strokeLinecap="round" />
-      <circle {...LOGO_DOT} fill={dot} />
+      <path d={LOGO_RING} fill="none" stroke="var(--logo-ring)" strokeWidth="8" strokeLinecap="round" />
+      <circle {...LOGO_DOT} fill="var(--logo-dot)" stroke="var(--logo-ring)" strokeWidth="1.5" />
     </svg>
   )
 }
