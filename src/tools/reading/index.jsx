@@ -6,6 +6,7 @@ export default {
   id: 'reading',
   name: 'القراءة',
   description: 'كتبك وما وصلت إليه فيها.',
+  details: 'أضف الكتب التي تقرؤها، وسجّل الصفحة التي وصلت إليها.',
   family: 'paper',
   Icon: duotone(BookOpen),
   Page: ComingSoon,

@@ -15,6 +15,7 @@ describe('السجل المركزي للأدوات', () => {
       expect(typeof tool.id, 'id').toBe('string')
       expect(tool.name, `name: ${tool.id}`).toBeTruthy()
       expect(tool.description, `description: ${tool.id}`).toBeTruthy()
+      expect(tool.details, `details: ${tool.id}`).toBeTruthy()
       expect(tool.family, `family: ${tool.id}`).toBeTruthy()
       expect(typeof tool.Icon, `Icon: ${tool.id}`).toBe('function')
       expect(typeof tool.Page, `Page: ${tool.id}`).toBe('function')

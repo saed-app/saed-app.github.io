@@ -6,6 +6,7 @@ export default {
   id: 'appointments',
   name: 'المواعيد',
   description: 'مواعيدك أمامك فلا تفوتك.',
+  details: 'احفظ مواعيدك بتواريخها وأوقاتها، فتراها كلها في مكان واحد.',
   family: 'indigo',
   Icon: duotone(CalendarDots),
   Page: ComingSoon,

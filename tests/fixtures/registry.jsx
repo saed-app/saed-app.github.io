@@ -15,6 +15,7 @@ export const tools = [
     id: 'ready',
     name: 'أداة جاهزة',
     description: 'وصف الأداة الجاهزة',
+    details: 'شرح مبسط للأداة الجاهزة',
     family: 'blue',
     Icon,
     Page: ReadyPage,

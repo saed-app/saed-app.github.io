@@ -19,9 +19,18 @@ export default function StoreToolPage() {
 
       <div className="store-hero">
         <ToolTile tool={tool} size="large" />
-        <h2>{tool.name}</h2>
-        <p>{tool.description}</p>
+        <div className="store-hero-text">
+          <h2>{tool.name}</h2>
+          <p>{tool.description}</p>
+        </div>
       </div>
+
+      {tool.details && (
+        <section className="store-about">
+          <h3>عن هذه الأداة</h3>
+          <p>{tool.details}</p>
+        </section>
+      )}
 
       <div className="store-action-bar">
         <button
@@ -29,7 +38,7 @@ export default function StoreToolPage() {
           className={`store-action pressable${enabled ? ' is-remove' : ''}`}
           onClick={() => (enabled ? removeTool(tool.id) : addTool(tool.id))}
         >
-          {enabled ? 'أزلها من أدواتي' : 'أضفها إلى أدواتي'}
+          {enabled ? 'إزالة الأداة' : 'إضافة الأداة'}
         </button>
       </div>
     </div>

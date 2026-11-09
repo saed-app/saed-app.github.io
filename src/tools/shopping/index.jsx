@@ -6,6 +6,7 @@ export default {
   id: 'shopping',
   name: 'التسوق',
   description: 'ما تحتاج شراءه قبل أن تخرج.',
+  details: 'اكتب ما تحتاج شراءه، وعلّم ما اشتريته وأنت في السوق.',
   family: 'clay',
   Icon: duotone(ShoppingCart),
   Page: ComingSoon,

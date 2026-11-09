@@ -321,22 +321,6 @@ h3 {
   font-size: var(--fs-body);
 }
 
-.store-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  color: var(--text-muted);
-  font-family: var(--font-heading);
-  font-size: var(--fs-label);
-  }
-  
-  .store-card-title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-m);
-}
-
 /* صفحة الأداة في المتجر */
 .store-hero {
   display: flex;
@@ -344,6 +328,25 @@ h3 {
   align-items: flex-start;
   gap: var(--space-s);
   margin-bottom: var(--space-xl);
+}
+
+.store-hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.store-about {
+  padding-top: var(--space-l);
+  border-top: 1px solid var(--border);
+}
+
+.store-about h3 {
+  font-size: var(--fs-label);
+}
+
+.store-about p {
+  margin: var(--space-xs) 0 0;
 }
 
 .store-hero h2 {
@@ -2097,4 +2100,55 @@ h3 {
 .tour-phone.is-laptop .mock-topbar {
   position: relative;
   z-index: 3;
+}
+
+/* صفحة الأداة في المتجر على اللابتوب: زر مركب بجانب الاسم كما في متاجر التطبيقات */
+@media (min-width: 1024px) {
+  .store-tool.page {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: var(--space-xl);
+  }
+
+  .store-tool .page-header,
+  .store-about {
+    grid-column: 1 / -1;
+  }
+
+  .store-hero {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-l);
+    margin-bottom: 0;
+  }
+
+  .store-hero h2 {
+    margin-top: 0;
+  }
+
+  .store-action-bar {
+    position: static;
+    grid-column: 2;
+    grid-row: 2;
+    margin: 0;
+    padding: 0;
+    background: none;
+  }
+
+  .store-tool .store-action {
+    width: auto;
+    min-height: 40px;
+    border-radius: var(--radius-s);
+  }
+
+  .store-tool .store-action.is-remove {
+    border-color: transparent;
+    background: var(--surface-2);
+  }
+
+  .store-about {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-xl);
+  }
 }

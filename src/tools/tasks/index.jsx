@@ -6,6 +6,7 @@ export default {
   id: 'tasks',
   name: 'المهام',
   description: 'ما عليك اليوم، في مكان واحد.',
+  details: 'اكتب ما عليك فعله، وعلّم ما أنجزته، فيبقى يومك واضحاً أمامك.',
   family: 'blue',
   Icon: duotone(ListChecks),
   Page: ComingSoon,

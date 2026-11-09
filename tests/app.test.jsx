@@ -36,37 +36,42 @@ describe('الرئيسية', () => {
 })
 
 describe('المتجر', () => {
-  it('يعرض كل الأدوات، وعلامة «مضافة» للمضافة فقط', async () => {
+  it('يعرض كل الأدوات دون علامة للمضافة', async () => {
     await renderApp({ route: '/store', tools: ['ready'] })
     expect(screen.getByText('وصف الأداة الجاهزة')).toBeTruthy()
     expect(screen.getByText('وصف الأداة غير الجاهزة')).toBeTruthy()
-    expect(screen.getAllByText('مضافة')).toHaveLength(1)
+    expect(screen.queryByText('مضافة')).toBeNull()
   })
 
   it('الضغط على أداة يفتح صفحة التعريف بها', async () => {
     await renderApp({ route: '/store' })
     fireEvent.click(screen.getByText('أداة جاهزة'))
-    expect(await screen.findByRole('button', { name: 'أضفها إلى أدواتي' })).toBeTruthy()
+    expect(await screen.findByRole('button', { name: 'إضافة الأداة' })).toBeTruthy()
     expect(currentPath()).toBe('/store/ready')
   })
 
   it('يضيف الأداة ويحفظها، ثم يزيلها', async () => {
     await renderApp({ route: '/store/ready' })
-    clickButton('أضفها إلى أدواتي')
-    expect(await screen.findByRole('button', { name: 'أزلها من أدواتي' })).toBeTruthy()
+    clickButton('إضافة الأداة')
+    expect(await screen.findByRole('button', { name: 'إزالة الأداة' })).toBeTruthy()
     expect(readSaved('enabledTools')).toEqual(['ready'])
 
-    clickButton('أزلها من أدواتي')
-    expect(await screen.findByRole('button', { name: 'أضفها إلى أدواتي' })).toBeTruthy()
+    clickButton('إزالة الأداة')
+    expect(await screen.findByRole('button', { name: 'إضافة الأداة' })).toBeTruthy()
     expect(readSaved('enabledTools')).toEqual([])
   })
 
   it('إزالة الأداة لا تمس بياناتها', async () => {
     save('ready-data', ['عنصر'])
     await renderApp({ route: '/store/ready', tools: ['ready'] })
-    clickButton('أزلها من أدواتي')
-    expect(await screen.findByRole('button', { name: 'أضفها إلى أدواتي' })).toBeTruthy()
+    clickButton('إزالة الأداة')
+    expect(await screen.findByRole('button', { name: 'إضافة الأداة' })).toBeTruthy()
     expect(readSaved('ready-data')).toEqual(['عنصر'])
+  })
+
+  it('صفحة الأداة تعرض شرحها المبسط', async () => {
+    await renderApp({ route: '/store/ready' })
+    expect(screen.getByText('شرح مبسط للأداة الجاهزة')).toBeTruthy()
   })
 
   it('الأداة غير الموجودة تعيد إلى المتجر', async () => {

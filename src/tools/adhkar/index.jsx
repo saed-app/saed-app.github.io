@@ -24,6 +24,7 @@ export default {
   id: 'adhkar',
   name: 'الأذكار',
   description: 'أذكار يومك قريبة منك.',
+  details: 'أذكار الصباح والمساء وما تحب المداومة عليه، قريبة منك كل يوم.',
   family: 'green',
   Icon: RosaryIcon,
   Page: ComingSoon,

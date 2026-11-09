@@ -6,6 +6,7 @@ export default {
   id: 'notes',
   name: 'الملاحظات',
   description: 'دوّن ما يخطر ببالك قبل أن يفوتك.',
+  details: 'اكتب فكرتك في لحظتها، وصنّف ملاحظاتك لتجدها حين تحتاجها.',
   family: 'paper',
   Icon: duotone(NotePencil),
   Page: ComingSoon,

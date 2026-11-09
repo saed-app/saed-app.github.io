@@ -6,6 +6,7 @@ export default {
   id: 'water',
   name: 'الماء',
   description: 'كم كوباً شربت اليوم؟',
+  details: 'سجّل كل كوب تشربه، وتابع ما شربته خلال يومك.',
   family: 'blue',
   Icon: duotone(Drop),
   Page: ComingSoon,
