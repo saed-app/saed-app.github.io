@@ -1,10 +1,11 @@
 import ComingSoon from '../../components/ComingSoon.jsx'
 import { Svg } from '../../components/Icons.jsx'
 
-function ToolIcon(props) {
+function TasksIcon(props) {
   return (
     <Svg {...props}>
-      <path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01" />
+      <path d="M4.500 7.500l1.500 1.500 2.500-3M4.500 15.500l1.500 1.500 2.500-3" />
+      <path d="M12 8h7.500M12 16h7.500" />
     </Svg>
   )
 }
@@ -12,9 +13,9 @@ function ToolIcon(props) {
 export default {
   id: 'tasks',
   name: 'المهام',
-  description: 'رتّب مهامك اليومية وأنجزها.',
-  color: '#3F6FB5',
-  Icon: ToolIcon,
+  description: 'ما عليك اليوم، في مكان واحد.',
+  color: 'var(--tool-tasks)',
+  Icon: TasksIcon,
   Page: ComingSoon,
   order: 3,
 }

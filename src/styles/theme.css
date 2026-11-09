@@ -1,18 +1,22 @@
-/* كل ألوان التطبيق هنا. لتغيير لون في الثيمين يكفي تعديل هذا الملف */
+/* نظام تصميم ساعد: كل الألوان والأحجام والحركات هنا، وباقي التطبيق يقرأ منها فقط */
 
 :root {
-  /* الخطوط: العناوين والتفاصيل */
-  --font-heading: 'Tajawal', sans-serif;
+  /* الخطوط: العناوين والأزرار، والتفاصيل */
+  --font-heading: 'IBM Plex Sans Arabic', sans-serif;
   --font-body: 'Amiri', serif;
+  --fw-label: 500;
+  --fw-title: 600;
 
-  /* سلّم أحجام النصوص: كل نص في التطبيق يستخدم واحداً منها */
-  --fs-display: 1.75rem; /* التحية في الرئيسية */
+  /* أربعة أحجام فقط. Amiri لا يقل عن 16 بكسل في أي مقاس خط */
+  --fs-display: 2rem; /* التحية في الرئيسية */
   --fs-title: 1.375rem; /* عنوان الصفحة */
-  --fs-heading: 1.125rem; /* عنوان بطاقة أو قسم بارز */
-  --fs-body: 1.1875rem; /* النص العادي */
-  --fs-small: 1.0625rem; /* الوصف والملاحظات */
-  --fs-button: 1rem; /* الأزرار */
-  --fs-caption: 0.9375rem; /* عناوين الأقسام الصغيرة والقيم */
+  --fs-body: max(16px, 1.125rem); /* النص والتفاصيل */
+  --fs-label: 1rem; /* الأزرار وأسماء العناصر */
+  --fs-mock: 11px; /* نصوص رسوم الدليل التعريفي */
+
+  /* العربية تحتاج ارتفاع سطر أكبر */
+  --lh-body: 1.8;
+  --lh-heading: 1.4;
 
   /* المسافات مبنية على مضاعفات 4 و8 */
   --space-xs: 4px;
@@ -20,15 +24,56 @@
   --space-m: 12px;
   --space-l: 16px;
   --space-xl: 24px;
+  --space-2xl: 40px;
+  --page-gutter: 20px;
 
-  /* مقاسات الحواف المدورة */
-  --radius-s: 14px;
-  --radius-m: 20px;
+  /* زوايا متدرجة: الداخلية = الخارجية ناقص المسافة بينهما (8) */
   --radius-l: 28px;
+  --radius-m: 20px;
+  --radius-s: 12px;
+  --radius-tile: 16px;
 
   /* مفتاح التشغيل */
   --switch-on: #228b22;
   --switch-thumb: #ffffff;
+
+  /* ألوان الأدوات: عائلة واحدة بإضاءة وتشبع متقاربين (oklch 0.56 / 0.075) */
+  --on-tool: #fbf8f2;
+  --tool-recipes: #9b6266;
+  --tool-expenses: #9a664f;
+  --tool-notes: #8c703f;
+  --tool-adhkar: #777843;
+  --tool-habits: #588059;
+  --tool-reading: #3e8372;
+  --tool-water: #36808d;
+  --tool-appointments: #497a9c;
+  --tool-tasks: #5f74a1;
+  --tool-focus: #776c9c;
+  --tool-shopping: #8b658d;
+  --tool-goals: #986277;
+
+  /* الأيقونات */
+  --icon-stroke: 1.75;
+
+  /* الحركة: ضغطة سريعة ثم عودة نابضة */
+  --press-scale: 0.94;
+  --press-scale-wide: 0.985;
+  --dur-press: 90ms;
+  --dur-release: 480ms;
+  --dur-quick: 180ms;
+  --dur-slide: 320ms;
+  --ease-out: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-spring: linear(
+    0, 0.009, 0.035 2.1%, 0.141 4.4%, 0.723 12.9%, 0.938 16.7%, 1.017, 1.077, 1.121, 1.149 24.3%,
+    1.159, 1.163, 1.161, 1.154 29.9%, 1.129 32.8%, 1.051 39.6%, 1.017 43.1%, 0.991, 0.977 51%,
+    0.974 53.8%, 0.975 57.1%, 0.997 69.8%, 1.003 76.9%, 1.004 83.8%, 1
+  );
+}
+
+@media (min-width: 768px) {
+  :root {
+    --page-gutter: 32px;
+  }
 }
 
 /* مقاسات الخط الثلاثة: كل نصوص التطبيق تتبع هذا الرقم */
@@ -45,48 +90,43 @@ html,
   font-size: 18px;
 }
 
-/* --accent-metal: اللون المعدني اللامع للأزرار والأسطح والعناوين الكبيرة
-   --accent: اللون الصافي للأيقونات والحدود
-   --accent-text: درجة للنصوص الصغيرة تبقى مقروءة على الخلفية */
+/* درجات النص كلها من لون واحد ممزوج بالخلفية */
+[data-theme='light'],
+[data-theme='dark'] {
+  --text-muted: color-mix(in srgb, var(--text) 72%, var(--bg));
+  --border: color-mix(in srgb, var(--text) 10%, transparent);
+}
 
-/* النهاري: ذهبي مع الأبيض */
+/* النهار: أبيض دافئ وذهبي واحد مسطح */
 [data-theme='light'] {
   color-scheme: light;
-  --bg: #ffffff;
-  --surface: #fbf8f0;
-  --surface-2: #f5ecd6;
-  --text: #2b2212;
-  --text-muted: #6f6248;
-  --accent-metal: linear-gradient(135deg, #9c7213 0%, #e8c75a 45%, #b98d1b 100%);
-  --accent: #b98d1b;
-  --accent-text: #946c12;
-  --on-accent: #2b2212;
-  --logo-dot: #2b2212;
-  --danger: #b3261e;
-  --dock-bg: rgba(255, 255, 255, 0.85);
-  --border: rgba(185, 141, 27, 0.3);
-  --scrim: rgba(30, 22, 8, 0.35);
-  --shadow: 0 8px 28px rgba(90, 66, 16, 0.18);
+  --bg: #fbf8f2;
+  --surface: #f4f0e8;
+  --surface-2: #ebe6db;
+  --text: #2c2723;
+  --accent: #bf9730;
+  --on-accent: #2c2723;
+  --logo-dot: #2c2723;
+  --device-frame: #2c2723;
+  --danger: #a8362c;
+  --dock-bg: rgba(251, 248, 242, 0.9);
+  --shadow-float: 0 8px 28px rgba(44, 39, 35, 0.14);
   --switch-off: #8e8e93;
 }
 
-/* الليلي: فضي مع الأسود */
+/* الليل: أسود ناعم وفضي واحد مسطح */
 [data-theme='dark'] {
   color-scheme: dark;
-  --bg: #000000;
-  --surface: #141416;
-  --surface-2: #26262a;
-  --text: #f2f2f4;
-  --text-muted: #b4b6bc;
-  --accent-metal: linear-gradient(135deg, #83878c 0%, #d8dadd 45%, #92969b 100%);
-  --accent: #a9adb2;
-  --accent-text: #a9adb2;
-  --on-accent: #0a0a0b;
-  --logo-dot: #d8dadd;
-  --danger: #ff6b60;
-  --dock-bg: rgba(28, 28, 31, 0.85);
-  --border: rgba(169, 173, 178, 0.24);
-  --scrim: rgba(0, 0, 0, 0.6);
-  --shadow: 0 8px 28px rgba(0, 0, 0, 0.7);
+  --bg: #151412;
+  --surface: #1e1d1a;
+  --surface-2: #2a2825;
+  --text: #ece8e1;
+  --accent: #c7c9cc;
+  --on-accent: #151412;
+  --logo-dot: #c7c9cc;
+  --device-frame: #2a2825;
+  --danger: #f07a70;
+  --dock-bg: rgba(30, 29, 26, 0.9);
+  --shadow-float: 0 8px 28px rgba(0, 0, 0, 0.5);
   --switch-off: #6e6e73;
 }

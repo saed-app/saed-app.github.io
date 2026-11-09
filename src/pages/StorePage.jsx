@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { CheckIcon, ChevronStartIcon } from '../components/Icons.jsx'
+import { CheckIcon } from '../components/Icons.jsx'
 import PageHeader from '../components/PageHeader.jsx'
 import ToolTile from '../components/ToolTile.jsx'
 import { useEnabledTools } from '../core/enabledTools.jsx'
@@ -25,17 +25,16 @@ export default function StorePage() {
             >
               <ToolTile tool={tool} />
               <span className="store-card-text">
-                <span className="store-card-name">{tool.name}</span>
-                <span className="store-card-description">{tool.description}</span>
-              </span>
-              {enabled && (
-                <span className="store-badge">
-                  <CheckIcon size={14} />
-                  مضافة
+                <span className="store-card-title">
+                  <span className="store-card-name">{tool.name}</span>
+                  {enabled && (
+                    <span className="store-badge">
+                      <CheckIcon size={16} />
+                      مضافة
+                    </span>
+                  )}
                 </span>
-              )}
-              <span className="settings-row-chevron">
-                <ChevronStartIcon size={18} />
+                <span className="store-card-description">{tool.description}</span>
               </span>
             </button>
           )

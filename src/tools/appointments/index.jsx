@@ -1,10 +1,11 @@
 import ComingSoon from '../../components/ComingSoon.jsx'
 import { Svg } from '../../components/Icons.jsx'
 
-function ToolIcon(props) {
+function AppointmentsIcon(props) {
   return (
     <Svg {...props}>
-      <path d="M6.5 5h11A2.5 2.5 0 0 1 20 7.5v10a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 17.5v-10A2.5 2.5 0 0 1 6.5 5zM8 3v4M16 3v4M4 10h16" />
+      <rect x="4.500" y="5.500" width="15" height="14.500" rx="2.500" />
+      <path d="M4.500 10.500h15M8.500 3.500v4M15.500 3.500v4" />
     </Svg>
   )
 }
@@ -12,9 +13,9 @@ function ToolIcon(props) {
 export default {
   id: 'appointments',
   name: 'المواعيد',
-  description: 'احفظ مواعيدك في مكان واحد.',
-  color: '#C0623A',
-  Icon: ToolIcon,
+  description: 'مواعيدك أمامك فلا تفوتك.',
+  color: 'var(--tool-appointments)',
+  Icon: AppointmentsIcon,
   Page: ComingSoon,
   order: 8,
 }

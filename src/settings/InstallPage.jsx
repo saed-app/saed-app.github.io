@@ -7,11 +7,11 @@ export default function InstallPage() {
   return (
     <div className="install-page">
       <Logo size={84} />
-      {installed && <p>ساعد مثبّت على جهازك. افتحه من أيقونته في أي وقت.</p>}
+      {installed && <p>ساعد مثبّت على جهازك.</p>}
 
       {canPrompt && (
         <>
-          <p>ثبّت ساعد على جهازك ليفتح كتطبيق مستقل من شاشتك الرئيسية، ويعمل حتى بدون إنترنت.</p>
+          <p>ثبّته ليفتح من شاشتك الرئيسية، ويعمل بلا إنترنت.</p>
           <button type="button" className="store-action pressable" onClick={install}>
             ثبّت الآن
           </button>
@@ -20,7 +20,7 @@ export default function InstallPage() {
 
       {needsManualSteps && (
         <>
-          <p>لتثبيت ساعد على iPhone أو iPad من متصفح Safari:</p>
+          <p>على iPhone أو iPad من Safari:</p>
           <ol className="install-steps">
             <li>اضغط زر المشاركة أسفل الشاشة.</li>
             <li>اختر «إضافة إلى الشاشة الرئيسية».</li>
@@ -31,8 +31,7 @@ export default function InstallPage() {
 
       {!installed && !canPrompt && !needsManualSteps && (
         <p>
-          افتح ساعد في متصفح Chrome أو Edge، ثم اختر «تثبيت التطبيق» من قائمة المتصفح. إن لم يظهر الخيار فقد يكون التطبيق مثبتاً
-          مسبقاً.
+          من Chrome أو Edge، اختر «تثبيت التطبيق» من قائمة المتصفح.
         </p>
       )}
     </div>

@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { CheckIcon } from './Icons.jsx'
 import Toggle from './Toggle.jsx'
-import ToolTile from './ToolTile.jsx'
 
 // أدوات بناء إعدادات الأدوات. شكلها مختلف عمداً عن إعدادات التطبيق:
 // لوحة ملونة بلون الأداة، وكل إعداد بطاقة مستقلة، والخيارات أزرار صغيرة بدل القوائم.
@@ -18,7 +17,6 @@ export function ToolSettingsPanel({ tool, children }) {
   return (
     <section className="tool-settings" style={{ '--tool-color': tool.color }}>
       <header className="tool-settings-head">
-        <ToolTile tool={tool} size="small" />
         <h3>إعدادات {tool.name}</h3>
       </header>
       <div className="tool-settings-grid">{children}</div>

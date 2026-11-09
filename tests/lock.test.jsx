@@ -4,8 +4,8 @@ import PinPad from '../src/components/PinPad.jsx'
 import ProfilePage from '../src/settings/ProfilePage.jsx'
 import { clickButton, enterPin, readSaved, renderApp, save } from './helpers.jsx'
 
-const welcome = () => screen.queryByRole('heading', { name: 'مرحباً بك في ساعد' })
-const pinToggle = () => screen.getByRole('switch', { name: 'القفل برمز PIN' })
+const welcome = () => screen.queryByRole('heading', { name: 'أهلاً بك' })
+const pinToggle = () => screen.getByRole('switch', { name: 'رمز القفل' })
 
 async function createPin(pin) {
   fireEvent.click(pinToggle())
@@ -68,7 +68,7 @@ describe('ملفي', () => {
     fireEvent.click(pinToggle())
     enterPin('1234')
     enterPin('9999')
-    expect(screen.getByRole('alert').textContent).toBe('الرمزان غير متطابقين، حاول من جديد.')
+    expect(screen.getByRole('alert').textContent).toBe('الرمزان مختلفان، جرّب مرة أخرى.')
     expect(readSaved('lock')).toBeNull()
   })
 
@@ -115,7 +115,7 @@ describe('ملفي', () => {
     await renderApp({ ui: <ProfilePage /> })
     await createPin('1234')
     expect(readSaved('lock').autoLock).toBe(true)
-    fireEvent.click(screen.getByRole('switch', { name: 'القفل فور الخروج من التطبيق' }))
+    fireEvent.click(screen.getByRole('switch', { name: 'اقفل عند الخروج' }))
     expect(readSaved('lock').autoLock).toBe(false)
   })
 })

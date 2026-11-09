@@ -1,10 +1,11 @@
 import ComingSoon from '../../components/ComingSoon.jsx'
 import { Svg } from '../../components/Icons.jsx'
 
-function ToolIcon(props) {
+function GoalsIcon(props) {
   return (
     <Svg {...props}>
-      <path d="M12 3.5a8.5 8.5 0 1 0 0 17 8.5 8.5 0 0 0 0-17zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 12h.01" />
+      <path d="M6.500 20.500V4" />
+      <path d="M6.500 4.500h11l-2.700 4 2.700 4h-11" />
     </Svg>
   )
 }
@@ -12,9 +13,9 @@ function ToolIcon(props) {
 export default {
   id: 'goals',
   name: 'الأهداف',
-  description: 'حدد أهدافك وتابع تقدمك نحوها.',
-  color: '#9B3D5C',
-  Icon: ToolIcon,
+  description: 'ضع هدفك وتقدّم إليه خطوة خطوة.',
+  color: 'var(--tool-goals)',
+  Icon: GoalsIcon,
   Page: ComingSoon,
   order: 6,
 }

@@ -11,7 +11,7 @@ import { clickButton, readSaved, renderApp } from './helpers.jsx'
 const toggle = (name) => screen.getByRole('switch', { name })
 const isOn = (name) => toggle(name).getAttribute('aria-checked') === 'true'
 
-describe('المظهر والتفضيلات', () => {
+describe('المظهر', () => {
   it('مفتاح الوضع الليلي يطبّقه ويحفظه، ثم يعيده', async () => {
     await renderApp({ ui: <AppearancePage /> })
     expect(isOn('الوضع الليلي')).toBe(false)
@@ -45,7 +45,7 @@ describe('المظهر والتفضيلات', () => {
     fireEvent.change(screen.getByRole('combobox', { name: 'بداية الأسبوع' }), {
       target: { value: 'saturday' },
     })
-    fireEvent.change(screen.getByRole('combobox', { name: 'التاريخ في الرئيسية' }), {
+    fireEvent.change(screen.getByRole('combobox', { name: 'نوع التاريخ' }), {
       target: { value: 'gregorian' },
     })
     expect(readSaved('settings').weekStart).toBe('saturday')
@@ -80,7 +80,7 @@ describe('الدعم', () => {
     await renderApp({ ui: <SupportPage /> })
     expect(screen.queryByText(SUPPORT_EMAIL)).toBeNull()
 
-    clickButton('راسل الدعم')
+    clickButton('راسلنا')
     expect(screen.getByText(SUPPORT_EMAIL)).toBeTruthy()
 
     clickButton('نسخ')

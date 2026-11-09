@@ -26,7 +26,7 @@ export default function WipeData({ label = 'مسح كل البيانات', onCan
 
   return (
     <div className="wipe-confirm" role="alertdialog" aria-labelledby="wipe-title">
-      <p id="wipe-title">هل أنت متأكد؟ سيُمسح كل شيء من هذا الجهاز ولا يمكن التراجع.</p>
+      <p id="wipe-title">سيُمسح كل شيء من هذا الجهاز، ولا رجعة في ذلك.</p>
       <div className="wipe-actions">
         <button type="button" className="danger-button pressable" onClick={wipe}>
           نعم، امسح

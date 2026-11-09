@@ -1,20 +1,21 @@
 import ComingSoon from '../../components/ComingSoon.jsx'
 import { Svg } from '../../components/Icons.jsx'
 
-function ToolIcon(props) {
+function ShoppingIcon(props) {
   return (
     <Svg {...props}>
-      <path d="M3.5 4.5h2.3l2 11h10l2-8H7M9 20h.01M17 20h.01" />
+      <path d="M4 10h16l-1.500 9.500h-13z" />
+      <path d="M8 10l3-6M16 10l-3-6M9.500 14v2M14.500 14v2" />
     </Svg>
   )
 }
 
 export default {
   id: 'shopping',
-  name: 'قائمة التسوق',
-  description: 'اكتب مشترياتك ولا تنسَ شيئاً.',
-  color: '#7A6A2F',
-  Icon: ToolIcon,
+  name: 'التسوق',
+  description: 'ما تحتاج شراءه قبل أن تخرج.',
+  color: 'var(--tool-shopping)',
+  Icon: ShoppingIcon,
   Page: ComingSoon,
   order: 12,
 }

@@ -1,10 +1,11 @@
 import ComingSoon from '../../components/ComingSoon.jsx'
 import { Svg } from '../../components/Icons.jsx'
 
-function ToolIcon(props) {
+function ExpensesIcon(props) {
   return (
     <Svg {...props}>
-      <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5H18v3M4 7.5V17a2.5 2.5 0 0 0 2.5 2.5H20V8H6.5A2.5 2.5 0 0 1 4 7.5zM16 13.7h.01" />
+      <rect x="4" y="6.500" width="16" height="12" rx="2.500" />
+      <path d="M4 10.500h16M15 14.500h1.500" />
     </Svg>
   )
 }
@@ -12,9 +13,9 @@ function ToolIcon(props) {
 export default {
   id: 'expenses',
   name: 'المصروفات',
-  description: 'سجّل مصروفاتك وتابعها.',
-  color: '#A8552F',
-  Icon: ToolIcon,
+  description: 'اعرف أين يذهب مالك.',
+  color: 'var(--tool-expenses)',
+  Icon: ExpensesIcon,
   Page: ComingSoon,
   order: 4,
 }

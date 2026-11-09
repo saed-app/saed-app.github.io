@@ -1,10 +1,11 @@
 import ComingSoon from '../../components/ComingSoon.jsx'
 import { Svg } from '../../components/Icons.jsx'
 
-function ToolIcon(props) {
+function ReadingIcon(props) {
   return (
     <Svg {...props}>
-      <path d="M12 6.5C10.5 5 8 4.5 4 4.5v14c4 0 6.5.5 8 2 1.5-1.5 4-2 8-2v-14c-4 0-6.500.5-8 2zM12 6.5v14" />
+      <path d="M12 7c-2-1.500-4.500-2-7.500-2v13c3 0 5.500.5 7.500 2 2-1.500 4.500-2 7.500-2V5c-3 0-5.500.5-7.500 2z" />
+      <path d="M12 7v13" />
     </Svg>
   )
 }
@@ -12,9 +13,9 @@ function ToolIcon(props) {
 export default {
   id: 'reading',
   name: 'القراءة',
-  description: 'تابع كتبك وصفحات قراءتك.',
-  color: '#4F7A3A',
-  Icon: ToolIcon,
+  description: 'كتبك وما وصلت إليه فيها.',
+  color: 'var(--tool-reading)',
+  Icon: ReadingIcon,
   Page: ComingSoon,
   order: 9,
 }

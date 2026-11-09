@@ -1,10 +1,11 @@
 import ComingSoon from '../../components/ComingSoon.jsx'
 import { Svg } from '../../components/Icons.jsx'
 
-function ToolIcon(props) {
+function FocusIcon(props) {
   return (
     <Svg {...props}>
-      <path d="M12 9v4.5l3 2M9.5 2.5h5M12 5a8 8 0 1 0 0 16 8 8 0 0 0 0-16z" />
+      <circle cx="12" cy="13.500" r="7" />
+      <path d="M12 13.500V9.500M10 3.500h4" />
     </Svg>
   )
 }
@@ -12,9 +13,9 @@ function ToolIcon(props) {
 export default {
   id: 'focus',
   name: 'التركيز',
-  description: 'مؤقت يساعدك على التركيز في عملك.',
-  color: '#6B4FA0',
-  Icon: ToolIcon,
+  description: 'وقت بلا مقاطعات لما يهمك.',
+  color: 'var(--tool-focus)',
+  Icon: FocusIcon,
   Page: ComingSoon,
   order: 7,
 }

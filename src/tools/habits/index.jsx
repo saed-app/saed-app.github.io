@@ -4,17 +4,17 @@ import { Svg } from '../../components/Icons.jsx'
 function HabitsIcon(props) {
   return (
     <Svg {...props}>
-      <circle cx="12" cy="12" r="8.500" />
-      <path d="M8.300 12.300l2.500 2.500 4.900-5.200" />
+      <path d="M20 12a8 8 0 1 1-3.200-6.400" />
+      <path d="M9 11.500l3 3 8-8.500" />
     </Svg>
   )
 }
 
 export default {
   id: 'habits',
-  name: 'متابع العادات',
-  description: 'أنشئ عاداتك، وتابع إنجازها، واطّلع على تقاريرها.',
-  color: '#2F7D4F',
+  name: 'العادات',
+  description: 'عادة صغيرة كل يوم تصنع فرقاً.',
+  color: 'var(--tool-habits)',
   Icon: HabitsIcon,
   Page: ComingSoon,
   order: 2,

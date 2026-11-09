@@ -36,18 +36,16 @@ export default function HomePage() {
   const today = useToday()
   const isEmpty = enabledTools.length === 0
   const trimmedName = name.trim()
-  const greeting = trimmedName ? `مرحباً بك يا ${trimmedName}` : 'مرحباً بك في ساعد'
+  const greeting = trimmedName ? `أهلاً يا ${trimmedName}` : 'أهلاً بك'
 
   if (isEmpty) {
     return (
       <div className="page home">
         <h1>{greeting}</h1>
-        <p>أضف الأدوات التي تحتاجها فقط.</p>
+        <p>اختر ما تحتاجه، ودع الباقي.</p>
         <button type="button" className="add-tools pressable" onClick={() => navigate('/store')}>
-          <span className="add-tools-circle">
-            <PlusIcon size={56} />
-          </span>
-          <span className="add-tools-label">أدوات</span>
+          <PlusIcon size={20} />
+          أضف أداة
         </button>
       </div>
     )

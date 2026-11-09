@@ -21,11 +21,11 @@ export const SETTINGS_PAGES = [
   { id: 'profile', title: 'ملفي', Icon: PersonIcon, Page: ProfilePage },
   // على اللابتوب لا يوجد الشريط السفلي، فالمتجر يُفتح من عمود الإعدادات
   { id: 'store', title: 'المتجر', Icon: StoreIcon, action: 'store', laptopOnly: true },
-  { id: 'appearance', title: 'المظهر والتفضيلات', Icon: SlidersIcon, Page: AppearancePage },
+  { id: 'appearance', title: 'المظهر', Icon: SlidersIcon, Page: AppearancePage },
   { id: 'sound', title: 'الصوت والإشعارات', Icon: SoundIcon, Page: SoundPage },
   { id: 'support', title: 'الدعم', Icon: HelpIcon, Page: SupportPage },
-  { id: 'guide', title: 'دليل تعريفي', Icon: GuideIcon, action: 'guide' },
+  { id: 'guide', title: 'جولة سريعة', Icon: GuideIcon, action: 'guide' },
   // يختفي بعد تثبيت التطبيق على الجهاز
-  { id: 'install', title: 'تثبيت التطبيق', Icon: DownloadIcon, Page: InstallPage, hideWhenInstalled: true },
-  { id: 'about', title: 'حول التطبيق', Icon: InfoIcon, Page: AboutPage },
+  { id: 'install', title: 'ثبّت التطبيق', Icon: DownloadIcon, Page: InstallPage, hideWhenInstalled: true },
+  { id: 'about', title: 'عن ساعد', Icon: InfoIcon, Page: AboutPage },
 ]

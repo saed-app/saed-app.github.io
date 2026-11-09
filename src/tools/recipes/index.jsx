@@ -1,10 +1,11 @@
 import ComingSoon from '../../components/ComingSoon.jsx'
 import { Svg } from '../../components/Icons.jsx'
 
-function ToolIcon(props) {
+function RecipesIcon(props) {
   return (
     <Svg {...props}>
-      <path d="M6 3v6a2 2 0 0 0 4 0V3M8 3v18M17 3c-2 1-3 3.5-3 6.5 0 2 1 3.5 3 3.5v8z" />
+      <path d="M4 11.500h16a8 8 0 0 1-16 0z" />
+      <path d="M9.500 7.500c0-1.500 1-1.500 1-3M14 7.500c0-1.500 1-1.500 1-3" />
     </Svg>
   )
 }
@@ -12,9 +13,9 @@ function ToolIcon(props) {
 export default {
   id: 'recipes',
   name: 'الوصفات',
-  description: 'احفظ وصفاتك المفضلة.',
-  color: '#B0473E',
-  Icon: ToolIcon,
+  description: 'وصفاتك التي تحبها، محفوظة.',
+  color: 'var(--tool-recipes)',
+  Icon: RecipesIcon,
   Page: ComingSoon,
   order: 11,
 }

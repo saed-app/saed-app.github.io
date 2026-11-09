@@ -22,7 +22,7 @@ describe('عمود الإعدادات على اللابتوب', () => {
     await renderApp()
     expect(panel()).toBeTruthy()
     expect(screen.getByRole('heading', { name: 'الإعدادات' })).toBeTruthy()
-    expect(screen.getByRole('heading', { name: 'مرحباً بك في ساعد' })).toBeTruthy()
+    expect(screen.getByRole('heading', { name: 'أهلاً بك' })).toBeTruthy()
     expect(shell().hidden).toBe(false)
     expect(screen.queryByRole('button', { name: 'الإعدادات' })).toBeNull()
   })
@@ -66,17 +66,17 @@ describe('إغلاق شريط الأدوات في الجوال', () => {
   it('الضغط على مكان فارغ يغلقه ويعيد السهم', async () => {
     useScreen(375)
     await renderApp({ tools: ['ready'] })
-    clickButton('فتح لوحة الأدوات')
+    clickButton('فتح الأدوات')
     expect(isOpen()).toBe(true)
     fireEvent.pointerDown(document.querySelector('.app-main'))
     expect(isOpen()).toBe(false)
-    expect(screen.getByRole('button', { name: 'فتح لوحة الأدوات' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'فتح الأدوات' })).toBeTruthy()
   })
 
   it('الضغط داخل الشريط نفسه لا يغلقه قبل اختيار أداة', async () => {
     useScreen(375)
     await renderApp({ tools: ['ready'] })
-    clickButton('فتح لوحة الأدوات')
+    clickButton('فتح الأدوات')
     fireEvent.pointerDown(screen.getByRole('button', { name: 'أداة جاهزة' }))
     expect(isOpen()).toBe(true)
   })
@@ -84,7 +84,7 @@ describe('إغلاق شريط الأدوات في الجوال', () => {
   it('على اللابتوب لا يغلقه الضغط على الصفحة', async () => {
     useScreen(1440)
     await renderApp({ tools: ['ready'] })
-    clickButton('فتح لوحة الأدوات')
+    clickButton('فتح الأدوات')
     fireEvent.pointerDown(document.querySelector('.app-main'))
     expect(isOpen()).toBe(true)
   })

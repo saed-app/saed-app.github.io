@@ -76,7 +76,7 @@ export default function AppearancePage() {
           onChange={(value) => updateSettings({ weekStart: value })}
         />
         <SelectRow
-          label="التاريخ في الرئيسية"
+          label="نوع التاريخ"
           value={homeDate}
           options={DATE_TYPES}
           onChange={(value) => updateSettings({ homeDate: value })}

@@ -21,7 +21,7 @@ describe('اللابتوب', () => {
     useScreen(1440)
     await renderApp({ tools: ['ready'] })
     expect(barButtons()).toHaveLength(1)
-    clickButton('فتح لوحة الأدوات')
+    clickButton('فتح الأدوات')
     expect(document.getElementById('tools-sheet').classList.contains('is-open')).toBe(true)
   })
 

@@ -29,7 +29,7 @@ export default function StoreToolPage() {
           className={`store-action pressable${enabled ? ' is-remove' : ''}`}
           onClick={() => (enabled ? removeTool(tool.id) : addTool(tool.id))}
         >
-          {enabled ? 'إزالة الأداة' : 'إضافة الأداة'}
+          {enabled ? 'أزلها من أدواتي' : 'أضفها إلى أدواتي'}
         </button>
       </div>
     </div>

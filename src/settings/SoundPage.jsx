@@ -21,7 +21,7 @@ export default function SoundPage() {
             />
           </div>
         </div>
-        <p className="settings-hint">يُحفظ اختيارك الآن، ويبدأ العمل به عند تحويل ساعد إلى تطبيق.</p>
+        <p className="settings-hint">سيعملان عندما يصبح ساعد تطبيقاً كاملاً.</p>
       </section>
     </div>
   )

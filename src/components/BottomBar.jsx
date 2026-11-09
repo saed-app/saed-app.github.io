@@ -94,7 +94,7 @@ export default function BottomBar() {
           className={`bar-button bar-arrow pressable${sheetOpen ? ' is-open' : ''}`}
           aria-expanded={sheetOpen}
           aria-controls="tools-sheet"
-          aria-label={sheetOpen ? 'إغلاق لوحة الأدوات' : 'فتح لوحة الأدوات'}
+          aria-label={sheetOpen ? 'إغلاق الأدوات' : 'فتح الأدوات'}
           onClick={() => setSheetOpen((open) => !open)}
         >
           <ChevronUpIcon size={24} />

@@ -31,7 +31,7 @@ export default function ProfilePage() {
       } else {
         setFirstPin('')
         setStep('new')
-        setError('الرمزان غير متطابقين، حاول من جديد.')
+        setError('الرمزان مختلفان، جرّب مرة أخرى.')
       }
     } else if (!verifyPin(pin)) {
       setError('الرمز غير صحيح.')
@@ -46,7 +46,7 @@ export default function ProfilePage() {
   if (step) {
     const titles = {
       new: 'اختر رمزاً من 4 أرقام',
-      confirm: 'أعد إدخال الرمز',
+      confirm: 'أعد كتابة الرمز',
       disable: 'أدخل الرمز الحالي',
       change: 'أدخل الرمز الحالي',
     }
@@ -70,22 +70,22 @@ export default function ProfilePage() {
             type="text"
             value={name}
             maxLength={40}
-            placeholder="اكتب اسمك"
+            placeholder="اسمك"
             aria-label="الاسم"
             autoComplete="off"
             onChange={(event) => updateSettings({ name: event.target.value })}
           />
         </div>
-        <p className="settings-hint">يُحفظ على جهازك فقط، ولا يوجد حساب ولا تسجيل دخول.</p>
+        <p className="settings-hint">يبقى على جهازك فقط.</p>
       </section>
 
       <section>
         <h3 className="settings-title">قفل التطبيق</h3>
         <div className="settings-group">
           <div className="settings-row">
-            <span className="settings-row-label">القفل برمز PIN</span>
+            <span className="settings-row-label">رمز القفل</span>
             <Toggle
-              label="القفل برمز PIN"
+              label="رمز القفل"
               checked={hasPin}
               onChange={(on) => setStep(on ? 'new' : 'disable')}
             />
@@ -93,9 +93,9 @@ export default function ProfilePage() {
           {hasPin && (
             <>
               <div className="settings-row">
-                <span className="settings-row-label">القفل فور الخروج من التطبيق</span>
+                <span className="settings-row-label">اقفل عند الخروج</span>
                 <Toggle
-                  label="القفل فور الخروج من التطبيق"
+                  label="اقفل عند الخروج"
                   checked={autoLock}
                   onChange={setAutoLock}
                 />
@@ -111,7 +111,7 @@ export default function ProfilePage() {
           )}
         </div>
         <p className="settings-hint">
-          يمنع الفتح العابر فقط ولا يشفّر بياناتك. إذا نسيت الرمز فالحل الوحيد مسح كل البيانات.
+          يمنع الفتح العابر ولا يشفّر بياناتك. وإن نسيته ستحتاج إلى مسحها كلها.
         </p>
       </section>
     </div>

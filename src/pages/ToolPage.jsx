@@ -8,7 +8,7 @@ import { getTool } from '../tools/registry.js'
 import { useIsLaptop } from '../core/viewport.js'
 
 // ما يظهر عند فتح صفحة إعدادات أو إحصائيات غير متوفرة بعد
-const UNAVAILABLE = { title: 'غير متوفر حالياً', text: 'سيتوفر قريباً.' }
+const UNAVAILABLE = { title: 'غير متوفر بعد', text: 'سيصل قريباً.' }
 const UNAVAILABLE_TITLES = { settings: 'إعدادات الأداة', stats: 'إحصائيات الأداة' }
 
 function useOpenTool() {
@@ -56,7 +56,7 @@ function ToolSettingsCard({ tool }) {
 
   return (
     <ToolSettingsPanel tool={tool}>
-      {settings ?? <p className="tool-settings-note is-wide">لا توجد إعدادات لهذه الأداة بعد.</p>}
+      {settings ?? <p className="tool-settings-note is-wide">لا إعدادات لها بعد.</p>}
     </ToolSettingsPanel>
   )
 }

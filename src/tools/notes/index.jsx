@@ -4,8 +4,8 @@ import { Svg } from '../../components/Icons.jsx'
 function NotesIcon(props) {
   return (
     <Svg {...props}>
-      <path d="M7 3.800h7.500L19 8.300V18a2.200 2.200 0 0 1-2.200 2.200H7A2.200 2.200 0 0 1 4.800 18V6A2.200 2.200 0 0 1 7 3.800z" />
-      <path d="M14.200 4v4.500H19M8.500 12.500h7M8.500 16h4.500" />
+      <path d="M14 4H7.500A1.500 1.500 0 0 0 6 5.500v13A1.500 1.500 0 0 0 7.500 20h9a1.500 1.500 0 0 0 1.500-1.500V8z" />
+      <path d="M9.500 12.500h5M9.500 16h3" />
     </Svg>
   )
 }
@@ -13,8 +13,8 @@ function NotesIcon(props) {
 export default {
   id: 'notes',
   name: 'الملاحظات',
-  description: 'اكتب ملاحظاتك بسرعة وصنّفها وتابع إحصائياتها.',
-  color: '#B5822A',
+  description: 'دوّن ما يخطر ببالك قبل أن يفوتك.',
+  color: 'var(--tool-notes)',
   Icon: NotesIcon,
   Page: ComingSoon,
   order: 1,
