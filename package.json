@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "icons": "node scripts/make-icons.mjs",
-    "serve": "vite build && vite preview"
+    "serve": "vite build && vite preview",
+    "test": "vitest run"
   },
   "dependencies": {
     "react": "^19.3.1",
@@ -16,9 +17,13 @@
     "react-router-dom": "^7.18.5"
   },
   "devDependencies": {
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/react": "^16.3.3",
     "@vitejs/plugin-react": "^6.2.1",
+    "jsdom": "^31.0.0",
     "sharp": "^0.35.5",
     "vite": "^8.3.5",
-    "vite-plugin-pwa": "^2.0.0"
+    "vite-plugin-pwa": "^2.0.0",
+    "vitest": "^5.1.0"
   }
 }
