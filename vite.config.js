@@ -9,7 +9,7 @@ export default defineConfig({
     VitePWA({
       // نسجل الـ service worker بأنفسنا في main.jsx حتى نتجنبه داخل Capacitor
       injectRegister: false,
-      // عند نشر نسخة جديدة تُحمَّل في الخلفية وتعمل عند الفتح التالي
+      // عند نشر نسخة جديدة تُحمَّل في الخلفية وتعمل فوراً، ويعيد التطبيق تحميل نفسه
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'icons/apple-touch-icon.png', 'licenses/*.txt'],
       manifest: {
@@ -31,6 +31,9 @@ export default defineConfig({
         ],
       },
       workbox: {
+        // تفعيل النسخة الجديدة دون انتظار إغلاق النوافذ
+        skipWaiting: true,
+        clientsClaim: true,
         globPatterns: ['**/*.{js,css,html,svg,png,woff2,txt}'],
         navigateFallback: 'index.html',
         cleanupOutdatedCaches: true,
