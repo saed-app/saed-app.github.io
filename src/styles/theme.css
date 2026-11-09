@@ -52,9 +52,8 @@
   --tool-shopping: #8b658d;
   --tool-goals: #986277;
 
-  /* الشعار: نفسه في الوضعين، حلقة ذهبية ونقطة سوداء */
+  /* الشعار: حلقة ذهبية في الوضعين، ونقطة تتبع الوضع */
   --logo-ring: #bf9730;
-  --logo-dot: #000000;
 
   /* الأيقونات */
   --icon-stroke: 1.75;
@@ -110,6 +109,7 @@ html,
   --text: #2c2723;
   --accent: #bf9730;
   --on-accent: #2c2723;
+  --logo-dot: #000000;
   --device-frame: #2c2723;
   --danger: #a8362c;
   --dock-bg: rgba(251, 248, 242, 0.9);
@@ -126,6 +126,7 @@ html,
   --text: #ece8e1;
   --accent: #c7c9cc;
   --on-accent: #151412;
+  --logo-dot: #ffffff;
   --device-frame: #2a2825;
   --danger: #f07a70;
   --dock-bg: rgba(30, 29, 26, 0.9);
