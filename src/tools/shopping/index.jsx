@@ -4,7 +4,7 @@ import { Svg, dual } from '../../components/Icons.jsx'
 function ShoppingLine(props) {
   return (
     <Svg {...props}>
-      <path d="M3.500 4.500h2.300l2 11h10l2-8H7M9 20h.01M17 20h.01" />
+      <path d="M3.5 4.5h2.3l2 11h10l2-8H7M9 20h.01M17 20h.01" />
     </Svg>
   )
 }
@@ -12,10 +12,8 @@ function ShoppingLine(props) {
 function ShoppingFill(props) {
   return (
     <Svg {...props} filled>
-      <path fill="none" d="M3.500 4.500h2.300l.5 3" />
-      <path d="M6.300 7.500h13.500l-2 8h-10z" />
-      <circle cx="9" cy="20" r="1.400" />
-      <circle cx="17" cy="20" r="1.400" />
+      <path d="M7 7.500h12.800l-2 8h-10z" />
+      <path fill="none" d="M3.500 4.500h2.300L7 11M9 20h.01M17 20h.01" />
     </Svg>
   )
 }
@@ -25,8 +23,9 @@ export default {
   name: 'التسوق',
   description: 'ما تحتاج شراءه قبل أن تخرج.',
   details: 'اكتب ما تحتاج شراءه، وعلّم ما اشتريته وأنت في السوق.',
+  color: '#7A6A2F',
   family: 'clay',
-  Icon: dual(ShoppingLine, ShoppingFill, 0.98),
+  Icon: dual(ShoppingLine, ShoppingFill),
   Page: ComingSoon,
   order: 12,
 }

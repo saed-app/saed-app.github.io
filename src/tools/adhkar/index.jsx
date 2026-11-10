@@ -1,36 +1,19 @@
 import ComingSoon from '../../components/ComingSoon.jsx'
-import { dual } from '../../components/Icons.jsx'
+import { Svg, dual } from '../../components/Icons.jsx'
 
-// السبحة غير موجودة في MingCute، فهي مرسومة بشبكة 24 وبأسلوبها في الحالتين
-function RosaryLine({ size = 46, className }) {
+function AdhkarLine(props) {
   return (
-    <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.600" aria-hidden="true">
-      <circle cx="7.05" cy="14.65" r="1.700" />
-      <circle cx="5" cy="9.7" r="1.700" />
-      <circle cx="7.05" cy="4.75" r="1.700" />
-      <circle cx="12" cy="2.7" r="1.700" />
-      <circle cx="16.95" cy="4.75" r="1.700" />
-      <circle cx="19" cy="9.7" r="1.700" />
-      <circle cx="16.95" cy="14.65" r="1.700" />
-      <circle cx="12" cy="17" r="1.800" />
-      <path d="M12 20.300l1.700 2.500h-3.400z" strokeLinejoin="round" />
-    </svg>
+    <Svg {...props}>
+      <path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7a4.3 4.3 0 0 1 7.5 2.8C19.5 15.4 12 20 12 20z" />
+    </Svg>
   )
 }
 
-function RosaryFill({ size = 46, className }) {
+function AdhkarFill(props) {
   return (
-    <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <circle cx="7.05" cy="14.65" r="2.500" />
-      <circle cx="5" cy="9.7" r="2.500" />
-      <circle cx="7.05" cy="4.75" r="2.500" />
-      <circle cx="12" cy="2.7" r="2.500" />
-      <circle cx="16.95" cy="4.75" r="2.500" />
-      <circle cx="19" cy="9.7" r="2.500" />
-      <circle cx="16.95" cy="14.65" r="2.500" />
-      <circle cx="12" cy="17" r="2.600" />
-      <path d="M12 20.300l1.700 2.500h-3.400z" stroke="currentColor" strokeWidth="1.600" strokeLinejoin="round" />
-    </svg>
+    <Svg {...props} filled>
+      <path d="M12 20s-7.500-4.600-7.500-10.200A4.300 4.300 0 0 1 12 7a4.300 4.300 0 0 1 7.500 2.800C19.500 15.400 12 20 12 20z" />
+    </Svg>
   )
 }
 
@@ -39,8 +22,9 @@ export default {
   name: 'الأذكار',
   description: 'أذكار يومك قريبة منك.',
   details: 'أذكار الصباح والمساء وما تحب المداومة عليه، قريبة منك كل يوم.',
+  color: '#2F7F7A',
   family: 'green',
-  Icon: dual(RosaryLine, RosaryFill, 0.81),
+  Icon: dual(AdhkarLine, AdhkarFill),
   Page: ComingSoon,
   order: 10,
 }

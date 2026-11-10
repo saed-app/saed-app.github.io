@@ -41,7 +41,8 @@
   --logo-ring: #bf9730;
 
   /* سماكة خط أيقونات الأدوات */
-  --tool-stroke: 1.6;
+  --tool-stroke: 1.9;
+  --on-tool: #ffffff;
 
   /* الحركة: ضغطة سريعة ثم عودة نابضة */
   --press-scale: 0.94;

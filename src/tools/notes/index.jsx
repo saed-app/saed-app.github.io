@@ -24,8 +24,9 @@ export default {
   name: 'الملاحظات',
   description: 'دوّن ما يخطر ببالك قبل أن يفوتك.',
   details: 'اكتب فكرتك في لحظتها، وصنّف ملاحظاتك لتجدها حين تحتاجها.',
+  color: '#B5822A',
   family: 'paper',
-  Icon: dual(NotesLine, NotesFill, 1.02),
+  Icon: dual(NotesLine, NotesFill),
   Page: ComingSoon,
   order: 1,
 }

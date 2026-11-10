@@ -10,7 +10,7 @@ import {
   SlidersIcon,
   StoreIcon,
 } from './Icons.jsx'
-import ToolTile from './ToolTile.jsx'
+import ToolTile, { tileStyle } from './ToolTile.jsx'
 import { useIsLaptop } from '../core/viewport.js'
 
 // الدليل التعريفي: شاشات متتالية، في كل منها جوال يعرض نسخة مبسطة من التطبيق ويد تشير إلى المكان المقصود.
@@ -231,8 +231,8 @@ function MockLaptopScreen({ screen, drag }) {
           {LAPTOP_STORE_TOOLS.map((tool, index) => {
             const swap = drag && index === 0 ? ' is-swap-a' : drag && index === 1 ? ' is-swap-b' : ''
             return (
-              <span key={tool.id} className={`tool-tile${swap}`} data-family={tool.family}>
-                <tool.Icon size={30} />
+              <span key={tool.id} className={`tool-tile${swap}`} data-family={tool.family} style={tileStyle(tool)}>
+                <tool.Icon size={17} />
               </span>
             )
           })}
@@ -293,8 +293,8 @@ function MockScreen({ screen, drag }) {
           {SHEET_TOOLS.map((tool, index) => {
             const swap = drag && index === 0 ? ' is-swap-a' : drag && index === 1 ? ' is-swap-b' : ''
             return (
-              <span key={tool.id} className={`tool-tile${swap}`} data-family={tool.family}>
-                <tool.Icon size={30} />
+              <span key={tool.id} className={`tool-tile${swap}`} data-family={tool.family} style={tileStyle(tool)}>
+                <tool.Icon size={17} />
               </span>
             )
           })}
