@@ -1,7 +1,23 @@
-import StopwatchLine from '@mingcute/react/core-regular/stopwatch'
-import StopwatchFill from '@mingcute/react/core-filled/stopwatch'
 import ComingSoon from '../../components/ComingSoon.jsx'
-import { dual } from '../../components/Icons.jsx'
+import { Svg, dual } from '../../components/Icons.jsx'
+
+function FocusLine(props) {
+  return (
+    <Svg {...props}>
+      <path d="M12 9v4.500l3 2M9.500 2.500h5M12 5a8 8 0 1 0 0 16 8 8 0 0 0 0-16z" />
+    </Svg>
+  )
+}
+
+function FocusFill(props) {
+  return (
+    <Svg {...props} filled>
+      <circle cx="12" cy="13" r="8" />
+      <path fill="none" d="M9.500 2.500h5" />
+      <path className="tool-cut" d="M12 9v4.500l3 2" />
+    </Svg>
+  )
+}
 
 export default {
   id: 'focus',
@@ -9,7 +25,7 @@ export default {
   description: 'وقت بلا مقاطعات لما يهمك.',
   details: 'اختر مدة للعمل بلا مقاطعات، وخذ راحة قصيرة بعدها.',
   family: 'indigo',
-  Icon: dual(StopwatchLine, StopwatchFill, 1.03),
+  Icon: dual(FocusLine, FocusFill, 0.92),
   Page: ComingSoon,
   order: 7,
 }

@@ -1,4 +1,4 @@
-const ICON_SIZES = { small: 32, medium: 46, large: 64 }
+const ICON_SIZES = { small: 36, medium: 52, large: 72 }
 
 // أيقونة الأداة داخل مربع مدور بلونها، وتُستخدم في المتجر والشريط العائم والعناوين
 export default function ToolTile({ tool, size = 'medium', active = false }) {

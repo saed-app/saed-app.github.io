@@ -40,6 +40,26 @@ function line(Icon) {
   }
 }
 
+// رسم أيقونات الأدوات: شبكة 24 وسماكة وأطراف موحدة. filled للحالة الممتلئة
+export function Svg({ children, size = 24, className, filled = false }) {
+  return (
+    <svg
+      className={className}
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill={filled ? 'currentColor' : 'none'}
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      style={{ strokeWidth: 'var(--tool-stroke)' }}
+    >
+      {children}
+    </svg>
+  )
+}
+
 // المكوّن المشترك للحالتين. الطبقتان فوق بعضهما فلا يتغير الحجم ولا المكان عند التبديل.
 // active تعني أن المستخدم داخل ما تمثله الأيقونة، والضغط يتولاه CSS.
 // scale: معامل بسيط لتوازن الأيقونة بصرياً مع بقية الأدوات

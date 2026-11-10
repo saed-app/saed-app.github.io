@@ -2,9 +2,9 @@ import ComingSoon from '../../components/ComingSoon.jsx'
 import { dual } from '../../components/Icons.jsx'
 
 // السبحة غير موجودة في MingCute، فهي مرسومة بشبكة 24 وبأسلوبها في الحالتين
-function RosaryLine({ size = 46 }) {
+function RosaryLine({ size = 46, className }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.600" aria-hidden="true">
+    <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.600" aria-hidden="true">
       <circle cx="7.05" cy="14.65" r="1.700" />
       <circle cx="5" cy="9.7" r="1.700" />
       <circle cx="7.05" cy="4.75" r="1.700" />
@@ -18,9 +18,9 @@ function RosaryLine({ size = 46 }) {
   )
 }
 
-function RosaryFill({ size = 46 }) {
+function RosaryFill({ size = 46, className }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <circle cx="7.05" cy="14.65" r="2.500" />
       <circle cx="5" cy="9.7" r="2.500" />
       <circle cx="7.05" cy="4.75" r="2.500" />
@@ -40,7 +40,7 @@ export default {
   description: 'أذكار يومك قريبة منك.',
   details: 'أذكار الصباح والمساء وما تحب المداومة عليه، قريبة منك كل يوم.',
   family: 'green',
-  Icon: dual(RosaryLine, RosaryFill, 0.92),
+  Icon: dual(RosaryLine, RosaryFill, 0.81),
   Page: ComingSoon,
   order: 10,
 }

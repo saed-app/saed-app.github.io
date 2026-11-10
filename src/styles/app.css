@@ -261,7 +261,8 @@ h3 {
   height: 52px;
   flex: none;
   border-radius: var(--radius-tile);
-  background: oklch(var(--tile-l) var(--tile-c) var(--family-h));
+  --tile-bg: oklch(var(--tile-l) var(--tile-c) var(--family-h));
+  background: var(--tile-bg);
   color: oklch(var(--tool-icon-l) var(--tool-icon-c) var(--family-h));
 }
 
@@ -2182,4 +2183,10 @@ button:active .state-icon-fill {
 button:active .state-icon-line {
   opacity: 0;
   transition-duration: 0s;
+}
+
+/* تفاصيل داخل الحالة الممتلئة بلون المربع نفسه */
+.tool-cut {
+  fill: none;
+  stroke: var(--tile-bg);
 }
