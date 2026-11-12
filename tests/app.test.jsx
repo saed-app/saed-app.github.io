@@ -201,7 +201,7 @@ describe('لوحة الأدوات', () => {
 
   it('دون أدوات تعرض رسالة وزر المتجر', async () => {
     await renderApp()
-    expect(screen.getByText('لم تضف أدوات بعد')).toBeTruthy()
+    expect(screen.getByText('لم تضف أي أداة بعد')).toBeTruthy()
     clickButton('افتح المتجر')
     expect(await screen.findByRole('heading', { name: 'المتجر' })).toBeTruthy()
   })

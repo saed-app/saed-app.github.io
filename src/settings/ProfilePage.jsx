@@ -93,9 +93,9 @@ export default function ProfilePage() {
           {hasPin && (
             <>
               <div className="settings-row">
-                <span className="settings-row-label">القفل عند الخروج</span>
+                <span className="settings-row-label">اقفل ساعد عند الخروج</span>
                 <Toggle
-                  label="القفل عند الخروج"
+                  label="اقفل ساعد عند الخروج"
                   checked={autoLock}
                   onChange={setAutoLock}
                 />

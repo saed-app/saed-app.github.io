@@ -86,7 +86,7 @@ export default function SupportPage() {
                 {SUPPORT_EMAIL}
               </span>
               <button type="button" className="copy-button pressable" onClick={handleCopy}>
-                {copied ? 'نُسخ' : 'نسخ'}
+                {copied ? 'تم النسخ' : 'نسخ'}
               </button>
             </div>
           )}

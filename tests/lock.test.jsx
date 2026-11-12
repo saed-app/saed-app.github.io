@@ -115,7 +115,7 @@ describe('ملفي', () => {
     await renderApp({ ui: <ProfilePage /> })
     await createPin('1234')
     expect(readSaved('lock').autoLock).toBe(true)
-    fireEvent.click(screen.getByRole('switch', { name: 'القفل عند الخروج' }))
+    fireEvent.click(screen.getByRole('switch', { name: 'اقفل ساعد عند الخروج' }))
     expect(readSaved('lock').autoLock).toBe(false)
   })
 })

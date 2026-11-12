@@ -84,7 +84,7 @@ describe('الدعم', () => {
     expect(screen.getByText(SUPPORT_EMAIL)).toBeTruthy()
 
     clickButton('نسخ')
-    expect(await screen.findByRole('button', { name: 'نُسخ' })).toBeTruthy()
+    expect(await screen.findByRole('button', { name: 'تم النسخ' })).toBeTruthy()
     expect(writeText).toHaveBeenCalledWith(SUPPORT_EMAIL)
   })
 })
