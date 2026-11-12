@@ -68,7 +68,7 @@ describe('ملفي', () => {
     fireEvent.click(pinToggle())
     enterPin('1234')
     enterPin('9999')
-    expect(screen.getByRole('alert').textContent).toBe('الرمزان مختلفان، جرّب مرة أخرى.')
+    expect(screen.getByRole('alert').textContent).toBe('الرمزان غير متطابقين، جرّب مرة أخرى.')
     expect(readSaved('lock')).toBeNull()
   })
 
@@ -87,7 +87,7 @@ describe('ملفي', () => {
 
     fireEvent.click(pinToggle())
     enterPin('0000')
-    expect(screen.getByRole('alert').textContent).toBe('الرمز غير صحيح.')
+    expect(screen.getByRole('alert').textContent).toBe('الرمز غير صحيح، جرّب مرة أخرى.')
     expect(readSaved('lock')).not.toBeNull()
 
     enterPin('1234')
@@ -115,7 +115,7 @@ describe('ملفي', () => {
     await renderApp({ ui: <ProfilePage /> })
     await createPin('1234')
     expect(readSaved('lock').autoLock).toBe(true)
-    fireEvent.click(screen.getByRole('switch', { name: 'اقفل عند الخروج' }))
+    fireEvent.click(screen.getByRole('switch', { name: 'القفل عند الخروج' }))
     expect(readSaved('lock').autoLock).toBe(false)
   })
 })
@@ -131,7 +131,7 @@ describe('شاشة القفل', () => {
     expect(welcome()).toBeNull()
 
     enterPin('0000')
-    expect(screen.getByRole('alert').textContent).toBe('الرمز غير صحيح.')
+    expect(screen.getByRole('alert').textContent).toBe('الرمز غير صحيح، جرّب مرة أخرى.')
     expect(welcome()).toBeNull()
 
     enterPin('1234')
@@ -144,7 +144,7 @@ describe('شاشة القفل', () => {
 
     Object.defineProperty(document, 'hidden', { value: true, configurable: true })
     fireEvent(document, new Event('visibilitychange'))
-    expect(await screen.findByText('أدخل الرمز')).toBeTruthy()
+    expect(await screen.findByText('اكتب رمزك')).toBeTruthy()
   })
 
   it('لا تعود عند الخروج إذا كان القفل التلقائي موقفاً', async () => {
@@ -156,17 +156,17 @@ describe('شاشة القفل', () => {
 
     Object.defineProperty(document, 'hidden', { value: true, configurable: true })
     fireEvent(document, new Event('visibilitychange'))
-    expect(screen.queryByText('أدخل الرمز')).toBeNull()
+    expect(screen.queryByText('اكتب رمزك')).toBeNull()
     expect(welcome()).toBeTruthy()
   })
 
   it('«نسيت الرمز»: الإلغاء يعيد إلى لوحة الرمز دون مسح', async () => {
     await setUpLockedApp('1234')
-    clickButton('نسيت الرمز')
+    clickButton('نسيت الرمز؟')
     expect(screen.getByRole('alertdialog')).toBeTruthy()
 
     clickButton('إلغاء')
-    expect(screen.getByText('أدخل الرمز')).toBeTruthy()
+    expect(screen.getByText('اكتب رمزك')).toBeTruthy()
     expect(readSaved('lock')).not.toBeNull()
   })
 
@@ -176,8 +176,8 @@ describe('شاشة القفل', () => {
     localStorage.setItem('other-app', 'باقٍ')
     await setUpLockedApp('1234')
 
-    clickButton('نسيت الرمز')
-    clickButton('نعم، امسح')
+    clickButton('نسيت الرمز؟')
+    clickButton('امسح كل شيء')
     await vi.waitFor(() => expect(replace).toHaveBeenCalledWith('/app/'))
 
     expect(readSaved('lock')).toBeNull()

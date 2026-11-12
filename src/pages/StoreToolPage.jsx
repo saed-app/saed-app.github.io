@@ -27,7 +27,7 @@ export default function StoreToolPage() {
 
       {tool.details && (
         <section className="store-about">
-          <h3>عن هذه الأداة</h3>
+          <h3>عن الأداة</h3>
           <p>{tool.details}</p>
         </section>
       )}

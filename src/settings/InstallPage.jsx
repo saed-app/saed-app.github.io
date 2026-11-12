@@ -1,6 +1,15 @@
 import Logo from '../components/Logo.jsx'
 import { useInstall } from '../core/install.js'
 
+// كلمة إنجليزية داخل نص عربي: اتجاهها معزول وحجمها متناسق
+function Latin({ children }) {
+  return (
+    <bdi className="latin" lang="en">
+      {children}
+    </bdi>
+  )
+}
+
 export default function InstallPage() {
   const { installed, canPrompt, needsManualSteps, install } = useInstall()
 
@@ -20,7 +29,9 @@ export default function InstallPage() {
 
       {needsManualSteps && (
         <>
-          <p>على iPhone أو iPad من Safari:</p>
+          <p>
+            في <Latin>iPhone</Latin> أو <Latin>iPad</Latin>، افتح ساعد في <Latin>Safari</Latin> ثم:
+          </p>
           <ol className="install-steps">
             <li>اضغط زر المشاركة أسفل الشاشة.</li>
             <li>اختر «إضافة إلى الشاشة الرئيسية».</li>
@@ -31,7 +42,7 @@ export default function InstallPage() {
 
       {!installed && !canPrompt && !needsManualSteps && (
         <p>
-          من Chrome أو Edge، اختر «تثبيت التطبيق» من قائمة المتصفح.
+          في <Latin>Chrome</Latin> أو <Latin>Edge</Latin>، اختر «تثبيت التطبيق» من قائمة المتصفح.
         </p>
       )}
     </div>

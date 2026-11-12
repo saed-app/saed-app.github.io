@@ -167,8 +167,8 @@ describe('لوحة الأدوات', () => {
   ])('في الرئيسية زر «%s» يفتح صفحة غير متوفر ولا يرفعها', async (name, path) => {
     await renderApp({ tools: ['ready'] })
     clickButton(name)
-    expect(await screen.findByText('غير متوفر بعد')).toBeTruthy()
-    expect(screen.getByText('سيصل قريباً.')).toBeTruthy()
+    expect(await screen.findByText('ليست جاهزة بعد')).toBeTruthy()
+    expect(screen.getByText('نجهّزها لك، وتصل قريباً.')).toBeTruthy()
     expect(currentPath()).toBe(path)
     expect(isOpen()).toBe(false)
   })
@@ -179,7 +179,7 @@ describe('لوحة الأدوات', () => {
   ])('الأداة التي ليس فيها «%s» تعرض غير متوفر', async (name, path) => {
     await renderApp({ route: '/tool/soon', tools: ['soon'] })
     clickButton(name)
-    expect(await screen.findByText('غير متوفر بعد')).toBeTruthy()
+    expect(await screen.findByText('ليست جاهزة بعد')).toBeTruthy()
     expect(currentPath()).toBe(path)
   })
 
@@ -201,8 +201,8 @@ describe('لوحة الأدوات', () => {
 
   it('دون أدوات تعرض رسالة وزر المتجر', async () => {
     await renderApp()
-    expect(screen.getByText('لا أدوات بعد')).toBeTruthy()
-    clickButton('إلى المتجر')
+    expect(screen.getByText('لم تضف أدوات بعد')).toBeTruthy()
+    clickButton('افتح المتجر')
     expect(await screen.findByRole('heading', { name: 'المتجر' })).toBeTruthy()
   })
 

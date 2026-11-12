@@ -31,10 +31,10 @@ export default function ProfilePage() {
       } else {
         setFirstPin('')
         setStep('new')
-        setError('الرمزان مختلفان، جرّب مرة أخرى.')
+        setError('الرمزان غير متطابقين، جرّب مرة أخرى.')
       }
     } else if (!verifyPin(pin)) {
-      setError('الرمز غير صحيح.')
+      setError('الرمز غير صحيح، جرّب مرة أخرى.')
     } else if (step === 'disable') {
       removePin()
       reset()
@@ -46,9 +46,9 @@ export default function ProfilePage() {
   if (step) {
     const titles = {
       new: 'اختر رمزاً من 4 أرقام',
-      confirm: 'أعد كتابة الرمز',
-      disable: 'أدخل الرمز الحالي',
-      change: 'أدخل الرمز الحالي',
+      confirm: 'اكتب الرمز مرة أخرى',
+      disable: 'اكتب رمزك الحالي',
+      change: 'اكتب رمزك الحالي',
     }
     return (
       <div className="settings-pin">
@@ -93,9 +93,9 @@ export default function ProfilePage() {
           {hasPin && (
             <>
               <div className="settings-row">
-                <span className="settings-row-label">اقفل عند الخروج</span>
+                <span className="settings-row-label">القفل عند الخروج</span>
                 <Toggle
-                  label="اقفل عند الخروج"
+                  label="القفل عند الخروج"
                   checked={autoLock}
                   onChange={setAutoLock}
                 />
@@ -111,7 +111,7 @@ export default function ProfilePage() {
           )}
         </div>
         <p className="settings-hint">
-          يمنع الفتح العابر ولا يشفّر بياناتك. وإن نسيته ستحتاج إلى مسحها كلها.
+          يحمي من الفتح العابر، ولا يشفّر بياناتك. وإن نسيت الرمز فستحتاج إلى مسحها كلها.
         </p>
       </section>
     </div>

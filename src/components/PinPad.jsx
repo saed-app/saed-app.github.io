@@ -67,7 +67,7 @@ export default function PinPad({ title, error, onComplete, extra }) {
           aria-label="حذف آخر رقم"
           onClick={erase}
         >
-          <BackspaceIcon />
+          <BackspaceIcon className="rtl-flip" />
         </button>
       </div>
       {extra}

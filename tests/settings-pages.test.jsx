@@ -57,10 +57,10 @@ describe('الصوت والإشعارات', () => {
   it('المفتاحان يحفظان الاختيار', async () => {
     await renderApp({ ui: <SoundPage /> })
     expect(isOn('الصوت')).toBe(true)
-    expect(isOn('إشعارات التطبيق')).toBe(false)
+    expect(isOn('الإشعارات')).toBe(false)
 
     fireEvent.click(toggle('الصوت'))
-    fireEvent.click(toggle('إشعارات التطبيق'))
+    fireEvent.click(toggle('الإشعارات'))
     expect(readSaved('settings').sounds).toBe(false)
     expect(readSaved('settings').notifications).toBe(true)
   })
@@ -84,7 +84,7 @@ describe('الدعم', () => {
     expect(screen.getByText(SUPPORT_EMAIL)).toBeTruthy()
 
     clickButton('نسخ')
-    expect(await screen.findByRole('button', { name: 'تم النسخ' })).toBeTruthy()
+    expect(await screen.findByRole('button', { name: 'نُسخ' })).toBeTruthy()
     expect(writeText).toHaveBeenCalledWith(SUPPORT_EMAIL)
   })
 })

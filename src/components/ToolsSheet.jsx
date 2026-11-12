@@ -225,9 +225,9 @@ export default function ToolsSheet({ open, activeId, onSelect, onOpenStore }) {
     >
       {enabledTools.length === 0 ? (
         <div className="tools-sheet-empty">
-          <p>لا أدوات بعد</p>
+          <p>لم تضف أدوات بعد</p>
           <button type="button" className="store-action pressable" onClick={onOpenStore}>
-            إلى المتجر
+            افتح المتجر
           </button>
         </div>
       ) : (

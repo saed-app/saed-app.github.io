@@ -13,15 +13,15 @@ export default function SoundPage() {
             <Toggle label="الصوت" checked={sounds} onChange={(on) => updateSettings({ sounds: on })} />
           </div>
           <div className="settings-row">
-            <span className="settings-row-label">إشعارات التطبيق</span>
+            <span className="settings-row-label">الإشعارات</span>
             <Toggle
-              label="إشعارات التطبيق"
+              label="الإشعارات"
               checked={notifications}
               onChange={(on) => updateSettings({ notifications: on })}
             />
           </div>
         </div>
-        <p className="settings-hint">سيعملان عندما يصبح ساعد تطبيقاً كاملاً.</p>
+        <p className="settings-hint">سيعملان حين يصبح ساعد تطبيقاً كاملاً.</p>
       </section>
     </div>
   )

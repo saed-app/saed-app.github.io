@@ -32,7 +32,7 @@ const STEPS = [
     screen: 'home',
     hand: { x: 13, y: 92 },
     title: 'المتجر دائماً قريب',
-    text: 'من هذا الزر في أي وقت.',
+    text: 'تصل إليه من هذا الزر متى شئت.',
   },
   {
     screen: 'sheet',
@@ -63,7 +63,7 @@ const STEPS = [
     screen: 'home',
     hand: { x: 87, y: 7 },
     title: 'إعدادات التطبيق',
-    text: 'المظهر والقفل والدعم، كلها من هنا.',
+    text: 'المظهر والقفل والدعم، تجدها كلها هنا.',
   },
 ]
 
@@ -242,7 +242,7 @@ function MockLaptopScreen({ screen, drag }) {
       {screen === 'panel' && (
         <>
           <div className="mock-panel">
-            {['ملفي', 'المتجر', 'المظهر والتفضيلات', 'الدعم', 'حول التطبيق'].map((label) => (
+            {['ملفي', 'المتجر', 'المظهر', 'الدعم', 'عن ساعد'].map((label) => (
               <span className="mock-panel-row" key={label}>
                 {label}
               </span>

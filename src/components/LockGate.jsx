@@ -10,7 +10,7 @@ function LockScreen() {
 
   function handlePin(pin) {
     if (verifyPin(pin)) unlock()
-    else setError('الرمز غير صحيح.')
+    else setError('الرمز غير صحيح، جرّب مرة أخرى.')
   }
 
   return (
@@ -22,12 +22,12 @@ function LockScreen() {
         </div>
       ) : (
         <PinPad
-          title="أدخل الرمز"
+          title="اكتب رمزك"
           error={error}
           onComplete={handlePin}
           extra={
             <button type="button" className="text-button pressable" onClick={() => setForgot(true)}>
-              نسيت الرمز
+              نسيت الرمز؟
             </button>
           }
         />

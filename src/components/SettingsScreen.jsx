@@ -87,7 +87,9 @@ export default function SettingsScreen({ page, onOpenPage, onBack, onOpenGuide, 
                 </button>
               ))}
             </nav>
-            <p className="settings-version">الإصدار {APP_VERSION}</p>
+            <p className="settings-version">
+              الإصدار <span className="ltr-num">{APP_VERSION}</span>
+            </p>
           </>
         )}
       </div>

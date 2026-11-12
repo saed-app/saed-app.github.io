@@ -16,6 +16,9 @@ body {
   font-family: var(--font-body);
   font-size: var(--fs-body);
   line-height: var(--lh-body);
+  /* الكلمة الطويلة تنتقل إلى السطر التالي بدل أن تخرج عن مكانها، ولا خط مائل أو عريض مصطنع */
+  overflow-wrap: break-word;
+  font-synthesis: none;
   overflow: hidden;
   overscroll-behavior: none;
   transition: background-color var(--dur-slide) ease, color var(--dur-slide) ease;
@@ -27,6 +30,7 @@ textarea,
 select {
   font-family: inherit;
   font-size: inherit;
+  line-height: inherit;
   color: inherit;
 }
 
@@ -204,7 +208,7 @@ h3 {
 
 .tool-setting-hint {
   color: var(--text-muted);
-  font-size: var(--fs-label);
+  font-size: var(--fs-body);
 }
 
 .tool-setting-control {
@@ -424,6 +428,7 @@ h3 {
   font-family: var(--font-heading);
   font-size: var(--fs-display);
   font-weight: var(--fw-title);
+  line-height: var(--lh-heading);
   color: var(--text);
   animation: splash-name-in var(--dur-slide) 0.15s var(--ease-out) both;
 }
@@ -465,6 +470,7 @@ h3 {
   font-family: var(--font-heading);
   font-size: var(--fs-title);
   font-weight: var(--fw-title);
+  line-height: var(--lh-heading);
   color: var(--text);
 }
 
@@ -867,7 +873,8 @@ h3 {
 }
 
 .tour-text {
-  min-height: 3.2em;
+  /* مساحة سطرين ثابتة حتى لا تتحرك الأزرار بين الخطوات */
+  min-height: calc(var(--lh-body) * 2em);
   margin: 0;
   color: var(--text-muted);
 }
@@ -937,7 +944,6 @@ h3 {
   margin: 8px 4px 0;
   color: var(--text-muted);
   font-size: var(--fs-body);
-  line-height: 1.45;
 }
 
 .settings-hint-top {
@@ -1050,7 +1056,6 @@ h3 {
 
 .wipe-confirm p {
   margin: 0 0 12px;
-  line-height: 1.5;
 }
 
 .wipe-actions {
@@ -1073,8 +1078,9 @@ h3 {
   text-align: center;
 }
 
+/* النقاط تمتلئ من اليمين كما في iPhone بالعربية، والأرقام نفسها تبقى 1 2 3 من اليسار */
 .pinpad-dots {
-  direction: ltr;
+  direction: rtl;
   display: flex;
   gap: 14px;
   margin-top: 16px;
@@ -1106,7 +1112,7 @@ h3 {
 }
 
 .pinpad-error {
-  min-height: 1.6em;
+  min-height: calc(var(--lh-body) * 1em);
   margin: 8px 0;
   color: var(--danger);
   font-size: var(--fs-body);
@@ -1257,14 +1263,12 @@ h3 {
 
 .install-page p {
   margin: 0;
-  line-height: 1.6;
 }
 
 .install-steps {
   margin: 0;
   padding-inline-start: 1.4em;
   text-align: start;
-  line-height: 1.8;
 }
 
 /* الشريط السفلي: خمسة أزرار ثابتة */
@@ -1744,8 +1748,30 @@ h3 {
 .settings-version {
   margin: var(--space-l) 0 0;
   color: var(--text-muted);
+  font-family: var(--font-heading);
   font-size: var(--fs-label);
   text-align: center;
+}
+
+/* ===== قواعد العربية ===== */
+
+/* رقم فيه نقاط مثل 0.3.2: خط Amiri يرسم النقطة بين الأرقام فاصلة عربية إذا جاورت نصاً عربياً،
+   فنعزل الرقم في صندوق من اليسار إلى اليمين ليبقى بالنقطة */
+.ltr-num {
+  display: inline-block;
+  direction: ltr;
+}
+
+/* كلمة إنجليزية داخل نص عربي: اتجاهها معزول وحجمها متناسق مع العربي */
+.latin {
+  font-size: var(--fs-latin);
+  unicode-bidi: isolate;
+  direction: ltr;
+}
+
+/* الأيقونات التي لها اتجاه فقط تنعكس في الواجهة العربية، مثل زر حذف آخر رقم */
+[dir='rtl'] .rtl-flip {
+  transform: scaleX(-1);
 }
 
 
