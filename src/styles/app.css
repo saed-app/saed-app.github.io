@@ -2185,8 +2185,3 @@ button:active .state-icon-line {
   transition-duration: 0s;
 }
 
-/* تفاصيل داخل الحالة الممتلئة بلون المربع نفسه */
-.tool-cut {
-  fill: none;
-  stroke: var(--tile-bg);
-}

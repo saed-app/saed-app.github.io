@@ -15,41 +15,39 @@ function useScreen(width) {
 const stateOf = (element) => element.querySelector('.state-icon').dataset.active
 const button = (name) => screen.getByRole('button', { name })
 
-describe('حالتا الأيقونة', () => {
-  it('الأيقونة تحمل الحالتين دائماً، فلا يتغير مكانها عند التبديل', async () => {
-    useScreen(375)
-    await renderApp({ tools: ['ready'] })
-    const icon = button('أداة جاهزة').querySelector('.state-icon')
-    expect(icon.querySelector('[data-kind="line"]')).toBeTruthy()
-    expect(icon.querySelector('[data-kind="fill"]')).toBeTruthy()
-  })
+// أيقونات الأدوات رسم واحد كما في النسخة الأولى، ولا تمتلئ عند الضغط ولا عند فتح الأداة
+const toolIconIsPlain = (element) => {
+  const tile = element.querySelector('.tool-tile')
+  return tile.querySelector('.state-icon') === null && tile.querySelectorAll('svg').length === 1
+}
 
-  it('شريط الأدوات: الأداة المفتوحة Fill والباقي Line', async () => {
+describe('أيقونات الأدوات بلا امتلاء', () => {
+  it('شريط الأدوات: الأداة المفتوحة وغيرها برسم واحد', async () => {
     useScreen(375)
     await renderApp({ route: '/tool/ready', tools: ['ready', 'soon'] })
-    expect(stateOf(button('أداة جاهزة'))).toBe('true')
-    expect(stateOf(button('أداة غير جاهزة'))).toBe('false')
+    expect(toolIconIsPlain(button('أداة جاهزة'))).toBe(true)
+    expect(toolIconIsPlain(button('أداة غير جاهزة'))).toBe(true)
   })
+
+  it('عنوان صفحة الأداة والمتجر وصفحة التعريف برسم واحد', async () => {
+    useScreen(375)
+    const first = await renderApp({ route: '/tool/ready', tools: ['ready'] })
+    expect(toolIconIsPlain(document.querySelector('.page-header'))).toBe(true)
+    first.unmount()
+    const second = await renderApp({ route: '/store', tools: ['ready'] })
+    expect(toolIconIsPlain(document.querySelector('.store-card'))).toBe(true)
+    second.unmount()
+    await renderApp({ route: '/store/ready', tools: ['ready'] })
+    expect(toolIconIsPlain(document.querySelector('.store-hero'))).toBe(true)
+  })
+})
+
+describe('حالتا أيقونات الواجهة', () => {
 
   it('لا يُحذف مؤشر الأداة المفتوحة', async () => {
     useScreen(375)
     await renderApp({ route: '/tool/ready', tools: ['ready'] })
     expect(button('أداة جاهزة').classList.contains('is-active')).toBe(true)
-  })
-
-  it('عنوان صفحة الأداة Fill', async () => {
-    useScreen(375)
-    await renderApp({ route: '/tool/ready', tools: ['ready'] })
-    expect(stateOf(document.querySelector('.page-header'))).toBe('true')
-  })
-
-  it('المتجر Line، وصفحة تعريف الأداة Fill', async () => {
-    useScreen(375)
-    const { unmount } = await renderApp({ route: '/store', tools: ['ready'] })
-    expect(stateOf(document.querySelector('.store-card'))).toBe('false')
-    unmount()
-    await renderApp({ route: '/store/ready', tools: ['ready'] })
-    expect(stateOf(document.querySelector('.store-hero'))).toBe('true')
   })
 
   it('زر الإعدادات Fill في صفحة الإعدادات فقط', async () => {
